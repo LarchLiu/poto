@@ -1,16 +1,19 @@
 import { defineConfig } from 'vite'
 import Inspect from 'vite-plugin-inspect'
-import Unplugin from '@poto/auto-import/vite'
+import AutoImport from '@poto/auto-import/vite'
+import GenWidgetType from '@poto/gen-widget-type/vite'
 
 export default defineConfig({
   plugins: [
     Inspect(),
-    Unplugin({
+    AutoImport({
       imports: ['widget-plugins-template'],
       dirs: ['src/widget-plugins/*'],
       fileFilter(file: string) {
-        return file.includes('index')
+        const arr = file.split('.')
+        return arr[0].endsWith('index')
       },
     }),
+    GenWidgetType(),
   ],
 })

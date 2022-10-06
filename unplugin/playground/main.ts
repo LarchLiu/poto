@@ -1,2 +1,4 @@
 import { widgetPlugins } from './src/poto-auto-imports'
-document.getElementById('app')!.innerHTML = `${JSON.stringify(widgetPlugins)}test`
+import { WidgetType } from './widget-type'
+
+document.getElementById('app')!.innerHTML = `widgetPlugins: <br>${JSON.stringify(widgetPlugins)}<br><br>WidgetType: ${WidgetType}<br><br>`

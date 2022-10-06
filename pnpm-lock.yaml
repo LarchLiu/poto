@@ -23,14 +23,49 @@ importers:
   unplugin/playground:
     specifiers:
       '@poto/auto-import': workspace:*
+      '@poto/gen-widget-type': workspace:*
       nodemon: ^2.0.20
       widget-plugins-template: workspace:*
     devDependencies:
       '@poto/auto-import': link:../poto-auto-import
+      '@poto/gen-widget-type': link:../poto-gen-widget-type
       nodemon: 2.0.20
       widget-plugins-template: link:../../widget-plugins/template
 
   unplugin/poto-auto-import:
+    specifiers:
+      '@antfu/ni': ^0.17.2
+      '@antfu/utils': ^0.5.2
+      '@types/node': ^18.7.6
+      '@types/resolve': ^1.20.2
+      bumpp: ^8.2.1
+      chalk: ^5.0.1
+      esno: ^0.16.3
+      fast-glob: ^3.2.11
+      local-pkg: ^0.4.2
+      magic-string: ^0.26.2
+      scule: ^0.3.2
+      tsup: ^6.2.2
+      unimport: ^0.6.7
+      unplugin: ^0.9.3
+    dependencies:
+      '@antfu/utils': 0.5.2
+      local-pkg: 0.4.2
+      magic-string: 0.26.5
+      unimport: 0.6.8
+      unplugin: 0.9.6
+    devDependencies:
+      '@antfu/ni': 0.17.2
+      '@types/node': 18.8.0
+      '@types/resolve': 1.20.2
+      bumpp: 8.2.1
+      chalk: 5.0.1
+      esno: 0.16.3
+      fast-glob: 3.2.12
+      scule: 0.3.2
+      tsup: 6.2.3
+
+  unplugin/poto-gen-widget-type:
     specifiers:
       '@antfu/ni': ^0.17.2
       '@antfu/utils': ^0.5.2

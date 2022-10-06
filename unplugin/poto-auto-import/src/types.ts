@@ -31,6 +31,7 @@ export interface Options {
 
   /**
    * Path for export file
+   * @default 'src/poto-auto-imports.ts'
    */
   exportPath?: string
 

@@ -1,0 +1,86 @@
+{
+  "name": "@poto/gen-widget-type",
+  "type": "module",
+  "version": "0.0.0",
+  "packageManager": "pnpm@7.1.1",
+  "keywords": [
+    "unplugin",
+    "vite",
+    "auto-import",
+    "transform"
+  ],
+  "sideEffects": false,
+  "exports": {
+    ".": {
+      "types": "./dist/index.d.ts",
+      "require": "./dist/index.cjs",
+      "import": "./dist/index.js"
+    },
+    "./*": "./*",
+    "./types": {
+      "types": "./dist/types.d.ts",
+      "require": "./dist/types.cjs",
+      "import": "./dist/types.js"
+    },
+    "./vite": {
+      "types": "./dist/vite.d.ts",
+      "require": "./dist/vite.cjs",
+      "import": "./dist/vite.js"
+    }
+  },
+  "main": "dist/index.cjs",
+  "module": "dist/index.js",
+  "types": "dist/index.d.ts",
+  "typesVersions": {
+    "*": {
+      "*": [
+        "./dist/*"
+      ]
+    }
+  },
+  "files": [
+    "dist",
+    "*.d.ts"
+  ],
+  "engines": {
+    "node": ">=14"
+  },
+  "scripts": {
+    "build": "tsup src/*.ts --format cjs,esm --dts --splitting --clean && esno scripts/postbuild.ts",
+    "dev": "tsup src/*.ts --watch src",
+    "lint": "eslint .",
+    "lint:fix": "nr lint --fix",
+    "play": "npm -C playground run dev",
+    "prepublishOnly": "nr build",
+    "release": "bumpp --commit --push --tag && pnpm publish",
+    "start": "esno src/index.ts",
+    "test": "vitest",
+    "test:run": "vitest run"
+  },
+  "peerDependencies": {
+    "@vueuse/core": "*"
+  },
+  "peerDependenciesMeta": {
+    "@vueuse/core": {
+      "optional": true
+    }
+  },
+  "dependencies": {
+    "@antfu/utils": "^0.5.2",
+    "local-pkg": "^0.4.2",
+    "magic-string": "^0.26.2",
+    "unimport": "^0.6.7",
+    "unplugin": "^0.9.3"
+  },
+  "devDependencies": {
+    "@antfu/ni": "^0.17.2",
+    "@types/node": "^18.7.6",
+    "@types/resolve": "^1.20.2",
+    "bumpp": "^8.2.1",
+    "chalk": "^5.0.1",
+    "esno": "^0.16.3",
+    "fast-glob": "^3.2.11",
+    "scule": "^0.3.2",
+    "tsup": "^6.2.2"
+  }
+}
