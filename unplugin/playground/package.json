@@ -1,0 +1,12 @@
+{
+  "name": "unplugin-playground",
+  "private": true,
+  "scripts": {
+    "dev": "nodemon -w '../poto-auto-import/src/**/*.ts' -e .ts -x vite"
+  },
+  "devDependencies": {
+    "@poto/auto-import": "workspace:*",
+    "nodemon": "^2.0.20",
+    "widget-plugins-template": "workspace:*"
+  }
+}
