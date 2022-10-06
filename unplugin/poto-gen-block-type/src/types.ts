@@ -1,7 +1,7 @@
 export interface Options {
   /**
    * Path for export file
-   * @default 'widget-type.ts'
+   * @default 'blockType.ts'
    */
   exportPath?: string
 }

@@ -4,7 +4,7 @@ const settings = {
 }
 
 export default {
-  widgetView: 'widgetView2',
-  widgetSettingsView: 'widgetSettingsView2',
+  blockView: 'widgetView2',
+  blockSettingsView: 'widgetSettingsView2',
   defaultSettings: settings,
 }

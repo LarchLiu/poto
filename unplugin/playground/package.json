@@ -2,12 +2,12 @@
   "name": "unplugin-playground",
   "private": true,
   "scripts": {
-    "dev": "nodemon -w '../poto-auto-import/src/**/*.ts' -w '../poto-gen-widget-type/src/**/*.ts' -e .ts -x vite"
+    "dev": "nodemon -w '../poto-auto-import/src/**/*.ts' -w '../poto-gen-block-type/src/**/*.ts' -e .ts -x vite"
   },
   "devDependencies": {
     "@poto/auto-import": "workspace:*",
-    "@poto/gen-widget-type": "workspace:*",
-    "nodemon": "^2.0.20",
-    "widget-plugins-template": "workspace:*"
+    "@poto/gen-block-type": "workspace:*",
+    "block-plugins-template": "workspace:*",
+    "nodemon": "^2.0.20"
   }
 }

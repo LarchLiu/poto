@@ -26,7 +26,7 @@ importers:
     devDependencies:
       tsup: 6.2.3
 
-  ui/widget-plugin-template:
+  ui/block-plugin-template:
     specifiers:
       '@poto/types': workspace:*
       '@types/node': ^18.7.6
@@ -47,14 +47,14 @@ importers:
   unplugin/playground:
     specifiers:
       '@poto/auto-import': workspace:*
-      '@poto/gen-widget-type': workspace:*
+      '@poto/gen-block-type': workspace:*
+      block-plugins-template: workspace:*
       nodemon: ^2.0.20
-      widget-plugins-template: workspace:*
     devDependencies:
       '@poto/auto-import': link:../poto-auto-import
-      '@poto/gen-widget-type': link:../poto-gen-widget-type
+      '@poto/gen-block-type': link:../poto-gen-block-type
+      block-plugins-template: link:../../ui/block-plugin-template
       nodemon: 2.0.20
-      widget-plugins-template: link:../../ui/widget-plugin-template
 
   unplugin/poto-auto-import:
     specifiers:
@@ -89,7 +89,7 @@ importers:
       scule: 0.3.2
       tsup: 6.2.3
 
-  unplugin/poto-gen-widget-type:
+  unplugin/poto-gen-block-type:
     specifiers:
       '@antfu/ni': ^0.17.2
       '@antfu/utils': ^0.5.2

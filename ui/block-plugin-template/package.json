@@ -1,5 +1,5 @@
 {
-  "name": "widget-plugins-template",
+  "name": "block-plugins-template",
   "type": "module",
   "private": true,
   "exports": {
@@ -14,7 +14,7 @@
   "types": "dist/index.d.ts",
   "scripts": {
     "build": "tsup src/*.ts --format cjs,esm --dts --splitting --clean && esno scripts/postbuild.ts",
-    "dev": "tsup src/*.ts --watch src"
+    "dev": "tsup src/*.ts --format cjs,esm --dts --watch src"
   },
   "devDependencies": {
     "@poto/types": "workspace:*",

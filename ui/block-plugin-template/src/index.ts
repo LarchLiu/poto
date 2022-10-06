@@ -2,7 +2,7 @@ import type { BlockItem, TextSettings } from '@poto/types'
 import { BlockType } from '@poto/types'
 
 const settings: BlockItem = {
-  author: '[alex](github)',
+  author: '[alex](github.com)',
   category: 'widget',
   icon: 'i-fluent-text-case-title-16-regular',
   blockType: BlockType.Text,
@@ -60,7 +60,7 @@ const settings: BlockItem = {
 }
 
 export default {
-  widgetView: 'plugin1',
-  widgetSettingsView: 'widgetSettingsView1',
+  blockView: 'plugin1',
+  blockSettingsView: 'widgetSettingsView1',
   defaultSettings: settings,
 }

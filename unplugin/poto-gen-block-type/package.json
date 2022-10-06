@@ -1,5 +1,5 @@
 {
-  "name": "@poto/gen-widget-type",
+  "name": "@poto/gen-block-type",
   "type": "module",
   "version": "0.0.0",
   "packageManager": "pnpm@7.1.1",
