@@ -20,6 +20,30 @@ importers:
       vite-plugin-inspect: 0.7.4_vite@3.1.4
       vitest: 0.23.4
 
+  core/types:
+    specifiers:
+      tsup: ^6.2.3
+    devDependencies:
+      tsup: 6.2.3
+
+  ui/widget-plugin-template:
+    specifiers:
+      '@poto/types': workspace:*
+      '@types/node': ^18.7.6
+      '@types/resolve': ^1.20.2
+      chalk: ^5.0.1
+      esno: ^0.16.3
+      fast-glob: ^3.2.11
+      tsup: ^6.2.2
+    devDependencies:
+      '@poto/types': link:../../core/types
+      '@types/node': 18.8.0
+      '@types/resolve': 1.20.2
+      chalk: 5.0.1
+      esno: 0.16.3
+      fast-glob: 3.2.12
+      tsup: 6.2.3
+
   unplugin/playground:
     specifiers:
       '@poto/auto-import': workspace:*
@@ -30,7 +54,7 @@ importers:
       '@poto/auto-import': link:../poto-auto-import
       '@poto/gen-widget-type': link:../poto-gen-widget-type
       nodemon: 2.0.20
-      widget-plugins-template: link:../../widget-plugins/template
+      widget-plugins-template: link:../../ui/widget-plugin-template
 
   unplugin/poto-auto-import:
     specifiers:
@@ -96,22 +120,6 @@ importers:
       esno: 0.16.3
       fast-glob: 3.2.12
       scule: 0.3.2
-      tsup: 6.2.3
-
-  widget-plugins/template:
-    specifiers:
-      '@types/node': ^18.7.6
-      '@types/resolve': ^1.20.2
-      chalk: ^5.0.1
-      esno: ^0.16.3
-      fast-glob: ^3.2.11
-      tsup: ^6.2.2
-    devDependencies:
-      '@types/node': 18.8.0
-      '@types/resolve': 1.20.2
-      chalk: 5.0.1
-      esno: 0.16.3
-      fast-glob: 3.2.12
       tsup: 6.2.3
 
 packages:

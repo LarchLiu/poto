@@ -1,5 +1,6 @@
 packages:
   - "apps/*"
-  - "unplugin/*"
-  - "widget-plugins/*"
+  - "core/*"
   - "docs"
+  - "ui/*"
+  - "unplugin/*"
