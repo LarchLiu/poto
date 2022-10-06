@@ -1,0 +1,40 @@
+{
+  "name": "poto-monorepo",
+  "version": "0.0.0",
+  "private": true,
+  "packageManager": "pnpm@7.11.0",
+  "description": "An open-source low-code Platform for Designers.",
+  "author": "Alex Liu <larch.liu@gmail.com>",
+  "license": "MIT",
+  "homepage": "https://github.com/LarchLiu/poto",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/LarchLiu/poto.git"
+  },
+  "bugs": {
+    "url": "https://github.com/LarchLiu/poto/issues"
+  },
+  "engines": {
+    "node": ">=14.0.0"
+  },
+  "scripts": {
+    "dev": "turbo run dev --parallel",
+    "dev:poto": "turbo run dev --filter=poto...",
+    "dev:up": "turbo run dev --filter={./unplugin/*}...",
+    "build": "turbo run build",
+    "build:poto": "turbo run build --filter=poto...",
+    "build:up": "turbo run build --filter={./unplugin/*}...",
+    "lint": "turbo run lint"
+  },
+  "dependencies": {
+  },
+  "devDependencies": {
+    "@antfu/eslint-config": "^0.27.0",
+    "eslint": "^8.24.0",
+    "turbo": "^1.5.5",
+    "typescript": "^4.8.4",
+    "vite": "^3.1.4",
+    "vite-plugin-inspect": "^0.7.4",
+    "vitest": "^0.23.4"
+  }
+}

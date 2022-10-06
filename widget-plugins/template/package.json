@@ -1,0 +1,27 @@
+{
+  "name": "widget-plugins-template",
+  "type": "module",
+  "private": true,
+  "exports": {
+    ".": {
+      "types": "./dist/index.d.ts",
+      "require": "./dist/index.cjs",
+      "import": "./dist/index.js"
+    }
+  },
+  "main": "dist/index.cjs",
+  "module": "dist/index.js",
+  "types": "dist/index.d.ts",
+  "scripts": {
+    "build": "tsup src/*.ts --format cjs,esm --dts --splitting --clean && esno scripts/postbuild.ts",
+    "dev": "tsup src/*.ts --watch src"
+  },
+  "devDependencies": {
+    "@types/node": "^18.7.6",
+    "@types/resolve": "^1.20.2",
+    "chalk": "^5.0.1",
+    "esno": "^0.16.3",
+    "fast-glob": "^3.2.11",
+    "tsup": "^6.2.2"
+  }
+}
