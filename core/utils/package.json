@@ -1,0 +1,27 @@
+{
+  "name": "@poto/utils",
+  "type": "module",
+  "version": "0.0.0",
+  "description": "Utils for poto",
+  "author": "Alex Liu <larch.liu@gmail.com>",
+  "exports": {
+    "types": "./dist/index.d.ts",
+    "require": "./dist/index.cjs",
+    "import": "./dist/index.js"
+  },
+  "main": "./dist/index.cjs",
+  "module": "./dist/index.js",
+  "types": "./dist/index.d.ts",
+  "engines": {
+    "node": ">=14.0.0"
+  },
+  "scripts": {
+    "build": "tsup src/index.ts --format cjs,esm --dts --splitting",
+    "dev": "npm run build --watch",
+    "prepublishOnly": "npm run build"
+  },
+  "devDependencies": {
+    "scule": "^0.3.2",
+    "tsup": "^6.2.3"
+  }
+}

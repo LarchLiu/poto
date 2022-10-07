@@ -28,6 +28,14 @@ importers:
       '@antfu/ni': 0.17.2
       tsup: 6.2.3
 
+  core/utils:
+    specifiers:
+      scule: ^0.3.2
+      tsup: ^6.2.3
+    devDependencies:
+      scule: 0.3.2
+      tsup: 6.2.3
+
   plugins/playground:
     specifiers:
       '@poto/auto-import': workspace:*
@@ -44,9 +52,9 @@ importers:
     specifiers:
       '@antfu/ni': ^0.17.2
       '@antfu/utils': ^0.5.2
+      '@poto/utils': workspace:*
       bumpp: ^8.2.1
       magic-string: ^0.26.2
-      scule: ^0.3.2
       tsup: ^6.2.2
       unimport: ^0.6.7
       unplugin: ^0.9.3
@@ -57,18 +65,18 @@ importers:
       unplugin: 0.9.6
     devDependencies:
       '@antfu/ni': 0.17.2
+      '@poto/utils': link:../../core/utils
       bumpp: 8.2.1
-      scule: 0.3.2
       tsup: 6.2.3
 
   plugins/poto-gen-block-type:
     specifiers:
       '@antfu/ni': ^0.17.2
-      scule: ^0.3.2
+      '@poto/utils': workspace:*
       tsup: ^6.2.2
     devDependencies:
       '@antfu/ni': 0.17.2
-      scule: 0.3.2
+      '@poto/utils': link:../../core/utils
       tsup: 6.2.3
 
   ui/block-plugin-template:

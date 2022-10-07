@@ -78,8 +78,8 @@
   },
   "devDependencies": {
     "@antfu/ni": "^0.17.2",
+    "@poto/utils": "workspace:*",
     "bumpp": "^8.2.1",
-    "scule": "^0.3.2",
     "tsup": "^6.2.2"
   }
 }

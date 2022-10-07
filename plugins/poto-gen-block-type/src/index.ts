@@ -1,7 +1,7 @@
 import { resolve } from 'path'
 import { promises as fs } from 'fs'
 import type { Plugin } from 'vite'
-import { camelCase } from 'scule'
+import { camelCaseWithoutAt } from '@poto/utils'
 
 const createPlugin = (): Plugin => {
   return {
@@ -12,7 +12,7 @@ const createPlugin = (): Plugin => {
       const packageInfo = JSON.parse(info)
       if (!packageInfo.name)
         throw new Error('[@poto/gen-block-type]: package.json have no name filed')
-      const blockType = camelCase(packageInfo.name.replaceAll('@', ''))
+      const blockType = camelCaseWithoutAt(packageInfo.name)
       const key = '__BLOCK_TYPE__'
 
       return { define: { [key]: JSON.stringify(blockType) } }

@@ -3,7 +3,7 @@ import { promises as fs } from 'fs'
 import { slash, throttle, toArray } from '@antfu/utils'
 import type { Import } from 'unimport'
 import { createUnimport, scanDirExports } from 'unimport'
-import { camelCase } from 'scule'
+import { camelCaseWithoutAt } from '@poto/utils'
 import type { ImportExtended, Options } from '../types'
 
 const defaultExportPath = 'src/poto-auto-imports.ts'
@@ -91,7 +91,7 @@ export function createContext(options: Options = {}, root = process.cwd()) {
 export function flattenImports(map: Options['imports'], overriding = false): Import[] {
   const flat: Record<string, Import> = {}
   toArray(map).forEach((definition) => {
-    const as = camelCase(definition.replaceAll('@', ''))
+    const as = camelCaseWithoutAt(definition)
     const meta = {
       name: definition,
       as,
