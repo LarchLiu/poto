@@ -1,5 +1,6 @@
 {
-  "name": "unplugin-playground",
+  "name": "plugins-playground",
+  "type": "module",
   "private": true,
   "scripts": {
     "dev": "nodemon -w '../poto-auto-import/src/**/*.ts' -w '../poto-gen-block-type/src/**/*.ts' -e .ts -x vite"

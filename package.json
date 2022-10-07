@@ -20,10 +20,10 @@
   "scripts": {
     "dev": "turbo run dev --parallel",
     "dev:poto": "turbo run dev --filter=poto...",
-    "dev:up": "turbo run dev --filter={./unplugin/*}...",
+    "dev:plugins": "turbo run dev --filter={./plugins/*}...",
     "build": "turbo run build",
     "build:poto": "turbo run build --filter=poto...",
-    "build:up": "turbo run build --filter={./unplugin/*}...",
+    "build:plugins": "turbo run build --filter={./plugins/*}...",
     "lint": "turbo run lint"
   },
   "dependencies": {

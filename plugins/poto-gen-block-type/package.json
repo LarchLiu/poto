@@ -1,0 +1,37 @@
+{
+  "name": "@poto/gen-block-type",
+  "type": "module",
+  "version": "0.0.0",
+  "packageManager": "pnpm@7.1.1",
+  "keywords": [
+    "plugin",
+    "vite"
+  ],
+  "sideEffects": false,
+  "exports": {
+    "types": "./dist/index.d.ts",
+    "require": "./dist/index.cjs",
+    "import": "./dist/index.js"
+  },
+  "main": "./dist/index.cjs",
+  "module": "./dist/index.js",
+  "types": "./dist/index.d.ts",
+  "files": [
+    "dist"
+  ],
+  "engines": {
+    "node": ">=14"
+  },
+  "scripts": {
+    "build": "tsup src/index.ts --format cjs,esm --dts --splitting --clean",
+    "dev": "tsup src/index.ts --watch",
+    "lint": "eslint .",
+    "lint:fix": "nr lint --fix",
+    "release": "bumpp --commit --push --tag"
+  },
+  "devDependencies": {
+    "@antfu/ni": "^0.17.2",
+    "scule": "^0.3.2",
+    "tsup": "^6.2.2"
+  }
+}

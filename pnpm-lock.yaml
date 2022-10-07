@@ -22,29 +22,13 @@ importers:
 
   core/types:
     specifiers:
+      '@antfu/ni': ^0.17.2
       tsup: ^6.2.3
     devDependencies:
+      '@antfu/ni': 0.17.2
       tsup: 6.2.3
 
-  ui/block-plugin-template:
-    specifiers:
-      '@poto/types': workspace:*
-      '@types/node': ^18.7.6
-      '@types/resolve': ^1.20.2
-      chalk: ^5.0.1
-      esno: ^0.16.3
-      fast-glob: ^3.2.11
-      tsup: ^6.2.2
-    devDependencies:
-      '@poto/types': link:../../core/types
-      '@types/node': 18.8.0
-      '@types/resolve': 1.20.2
-      chalk: 5.0.1
-      esno: 0.16.3
-      fast-glob: 3.2.12
-      tsup: 6.2.3
-
-  unplugin/playground:
+  plugins/playground:
     specifiers:
       '@poto/auto-import': workspace:*
       '@poto/gen-block-type': workspace:*
@@ -56,17 +40,11 @@ importers:
       block-plugins-template: link:../../ui/block-plugin-template
       nodemon: 2.0.20
 
-  unplugin/poto-auto-import:
+  plugins/poto-auto-import:
     specifiers:
       '@antfu/ni': ^0.17.2
       '@antfu/utils': ^0.5.2
-      '@types/node': ^18.7.6
-      '@types/resolve': ^1.20.2
       bumpp: ^8.2.1
-      chalk: ^5.0.1
-      esno: ^0.16.3
-      fast-glob: ^3.2.11
-      local-pkg: ^0.4.2
       magic-string: ^0.26.2
       scule: ^0.3.2
       tsup: ^6.2.2
@@ -74,52 +52,31 @@ importers:
       unplugin: ^0.9.3
     dependencies:
       '@antfu/utils': 0.5.2
-      local-pkg: 0.4.2
-      magic-string: 0.26.5
+      magic-string: 0.26.6
       unimport: 0.6.8
       unplugin: 0.9.6
     devDependencies:
       '@antfu/ni': 0.17.2
-      '@types/node': 18.8.0
-      '@types/resolve': 1.20.2
       bumpp: 8.2.1
-      chalk: 5.0.1
-      esno: 0.16.3
-      fast-glob: 3.2.12
       scule: 0.3.2
       tsup: 6.2.3
 
-  unplugin/poto-gen-block-type:
+  plugins/poto-gen-block-type:
     specifiers:
       '@antfu/ni': ^0.17.2
-      '@antfu/utils': ^0.5.2
-      '@types/node': ^18.7.6
-      '@types/resolve': ^1.20.2
-      bumpp: ^8.2.1
-      chalk: ^5.0.1
-      esno: ^0.16.3
-      fast-glob: ^3.2.11
-      local-pkg: ^0.4.2
-      magic-string: ^0.26.2
       scule: ^0.3.2
       tsup: ^6.2.2
-      unimport: ^0.6.7
-      unplugin: ^0.9.3
-    dependencies:
-      '@antfu/utils': 0.5.2
-      local-pkg: 0.4.2
-      magic-string: 0.26.5
-      unimport: 0.6.8
-      unplugin: 0.9.6
     devDependencies:
       '@antfu/ni': 0.17.2
-      '@types/node': 18.8.0
-      '@types/resolve': 1.20.2
-      bumpp: 8.2.1
-      chalk: 5.0.1
-      esno: 0.16.3
-      fast-glob: 3.2.12
       scule: 0.3.2
+      tsup: 6.2.3
+
+  ui/block-plugin-template:
+    specifiers:
+      '@poto/types': workspace:*
+      tsup: ^6.2.2
+    devDependencies:
+      '@poto/types': link:../../core/types
       tsup: 6.2.3
 
 packages:
@@ -237,27 +194,6 @@ packages:
       '@babel/helper-validator-identifier': 7.19.1
       chalk: 2.4.2
       js-tokens: 4.0.0
-    dev: true
-
-  /@esbuild-kit/cjs-loader/2.3.3:
-    resolution: {integrity: sha512-Rt4O1mXlPEDVxvjsHLgbtHVdUXYK9C1/6ThpQnt7FaXIjUOsI6qhHYMgALhNnlIMZffag44lXd6Dqgx3xALbpQ==}
-    dependencies:
-      '@esbuild-kit/core-utils': 2.3.2
-      get-tsconfig: 4.2.0
-    dev: true
-
-  /@esbuild-kit/core-utils/2.3.2:
-    resolution: {integrity: sha512-aQwy1Hdd02ymjyMyyrhtyuZGv5W+mVZmj3DTKFV0TnB1AUgMBV40tXySpsGySe8vLvSe0c0TaqTc2FUo8/YlNQ==}
-    dependencies:
-      esbuild: 0.15.10
-      source-map-support: 0.5.21
-    dev: true
-
-  /@esbuild-kit/esm-loader/2.4.2:
-    resolution: {integrity: sha512-N9dPKAj8WOx6djVnStgILWXip4fjDcBk9L7azO0/uQDpu8Ee0eaL78mkN4Acid9BzvNAKWwdYXFJZnsVahNEew==}
-    dependencies:
-      '@esbuild-kit/core-utils': 2.3.2
-      get-tsconfig: 4.2.0
     dev: true
 
   /@esbuild/android-arm/0.15.10:
@@ -388,10 +324,6 @@ packages:
 
   /@types/normalize-package-data/2.4.1:
     resolution: {integrity: sha512-Gj7cI7z+98M282Tqmp2K5EIsoouUEzbBJhQQzDE3jSIRk6r9gsz0oUokqIUR4u1R3dMHo0pDHM7sNOHyhulypw==}
-    dev: true
-
-  /@types/resolve/1.20.2:
-    resolution: {integrity: sha512-60BCwRFOZCQhDncwQdxxeOEEkbc5dIMccYLwbxsS4TUNeVECQ/pBJ0j09mrHOl/JJvpRPGwO9SvE4nR2Nb/a4Q==}
     dev: true
 
   /@types/unist/2.0.6:
@@ -639,10 +571,6 @@ packages:
     dependencies:
       fill-range: 7.0.1
 
-  /buffer-from/1.1.2:
-    resolution: {integrity: sha512-E+XQCRwSbaaiChtv6k6Dwgc+bx+Bs6vuKJHHl5kox/BaKbhiXzqQOwK4cO22yElGp2OCmjwVhT3HmxgyPGnJfQ==}
-    dev: true
-
   /builtin-modules/3.3.0:
     resolution: {integrity: sha512-zhaCDicdLuWN5UbN5IMnFqNMhNfo919sH85y2/ea+5Yg9TsTkeZxpL+JLbp6cgYFS4sRLp3YV4S6yDuqVWHYOw==}
     engines: {node: '>=6'}
@@ -726,11 +654,6 @@ packages:
     dependencies:
       ansi-styles: 4.3.0
       supports-color: 7.2.0
-    dev: true
-
-  /chalk/5.0.1:
-    resolution: {integrity: sha512-Fo07WOYGqMfCWHOzSXOt2CxDbC6skS/jO9ynEcmpANMoPrD+W1r1K6Vx7iNm+AQmETU1Xr2t+n8nzkV9t6xh3w==}
-    engines: {node: ^12.17.0 || ^14.13 || >=16.0.0}
     dev: true
 
   /character-entities-legacy/1.1.4:
@@ -1522,13 +1445,6 @@ packages:
       - supports-color
     dev: true
 
-  /esno/0.16.3:
-    resolution: {integrity: sha512-6slSBEV1lMKcX13DBifvnDFpNno5WXhw4j/ff7RI0y51BZiDqEe5dNhhjhIQ3iCOQuzsm2MbVzmwqbN78BBhPg==}
-    hasBin: true
-    dependencies:
-      tsx: 3.9.0
-    dev: true
-
   /espree/9.4.0:
     resolution: {integrity: sha512-DQmnRpLj7f6TgN/NYb0MTzJXL+vJF9h3pHy4JhCIs3zwcgez8xmGg3sXHcEO97BrmO2OSvCwMdfdlyl+E9KjOw==}
     engines: {node: ^12.22.0 || ^14.17.0 || >=16.0.0}
@@ -1714,10 +1630,6 @@ packages:
     dependencies:
       call-bind: 1.0.2
       get-intrinsic: 1.1.3
-    dev: true
-
-  /get-tsconfig/4.2.0:
-    resolution: {integrity: sha512-X8u8fREiYOE6S8hLbq99PeykTDoLVnxvF4DjWKJmz9xy2nNRdUcV8ZN9tniJFeKyTU3qnC9lL8n4Chd6LmVKHg==}
     dev: true
 
   /glob-parent/5.1.2:
@@ -2163,8 +2075,8 @@ packages:
       yallist: 4.0.0
     dev: true
 
-  /magic-string/0.26.5:
-    resolution: {integrity: sha512-yXUIYOOQnEHKHOftp5shMWpB9ImfgfDJpapa38j/qMtTj5QHWucvxP4lUtuRmHT9vAzvtpHkWKXW9xBwimXeNg==}
+  /magic-string/0.26.6:
+    resolution: {integrity: sha512-6d+3bFybzyQFJYSoRsl9ZC0wheze8M1LrQC7tNMRqXR4izUTDOLMd9BtSuExK9iAukFh+s5K0WAhc/dlQ+HKYA==}
     engines: {node: '>=12'}
     dependencies:
       sourcemap-codec: 1.4.8
@@ -2735,18 +2647,6 @@ packages:
     engines: {node: '>=0.10.0'}
     dev: true
 
-  /source-map-support/0.5.21:
-    resolution: {integrity: sha512-uBHU3L3czsIyYXKX88fdrGovxdSCoTGDRZ6SYXtSRxLZUzHg5P/66Ht6uoUlHu9EZod+inXhKo3qQgwXUT/y1w==}
-    dependencies:
-      buffer-from: 1.1.2
-      source-map: 0.6.1
-    dev: true
-
-  /source-map/0.6.1:
-    resolution: {integrity: sha512-UjgapumWlbMhkBgzT7Ykc5YXUT46F0iKu8SGXq0bcwP5dz/h0Plj6enJqjz1Zbq2l5WaqYnrVbwWOWMyF3F47g==}
-    engines: {node: '>=0.10.0'}
-    dev: true
-
   /source-map/0.8.0-beta.0:
     resolution: {integrity: sha512-2ymg6oRBpebeZi9UUNsgQ89bhx01TcTkmNTGnNO88imTmbSgy4nfujrgVEFKWpMTEGA11EDkTt7mqObTPdigIA==}
     engines: {node: '>= 8'}
@@ -2989,17 +2889,6 @@ packages:
       typescript: 4.8.4
     dev: true
 
-  /tsx/3.9.0:
-    resolution: {integrity: sha512-ofxsE+qjqCYYq4UBt5khglvb+ESgxef1YpuNcdQI92kvcAT2tZVrnSK3g4bRXTUhLmKHcC5q8vIZA47os/stng==}
-    hasBin: true
-    dependencies:
-      '@esbuild-kit/cjs-loader': 2.3.3
-      '@esbuild-kit/core-utils': 2.3.2
-      '@esbuild-kit/esm-loader': 2.4.2
-    optionalDependencies:
-      fsevents: 2.3.2
-    dev: true
-
   /turbo-darwin-64/1.5.5:
     resolution: {integrity: sha512-HvEn6P2B+NXDekq9LRpRgUjcT9/oygLTcK47U0qsAJZXRBSq/2hvD7lx4nAwgY/4W3rhYJeWtHTzbhoN6BXqGQ==}
     cpu: [x64]
@@ -3117,7 +3006,7 @@ packages:
       escape-string-regexp: 5.0.0
       fast-glob: 3.2.12
       local-pkg: 0.4.2
-      magic-string: 0.26.5
+      magic-string: 0.26.6
       mlly: 0.5.16
       pathe: 0.3.8
       scule: 0.3.2
