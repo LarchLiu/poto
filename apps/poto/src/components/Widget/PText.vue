@@ -1,12 +1,12 @@
 <script setup lang="ts">
 import type { PropType } from 'vue'
 import { Api } from '~/api/base'
-import type { BodyContent, Item, RestApiAction, TextSettings, TransformerAction } from '~/types'
+import type { BlockItem, BodyContent, RestApiAction, TextSettings, TransformerAction } from '~/types'
 import { runTransformer } from '~/utils/evaluateDynamicString'
 
 const props = defineProps({
   item: {
-    type: Object as PropType<Item>,
+    type: Object as PropType<BlockItem>,
     required: true,
   },
   realContent: {
@@ -34,8 +34,8 @@ const isSingleColor = computed(() => {
   return options.value.font.color.type === 'single'
 })
 const linearGradient = computed(() => {
-  const type = props.item.options.font.color.type
-  const cOptions = props.item.options.font.color.options
+  const type = options.value.font.color.type
+  const cOptions = options.value.font.color.options
   const colors = cOptions.colors
   if (type === 'colorful') {
     let gradient = colors.join(', ')

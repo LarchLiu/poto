@@ -1,7 +1,7 @@
-import type { CustomComponent } from '~/types'
+import type { CustomBlock } from '~/types'
 
-export const useCustomComponentsStore = defineStore('components', () => {
-  const components = ref<CustomComponent[]>([])
+export const useCustomBlocksStore = defineStore('customBlocks', () => {
+  const components = ref<CustomBlock[]>([])
 
   const createByJsonString = (str: string) => {
     try {
@@ -16,18 +16,18 @@ export const useCustomComponentsStore = defineStore('components', () => {
     }
   }
 
-  const addComponent = (component: CustomComponent) => {
+  const addComponent = (component: CustomBlock) => {
     components.value.push({ ...component })
   }
 
-  const updateComponent = (component: CustomComponent) => {
+  const updateComponent = (component: CustomBlock) => {
     const findIndex = components.value.findIndex((c) => {
       return c.id === component.id
     })
     components.value.splice(findIndex, 1, component)
   }
 
-  const removeComponent = (item: CustomComponent) => {
+  const removeComponent = (item: CustomBlock) => {
     components.value = components.value.filter(component => component.id !== item.id)
   }
 
@@ -41,4 +41,4 @@ export const useCustomComponentsStore = defineStore('components', () => {
 })
 
 if (import.meta.hot)
-  import.meta.hot.accept(acceptHMRUpdate(useCustomComponentsStore, import.meta.hot))
+  import.meta.hot.accept(acceptHMRUpdate(useCustomBlocksStore, import.meta.hot))

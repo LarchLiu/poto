@@ -2,13 +2,13 @@
 import { cloneDeep } from 'lodash'
 import type { PropType } from 'vue'
 import { Api } from '~/api/base'
-import type { BodyContent, GroupSettings, Item, RestApiAction, TransformerAction } from '~/types'
+import type { BlockItem, BodyContent, GroupSettings, RestApiAction, TransformerAction } from '~/types'
 import { BlockComponents } from '~/utils/constants'
 import { runTransformer } from '~/utils/evaluateDynamicString'
 
 const props = defineProps({
   item: {
-    type: Object as PropType<Item>,
+    type: Object as PropType<BlockItem>,
     required: true,
   },
   realContent: {
@@ -32,7 +32,7 @@ const options = computed(() => {
   return props.item.options as GroupSettings
 })
 
-const flexBasis = (item: Item) => {
+const flexBasis = (item: BlockItem) => {
   return options.value.flex.basis ? `${options.value.flex.basis}%` : `${item.options.size.width}%`
 }
 
@@ -98,7 +98,7 @@ const fetchSourceData = (actionId: string) => {
   }
 }
 
-const setListItemData = (item: Item, data: any, index: number) => {
+const setListItemData = (item: BlockItem, data: any, index: number) => {
   const _item = index ? cloneDeep(item) : item
   _item.options.hasParentData = !!data
   return _item
@@ -144,7 +144,7 @@ onMounted(() => {
     class="min-h-26px min-w-26px"
     :style="getContainerStyle()"
   >
-    <div v-for="element in item.options.list" :id="`${element.type}-${element.id}`" :key="element.id" :style="{ flexBasis: flexBasis(element) }">
+    <div v-for="element in item.options.list" :id="`${element.category}-${element.id}`" :key="element.id" :style="{ flexBasis: flexBasis(element) }">
       <div v-if="!!ownData">
         <div v-for="(data, index) in ownData" :key="`${element.id}-${index}-${keyIdx}`">
           <wrapper :item="element">
@@ -168,8 +168,8 @@ onMounted(() => {
     class="min-h-26px min-w-26px"
     :style="getContainerStyle()"
   >
-    <template #item="{ element }: { element: Item }">
-      <div :id="`layout-${element.type}-${element.id}`" :style="{ flexBasis: flexBasis(element) }">
+    <template #item="{ element }: { element: BlockItem }">
+      <div :id="`layout-${element.category}-${element.id}`" :style="{ flexBasis: flexBasis(element) }">
         <layout-wrapper :item="element" :un-resize="options.flex.basis > 0">
           <component :is="BlockComponents[element.blockType].widget" :item="element" :real-content="realContent" />
         </layout-wrapper>

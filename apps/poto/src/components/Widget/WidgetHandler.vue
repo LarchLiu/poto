@@ -1,13 +1,13 @@
 <script setup lang="ts">
-import type { CustomComponent, Item, MenuItem } from '~/types'
+import type { CustomBlock, BlockItem, MenuItem } from '~/types'
 import { UUID } from '~/utils'
 import { BlockComponents } from '~/utils/constants'
 
 const props = defineProps<{
-  item: Item
+  item: BlockItem
 }>()
 const designer = useDesignerStore()
-const customComponents = useCustomComponentsStore()
+const customBlocks = useCustomBlocksStore()
 const widgetMenu = useWidgetMenuStore()
 const { height: windowHeight } = useWindowSize()
 const showMenu = ref(false)
@@ -31,7 +31,7 @@ const widgetList = Object.keys(BlockComponents).map((type) => {
   }
 })
 
-const customComponentsSubmenu = computed(() => customComponents.components.map((component) => {
+const customComponentsSubmenu = computed(() => customBlocks.components.map((component) => {
   return {
     label: component.name,
     callback: () => {
@@ -42,12 +42,12 @@ const customComponentsSubmenu = computed(() => customComponents.components.map((
 }),
 )
 
-const saveAsMenu = computed(() => customComponents.components.map((component) => {
+const saveAsMenu = computed(() => customBlocks.components.map((component) => {
   const update = { ...component, item: props.item }
   return {
     label: component.name,
     callback: () => {
-      customComponents.updateComponent(update)
+      customBlocks.updateComponent(update)
       showMenu.value = false
     },
   }
@@ -65,7 +65,7 @@ const customComponentsList = computed(() => {
 })
 
 const addList = computed(() => {
-  if (customComponents.components.length > 0)
+  if (customBlocks.components.length > 0)
     return [...widgetList, ...customComponentsList.value]
   else
     return [...widgetList]
@@ -90,13 +90,13 @@ const blockMenu = computed(() => {
       icon: 'i-fluent-save-24-regular',
       label: 'Save',
       callback: () => {
-        const component: CustomComponent = {
+        const component: CustomBlock = {
           id: UUID(),
           name: 'test',
           description: 'test',
           item: props.item,
         }
-        customComponents.addComponent(component)
+        customBlocks.addComponent(component)
         showMenu.value = false
       },
     },
@@ -109,7 +109,7 @@ const blockMenu = computed(() => {
       },
     },
   ]
-  if (customComponents.components.length > 0) {
+  if (customBlocks.components.length > 0) {
     menu.push({
       icon: 'i-fluent-save-edit-24-regular',
       label: 'Save as',

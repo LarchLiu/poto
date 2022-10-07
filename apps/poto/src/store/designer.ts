@@ -1,14 +1,14 @@
 import { cloneDeep } from 'lodash'
-import type { FindedItem, Item } from '~/types'
+import type { BlockItem, FindedItem } from '~/types'
 import { UUID, cloneItem } from '~/utils'
 import { designerOptions } from '~/utils/constants'
 
 export const useDesignerStore = defineStore('designer', () => {
   const id = ref(UUID())
-  const list = ref<Item[]>([])
+  const list = ref<BlockItem[]>([])
   const options = ref(cloneDeep(designerOptions))
   // const actions = useActionsStore()
-  const currentItem = ref<Item | undefined>(undefined)
+  const currentItem = ref<BlockItem | undefined>(undefined)
   const { height: windowHeight } = useWindowSize()
   const contentPanelHeight = computed(() => windowHeight.value - 48 - 16)
 
@@ -27,7 +27,7 @@ export const useDesignerStore = defineStore('designer', () => {
     }
   }
 
-  const findItemById = (src: Item[], id?: string): FindedItem => {
+  const findItemById = (src: BlockItem[], id?: string): FindedItem => {
     if (id) {
       for (let i = 0; i < src.length; i++) {
         if (src[i].id === id) {
@@ -44,13 +44,13 @@ export const useDesignerStore = defineStore('designer', () => {
     return { parentList: undefined, index: -1 }
   }
 
-  const getCurrentItem = (): Item | undefined => {
+  const getCurrentItem = (): BlockItem | undefined => {
     return currentItem.value
   }
 
-  const setSelectedItem = (item: Item) => {
+  const setSelectedItem = (item: BlockItem) => {
     currentItem.value = item
-    const scrollTo = document.getElementById(`${item.type}-${item.id}`)
+    const scrollTo = document.getElementById(`${item.category}-${item.id}`)
     if (scrollTo) {
       const eleHeight = scrollTo.offsetHeight
       scrollTo.scrollIntoView({
@@ -62,7 +62,7 @@ export const useDesignerStore = defineStore('designer', () => {
     else {
       // after element created
       setTimeout(() => {
-        const scrollTo = document.getElementById(`${item.type}-${item.id}`)
+        const scrollTo = document.getElementById(`${item.category}-${item.id}`)
         if (scrollTo) {
           const eleHeight = scrollTo.offsetHeight
           scrollTo.scrollIntoView({
@@ -75,7 +75,7 @@ export const useDesignerStore = defineStore('designer', () => {
     }
   }
 
-  const selectItem = (item: Item, disabled = false) => {
+  const selectItem = (item: BlockItem, disabled = false) => {
     if (currentItem.value) {
       if (currentItem.value.id !== item.id) {
         setSelectedItem(item)
@@ -94,7 +94,7 @@ export const useDesignerStore = defineStore('designer', () => {
     currentItem.value = undefined
   }
 
-  const addItem = (src: Item) => {
+  const addItem = (src: BlockItem) => {
     const item = cloneItem(src)
     if (!currentItem.value) {
       list.value.push(item)
@@ -115,13 +115,13 @@ export const useDesignerStore = defineStore('designer', () => {
     }
   }
 
-  const removeItem = (item: Item) => {
+  const removeItem = (item: BlockItem) => {
     const { parentList, index } = findItemById(list.value, item.id)
     if (parentList)
       parentList.splice(index, 1)
   }
 
-  const copyItem = (item: Item) => {
+  const copyItem = (item: BlockItem) => {
     const { parentList, index } = findItemById(list.value, item.id)
     if (parentList) {
       const _item = { ...item, id: UUID() }
@@ -129,12 +129,12 @@ export const useDesignerStore = defineStore('designer', () => {
     }
   }
 
-  const isSelected = (item: Item) => {
+  const isSelected = (item: BlockItem) => {
     return !!currentItem.value && currentItem.value.id === item.id
   }
 
-  const isWidget = (item: Item) => {
-    return item.type === 'widget'
+  const isWidget = (item: BlockItem) => {
+    return item.category === 'widget'
   }
 
   const resetStore = () => {

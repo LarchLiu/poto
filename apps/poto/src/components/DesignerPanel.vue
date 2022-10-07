@@ -76,7 +76,7 @@ const borderBackgroundImage = computed(() => {
                (designer.options.border.has && !borderIsSingleColor) ? '' : `bg-${designer.options.backgroundColor.type}`]"
       class="ele-padding ele-margin box-border"
     >
-      <div v-for="element in designer.list" :id="`${element.type}-${element.id}`" :key="element.id" :style="{ width: `${element.options.size.width}%` }">
+      <div v-for="element in designer.list" :id="`${element.category}-${element.id}`" :key="element.id" :style="{ width: `${element.options.size.width}%` }">
         <wrapper :item="element">
           <component :is="BlockComponents[element.blockType].widget" :item="element" />
         </wrapper>

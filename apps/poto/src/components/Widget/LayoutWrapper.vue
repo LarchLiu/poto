@@ -1,9 +1,9 @@
 <script setup lang="ts">
-import type { BasicSettings, Item } from '~/types'
+import type { BasicSettings, BlockItem } from '~/types'
 import { BlockType } from '~/types'
 
 const props = defineProps<{
-  item: Item
+  item: BlockItem
   unResize?: boolean
 }>()
 
@@ -99,7 +99,7 @@ const borderBackgroundImage = computed(() => {
       v-model:width="options.size.width"
       :class="isWidget ? 'border-blue-500' : 'border-green-500'"
       :wrapper="wrapper!"
-      @is-resizing="is => setIsResizing(is)"
+      @is-resizing="(is: boolean) => setIsResizing(is)"
     />
 
     <div

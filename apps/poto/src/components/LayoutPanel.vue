@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import type { Item } from '~/types'
+import type { BlockItem } from '~/types'
 import { BlockComponents } from '~/utils/constants'
 
 // const designer = inject('designer') as Designer
@@ -84,8 +84,8 @@ const borderBackgroundImage = computed(() => {
       :class="[designer.options.border.has ? `border-${designer.options.border.color.type}` : '',
                (designer.options.border.has && !borderIsSingleColor) ? '' : `bg-${designer.options.backgroundColor.type}`]"
     >
-      <template #item="{ element }: { element: Item }">
-        <div :id="`layout-${element.type}-${element.id}`" :style="{ width: `${element.options.size.width}%` }">
+      <template #item="{ element }: { element: BlockItem }">
+        <div :id="`layout-${element.category}-${element.id}`" :style="{ width: `${element.options.size.width}%` }">
           <layout-wrapper :item="element">
             <component :is="BlockComponents[element.blockType].widget" :item="element" :real-content="false" />
           </layout-wrapper>

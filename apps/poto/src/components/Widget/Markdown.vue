@@ -1,10 +1,11 @@
 <script setup lang="ts">
 import type { PropType } from 'vue'
-import type { Item, TextSettings } from '~/types'
+import { TextSettings } from '~/types'
+import type { BlockItem } from '~/types'
 
 const props = defineProps({
   item: {
-    type: Object as PropType<Item>,
+    type: Object as PropType<BlockItem>,
     required: true,
   },
   realContent: {
@@ -24,8 +25,12 @@ const _item = computed({
   },
 })
 
+const options = computed(() => {
+  return props.item.options as TextSettings
+})
+
 const isSingleColor = computed(() => {
-  return (props.item.options as TextSettings).font.color.type === 'single'
+  return options.value.font.color.type === 'single'
 })
 </script>
 
@@ -33,16 +38,16 @@ const isSingleColor = computed(() => {
   <!-- <component :is="realContent ? Wrapper : ContentWrapper" :item="item"> -->
   <div
     :style="{
-      fontStyle: item.options.font.style,
-      fontSize: item.options.font.size,
-      fontWeight: item.options.font.weight,
-      textAlign: item.options.align,
-      textDecorationLine: item.options.font.decoration,
-      textDecorationColor: item.options.font.color.options.colors[0],
+      fontStyle: options.font.style,
+      fontSize: options.font.size,
+      fontWeight: options.font.weight,
+      textAlign: options.align,
+      textDecorationLine: options.font.decoration,
+      textDecorationColor: options.font.color.options.colors[0],
     }"
   >
     <div :class="isSingleColor ? 'single' : ''">
-      <tip-tap v-if="realContent" v-model:content="_item.options.text" is-markdown />
+      <tip-tap v-if="realContent" v-model:content="(_item.options as TextSettings).text" is-markdown />
       <div v-else v-html="item.options.name" />
     </div>
   </div>
@@ -51,7 +56,7 @@ const isSingleColor = computed(() => {
 
 <style scoped>
   .single {
-    color: v-bind('item.options.font.color.options.colors[0]') !important;
-    opacity: v-bind('item.options.font.color.options.opacity') !important;
+    color: v-bind('options.font.color.options.colors[0]') !important;
+    opacity: v-bind('options.font.color.options.opacity') !important;
   }
 </style>

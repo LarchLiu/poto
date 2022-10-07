@@ -148,7 +148,7 @@ declare global {
   const useCssVar: typeof import('@vueuse/core')['useCssVar']
   const useCssVars: typeof import('vue')['useCssVars']
   const useCurrentElement: typeof import('@vueuse/core')['useCurrentElement']
-  const useCustomComponentsStore: typeof import('./store/customComponents')['useCustomComponentsStore']
+  const useCustomBlocksStore: typeof import('./store/customBlocks')['useCustomBlocksStore']
   const useCycleList: typeof import('@vueuse/core')['useCycleList']
   const useDark: typeof import('@vueuse/core')['useDark']
   const useDateFormat: typeof import('@vueuse/core')['useDateFormat']
@@ -441,7 +441,7 @@ declare module '@vue/runtime-core' {
     readonly useCssVar: UnwrapRef<typeof import('@vueuse/core')['useCssVar']>
     readonly useCssVars: UnwrapRef<typeof import('vue')['useCssVars']>
     readonly useCurrentElement: UnwrapRef<typeof import('@vueuse/core')['useCurrentElement']>
-    readonly useCustomComponentsStore: UnwrapRef<typeof import('./store/customComponents')['useCustomComponentsStore']>
+    readonly useCustomBlocksStore: UnwrapRef<typeof import('./store/customBlocks')['useCustomBlocksStore']>
     readonly useCycleList: UnwrapRef<typeof import('@vueuse/core')['useCycleList']>
     readonly useDark: UnwrapRef<typeof import('@vueuse/core')['useDark']>
     readonly useDateFormat: UnwrapRef<typeof import('@vueuse/core')['useDateFormat']>

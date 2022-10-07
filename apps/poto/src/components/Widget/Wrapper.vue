@@ -1,8 +1,8 @@
 <script setup lang="ts">
-import type { BasicSettings, Item } from '~/types'
+import type { BasicSettings, BlockItem } from '~/types'
 
 const props = defineProps<{
-  item: Item
+  item: BlockItem
   isEmpty?: boolean
 }>()
 

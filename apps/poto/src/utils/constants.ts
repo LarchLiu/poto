@@ -6,11 +6,11 @@ import Markdown from '~/components/Widget/Markdown.vue'
 import PTextSetting from '~/components/SettingPanel/WidgetSetting/PTextSetting.vue'
 import GroupSetting from '~/components/SettingPanel/WidgetSetting/GroupSetting.vue'
 import { BlockType } from '~/types'
-import type { BasicSettings, Item, TextSettings } from '~/types'
+import type { BasicSettings, BlockItem, TextSettings } from '~/types'
 
 // @unocss-include
-export const TextConfig: Item = {
-  type: 'widget',
+export const TextConfig: BlockItem = {
+  category: 'widget',
   icon: 'i-fluent-text-case-title-16-regular',
   blockType: BlockType.Text,
   options: {
@@ -66,8 +66,8 @@ export const TextConfig: Item = {
   } as TextSettings,
 }
 
-export const GroupConfig: Item = {
-  type: 'group',
+export const GroupConfig: BlockItem = {
+  category: 'group',
   icon: 'i-iconoir-square',
   blockType: BlockType.Group,
   options: {
@@ -118,8 +118,8 @@ export const GroupConfig: Item = {
   },
 }
 
-export const ListConfig: Item = {
-  type: 'group',
+export const ListConfig: BlockItem = {
+  category: 'group',
   icon: 'i-iconoir-table-rows',
   blockType: BlockType.List,
   options: {
@@ -178,8 +178,8 @@ export const ListConfig: Item = {
   },
 }
 
-export const Columns2Config: Item = {
-  type: 'group',
+export const Columns2Config: BlockItem = {
+  category: 'group',
   icon: 'i-iconoir-view-columns-2',
   blockType: BlockType.Group,
   options: {
@@ -230,8 +230,8 @@ export const Columns2Config: Item = {
   },
 }
 
-export const Columns3Config: Item = {
-  type: 'group',
+export const Columns3Config: BlockItem = {
+  category: 'group',
   icon: 'i-iconoir-view-columns-3',
   blockType: BlockType.Group,
   options: {
@@ -282,8 +282,8 @@ export const Columns3Config: Item = {
   },
 }
 
-export const TitleConfig: Item = {
-  type: 'widget',
+export const TitleConfig: BlockItem = {
+  category: 'widget',
   icon: 'i-iconoir-text',
   blockType: BlockType.Title,
   options: {
@@ -339,8 +339,8 @@ export const TitleConfig: Item = {
   } as TextSettings,
 }
 
-export const MarkdownConfig: Item = {
-  type: 'widget',
+export const MarkdownConfig: BlockItem = {
+  category: 'widget',
   icon: 'i-fluent-markdown-20-regular',
   blockType: BlockType.Markdown,
   options: {
@@ -396,7 +396,7 @@ export const MarkdownConfig: Item = {
   } as TextSettings,
 }
 
-export const BlockComponents: Record<string, { widget: string | Component; setting: Component; config: Item }> = {
+export const BlockComponents: Record<string, { widget: string | Component; setting: Component; config: BlockItem }> = {
   [BlockType.Text]: { widget: PText, setting: PTextSetting, config: TextConfig },
   [BlockType.Title]: { widget: PText, setting: PTextSetting, config: TitleConfig },
   [BlockType.Markdown]: { widget: Markdown, setting: PTextSetting, config: MarkdownConfig },

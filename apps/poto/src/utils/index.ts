@@ -1,11 +1,11 @@
 import { v4 as uuidv4 } from 'uuid'
-import type { Item } from '~/types'
+import type { BlockItem } from '~/types'
 
 export const UUID = () => {
   return uuidv4()
 }
 
-const setID = (item: Item) => {
+const setID = (item: BlockItem) => {
   if (item.options.list) {
     item.options.list.map((i) => {
       return setID(i)
@@ -15,7 +15,7 @@ const setID = (item: Item) => {
   return item
 }
 
-export const cloneItem = (item: Item) => {
-  const i: Item = JSON.parse(JSON.stringify(item))
+export const cloneItem = (item: BlockItem) => {
+  const i: BlockItem = JSON.parse(JSON.stringify(item))
   return setID(i)
 }

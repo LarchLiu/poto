@@ -7,11 +7,11 @@ const { height: windowHeight } = useWindowSize()
 // const designer = useDesigner()
 const designer = useDesignerStore()
 const actionsStore = useActionsStore()
-const customComponents = useCustomComponentsStore()
+const customBlocks = useCustomBlocksStore()
 const widgetMenu = useWidgetMenuStore()
 // const jsonList = useLocalStorage('jsonList', '')
 const jsonActions = useLocalStorage('jsonActions', '')
-const jsonComponents = useLocalStorage('jsonCustomComponents', '')
+const jsonComponents = useLocalStorage('jsonCustomBlocks', '')
 const jsonDesigner = useLocalStorage('jsonDesigner', '')
 const header = ref<HTMLElement | null>(null)
 // provide('designer', designer)
@@ -35,7 +35,7 @@ const handleScreenShot = () => {
 const saveList = () => {
   // jsonList.value = JSON.stringify(designer.list.value)
   jsonActions.value = JSON.stringify(actionsStore.actions)
-  jsonComponents.value = JSON.stringify(customComponents.components)
+  jsonComponents.value = JSON.stringify(customBlocks.components)
 
   jsonDesigner.value = JSON.stringify({
     id: designer.id,
@@ -76,7 +76,7 @@ const apiTest = async () => {
 }
 onMounted(() => {
   actionsStore.createByJsonString(jsonActions.value)
-  customComponents.createByJsonString(jsonComponents.value)
+  customBlocks.createByJsonString(jsonComponents.value)
 })
 </script>
 
