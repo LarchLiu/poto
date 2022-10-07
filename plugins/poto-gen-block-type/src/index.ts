@@ -8,7 +8,7 @@ const createPlugin = (): Plugin => {
     name: 'vite-plugin-block-type',
     config: async () => {
       const packagePath = resolve(process.cwd(), 'package.json')
-      const info = await fs.readFile(packagePath, 'utf-8')
+      const info = await fs.readFile(packagePath, 'utf8')
       const packageInfo = JSON.parse(info)
       if (!packageInfo.name)
         throw new Error('[@poto/gen-block-type]: package.json have no name filed')
