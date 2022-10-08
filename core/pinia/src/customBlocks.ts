@@ -1,4 +1,6 @@
-import type { CustomBlock } from '~/types'
+import { defineStore } from 'pinia'
+import { ref } from 'vue'
+import type { CustomBlock } from '@poto/types'
 
 export const useCustomBlocksStore = defineStore('customBlocks', () => {
   const components = ref<CustomBlock[]>([])
@@ -40,5 +42,5 @@ export const useCustomBlocksStore = defineStore('customBlocks', () => {
   }
 })
 
-if (import.meta.hot)
-  import.meta.hot.accept(acceptHMRUpdate(useCustomBlocksStore, import.meta.hot))
+// if (import.meta.hot)
+//   import.meta.hot.accept(acceptHMRUpdate(useCustomBlocksStore, import.meta.hot))

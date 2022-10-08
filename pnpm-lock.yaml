@@ -28,6 +28,206 @@ importers:
       '@iconify-json/mdi': ^1.1.31
       '@intlify/vite-plugin-vue-i18n': ^6.0.1
       '@poto/auto-import': workspace:*
+      '@poto/pinia': workspace:*
+      '@poto/types': workspace:*
+      '@tiptap/core': 2.0.0-beta.182
+      '@tiptap/starter-kit': 2.0.0-beta.191
+      '@tiptap/vue-3': 2.0.0-beta.96
+      '@types/katex': ^0.14.0
+      '@types/markdown-it-link-attributes': ^3.0.1
+      '@types/mermaid': ^8.2.9
+      '@types/nprogress': ^0.2.0
+      '@types/qs': ^6.9.7
+      '@types/uuid': ^8.3.4
+      '@vitejs/plugin-vue': ^3.0.3
+      '@vue/test-utils': ^2.0.2
+      '@vueuse/core': ^9.1.1
+      '@vueuse/head': ^0.7.9
+      axios: ^0.27.2
+      codemirror: ^6.0.1
+      critters: ^0.0.16
+      cross-env: ^7.0.3
+      cypress: ^10.6.0
+      element-plus: ^2.2.14
+      eslint: ^8.24.0
+      eslint-plugin-cypress: ^2.12.1
+      html-to-image: ^1.10.4
+      https-localhost: ^4.7.1
+      katex: ^0.16.2
+      lodash: ^4.17.21
+      markdown-it-link-attributes: ^4.0.1
+      markdown-it-shiki: ^0.5.1
+      mermaid: ^9.1.6
+      nprogress: ^0.2.0
+      pinia: ^2.0.20
+      qs: ^6.11.0
+      sass: ^1.54.5
+      shiki: ^0.11.1
+      typescript: ^4.7.4
+      unocss: ^0.45.26
+      unplugin-auto-import: ^0.11.2
+      unplugin-vue-components: ^0.22.4
+      uuid: ^9.0.0
+      vite: ^3.1.6
+      vite-plugin-inspect: ^0.6.0
+      vite-plugin-pages: ^0.25.0
+      vite-plugin-pwa: ^0.12.3
+      vite-plugin-vue-layouts: ^0.7.0
+      vite-plugin-vue-markdown: ^0.21.1
+      vitest: ^0.22.1
+      vue: ^3.2.40
+      vue-codemirror: ^6.1.1
+      vue-demi: ^0.13.10
+      vue-i18n: ^9.2.2
+      vue-router: ^4.1.4
+      vue-tsc: ^1.0.0
+      vuedraggable: ^4.1.0
+    dependencies:
+      '@poto/pinia': link:../../core/pinia
+      '@tiptap/core': 2.0.0-beta.182
+      '@tiptap/starter-kit': 2.0.0-beta.191
+      '@tiptap/vue-3': 2.0.0-beta.96_zkli3kvp7ntv4k5rtppanctvoq
+      '@vueuse/core': 9.3.0_vue@3.2.40
+      '@vueuse/head': 0.7.13_vue@3.2.40
+      axios: 0.27.2
+      codemirror: 6.0.1
+      element-plus: 2.2.17_vue@3.2.40
+      html-to-image: 1.10.8
+      katex: 0.16.2
+      mermaid: 9.1.7
+      nprogress: 0.2.0
+      pinia: 2.0.22_bfjwoga25wxjazzogo7o372nwq
+      uuid: 9.0.0
+      vue: 3.2.40
+      vue-codemirror: 6.1.1_5ny5y7mdyxbn5yunqbzqrihnge
+      vue-demi: 0.13.11_vue@3.2.40
+      vue-i18n: 9.2.2_vue@3.2.40
+      vue-router: 4.1.5_vue@3.2.40
+      vuedraggable: 4.1.0_vue@3.2.40
+    devDependencies:
+      '@iconify-json/carbon': 1.1.8
+      '@iconify-json/fluent': 1.1.16
+      '@iconify-json/iconoir': 1.1.11
+      '@iconify-json/mdi': 1.1.33
+      '@intlify/vite-plugin-vue-i18n': 6.0.3_vite@3.1.6+vue-i18n@9.2.2
+      '@poto/auto-import': link:../../plugins/poto-auto-import
+      '@poto/types': link:../../core/types
+      '@types/katex': 0.14.0
+      '@types/markdown-it-link-attributes': 3.0.1
+      '@types/mermaid': 8.2.9
+      '@types/nprogress': 0.2.0
+      '@types/qs': 6.9.7
+      '@types/uuid': 8.3.4
+      '@vitejs/plugin-vue': 3.1.2_vite@3.1.6+vue@3.2.40
+      '@vue/test-utils': 2.1.0_vue@3.2.40
+      critters: 0.0.16
+      cross-env: 7.0.3
+      cypress: 10.9.0
+      eslint: 8.24.0
+      eslint-plugin-cypress: 2.12.1_eslint@8.24.0
+      https-localhost: 4.7.1
+      lodash: 4.17.21
+      markdown-it-link-attributes: 4.0.1
+      markdown-it-shiki: 0.5.1
+      qs: 6.11.0
+      sass: 1.55.0
+      shiki: 0.11.1
+      typescript: 4.8.4
+      unocss: 0.45.26_vite@3.1.6
+      unplugin-auto-import: 0.11.2_@vueuse+core@9.3.0
+      unplugin-vue-components: 0.22.8_vue@3.2.40
+      vite: 3.1.6_sass@1.55.0
+      vite-plugin-inspect: 0.6.1_vite@3.1.6
+      vite-plugin-pages: 0.25.0_vite@3.1.6
+      vite-plugin-pwa: 0.12.8_vite@3.1.6
+      vite-plugin-vue-layouts: 0.7.0_wdzqfuczf2bgcsxzjzdgwad3zu
+      vite-plugin-vue-markdown: 0.21.1_vite@3.1.6
+      vitest: 0.22.1_sass@1.55.0
+      vue-tsc: 1.0.0_typescript@4.8.4
+
+  core/pinia:
+    specifiers:
+      '@poto/types': workspace:*
+      '@vueuse/core': ^9.1.1
+      pinia: ^2.0.20
+      tsup: ^6.2.2
+      uuid: ^9.0.0
+      vue: ^3.2.40
+    dependencies:
+      '@vueuse/core': 9.3.0_vue@3.2.40
+      pinia: 2.0.22_vue@3.2.40
+      uuid: 9.0.0
+      vue: 3.2.40
+    devDependencies:
+      '@poto/types': link:../types
+      tsup: 6.2.3
+
+  core/types:
+    specifiers:
+      '@antfu/ni': ^0.17.2
+      tsup: ^6.2.3
+    devDependencies:
+      '@antfu/ni': 0.17.2
+      tsup: 6.2.3
+
+  core/utils:
+    specifiers:
+      scule: ^0.3.2
+      tsup: ^6.2.3
+    devDependencies:
+      scule: 0.3.2
+      tsup: 6.2.3
+
+  plugins/playground:
+    specifiers:
+      '@poto/auto-import': workspace:*
+      '@poto/gen-block-type': workspace:*
+      block-plugins-template: workspace:*
+      nodemon: ^2.0.20
+    devDependencies:
+      '@poto/auto-import': link:../poto-auto-import
+      '@poto/gen-block-type': link:../poto-gen-block-type
+      block-plugins-template: link:../../ui/block-plugin-template
+      nodemon: 2.0.20
+
+  plugins/poto-auto-import:
+    specifiers:
+      '@antfu/ni': ^0.17.2
+      '@antfu/utils': ^0.5.2
+      '@poto/utils': workspace:*
+      bumpp: ^8.2.1
+      magic-string: ^0.26.2
+      tsup: ^6.2.2
+      unimport: ^0.6.7
+      unplugin: ^0.9.3
+    dependencies:
+      '@antfu/utils': 0.5.2
+      magic-string: 0.26.6
+      unimport: 0.6.8
+      unplugin: 0.9.6
+    devDependencies:
+      '@antfu/ni': 0.17.2
+      '@poto/utils': link:../../core/utils
+      bumpp: 8.2.1
+      tsup: 6.2.3
+
+  plugins/poto-gen-block-type:
+    specifiers:
+      '@antfu/ni': ^0.17.2
+      '@poto/utils': workspace:*
+      tsup: ^6.2.2
+    devDependencies:
+      '@antfu/ni': 0.17.2
+      '@poto/utils': link:../../core/utils
+      tsup: 6.2.3
+
+  ui/block-basic:
+    specifiers:
+      '@iconify-json/carbon': ^1.1.7
+      '@iconify-json/fluent': ^1.1.16
+      '@iconify-json/iconoir': ^1.1.8
+      '@iconify-json/mdi': ^1.1.31
+      '@intlify/vite-plugin-vue-i18n': ^6.0.1
       '@poto/types': workspace:*
       '@tiptap/core': 2.0.0-beta.182
       '@tiptap/starter-kit': 2.0.0-beta.191
@@ -109,7 +309,6 @@ importers:
       '@iconify-json/iconoir': 1.1.11
       '@iconify-json/mdi': 1.1.33
       '@intlify/vite-plugin-vue-i18n': 6.0.3_vite@3.1.6+vue-i18n@9.2.2
-      '@poto/auto-import': link:../../plugins/poto-auto-import
       '@poto/types': link:../../core/types
       '@types/katex': 0.14.0
       '@types/markdown-it-link-attributes': 3.0.1
@@ -119,7 +318,7 @@ importers:
       '@types/uuid': 8.3.4
       '@vitejs/plugin-vue': 3.1.2_vite@3.1.6+vue@3.2.40
       '@vue/test-utils': 2.1.0_vue@3.2.40
-      block-plugins-template: link:../../ui/block-plugin-template
+      block-plugins-template: link:../block-plugin-template
       critters: 0.0.16
       cross-env: 7.0.3
       cypress: 10.9.0
@@ -144,65 +343,6 @@ importers:
       vite-plugin-vue-markdown: 0.21.1_vite@3.1.6
       vitest: 0.22.1_sass@1.55.0
       vue-tsc: 1.0.0_typescript@4.8.4
-
-  core/types:
-    specifiers:
-      '@antfu/ni': ^0.17.2
-      tsup: ^6.2.3
-    devDependencies:
-      '@antfu/ni': 0.17.2
-      tsup: 6.2.3
-
-  core/utils:
-    specifiers:
-      scule: ^0.3.2
-      tsup: ^6.2.3
-    devDependencies:
-      scule: 0.3.2
-      tsup: 6.2.3
-
-  plugins/playground:
-    specifiers:
-      '@poto/auto-import': workspace:*
-      '@poto/gen-block-type': workspace:*
-      block-plugins-template: workspace:*
-      nodemon: ^2.0.20
-    devDependencies:
-      '@poto/auto-import': link:../poto-auto-import
-      '@poto/gen-block-type': link:../poto-gen-block-type
-      block-plugins-template: link:../../ui/block-plugin-template
-      nodemon: 2.0.20
-
-  plugins/poto-auto-import:
-    specifiers:
-      '@antfu/ni': ^0.17.2
-      '@antfu/utils': ^0.5.2
-      '@poto/utils': workspace:*
-      bumpp: ^8.2.1
-      magic-string: ^0.26.2
-      tsup: ^6.2.2
-      unimport: ^0.6.7
-      unplugin: ^0.9.3
-    dependencies:
-      '@antfu/utils': 0.5.2
-      magic-string: 0.26.6
-      unimport: 0.6.8
-      unplugin: 0.9.6
-    devDependencies:
-      '@antfu/ni': 0.17.2
-      '@poto/utils': link:../../core/utils
-      bumpp: 8.2.1
-      tsup: 6.2.3
-
-  plugins/poto-gen-block-type:
-    specifiers:
-      '@antfu/ni': ^0.17.2
-      '@poto/utils': workspace:*
-      tsup: ^6.2.2
-    devDependencies:
-      '@antfu/ni': 0.17.2
-      '@poto/utils': link:../../core/utils
-      tsup: 6.2.3
 
   ui/block-plugin-template:
     specifiers:
@@ -6934,6 +7074,23 @@ packages:
     dependencies:
       '@vue/devtools-api': 6.4.3
       typescript: 4.8.4
+      vue: 3.2.40
+      vue-demi: 0.13.11_vue@3.2.40
+    dev: false
+
+  /pinia/2.0.22_vue@3.2.40:
+    resolution: {integrity: sha512-u+b8/BC+tmvo3ACbYO2w5NfxHWFOjvvw9DQnyT0dW8aUMCPRQT5QnfZ5R5W2MzZBMTeZRMQI7V/QFbafmM9QHw==}
+    peerDependencies:
+      '@vue/composition-api': ^1.4.0
+      typescript: '>=4.4.4'
+      vue: ^2.6.14 || ^3.2.0
+    peerDependenciesMeta:
+      '@vue/composition-api':
+        optional: true
+      typescript:
+        optional: true
+    dependencies:
+      '@vue/devtools-api': 6.4.3
       vue: 3.2.40
       vue-demi: 0.13.11_vue@3.2.40
     dev: false

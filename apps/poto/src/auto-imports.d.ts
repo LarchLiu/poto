@@ -119,7 +119,7 @@ declare global {
   const unref: typeof import('vue')['unref']
   const unrefElement: typeof import('@vueuse/core')['unrefElement']
   const until: typeof import('@vueuse/core')['until']
-  const useActionsStore: typeof import('./store/actions')['useActionsStore']
+  const useActionsStore: typeof import('@poto/pinia')['useActionsStore']
   const useActiveElement: typeof import('@vueuse/core')['useActiveElement']
   const useArrayEvery: typeof import('@vueuse/core')['useArrayEvery']
   const useArrayFilter: typeof import('@vueuse/core')['useArrayFilter']
@@ -148,14 +148,14 @@ declare global {
   const useCssVar: typeof import('@vueuse/core')['useCssVar']
   const useCssVars: typeof import('vue')['useCssVars']
   const useCurrentElement: typeof import('@vueuse/core')['useCurrentElement']
-  const useCustomBlocksStore: typeof import('./store/customBlocks')['useCustomBlocksStore']
+  const useCustomBlocksStore: typeof import('@poto/pinia')['useCustomBlocksStore']
   const useCycleList: typeof import('@vueuse/core')['useCycleList']
   const useDark: typeof import('@vueuse/core')['useDark']
   const useDateFormat: typeof import('@vueuse/core')['useDateFormat']
   const useDebounce: typeof import('@vueuse/core')['useDebounce']
   const useDebounceFn: typeof import('@vueuse/core')['useDebounceFn']
   const useDebouncedRefHistory: typeof import('@vueuse/core')['useDebouncedRefHistory']
-  const useDesignerStore: typeof import('./store/designer')['useDesignerStore']
+  const useDesignerStore: typeof import('@poto/pinia')['useDesignerStore']
   const useDeviceMotion: typeof import('@vueuse/core')['useDeviceMotion']
   const useDeviceOrientation: typeof import('@vueuse/core')['useDeviceOrientation']
   const useDevicePixelRatio: typeof import('@vueuse/core')['useDevicePixelRatio']
@@ -261,7 +261,6 @@ declare global {
   const useTransition: typeof import('@vueuse/core')['useTransition']
   const useUrlSearchParams: typeof import('@vueuse/core')['useUrlSearchParams']
   const useUserMedia: typeof import('@vueuse/core')['useUserMedia']
-  const useUserStore: typeof import('./store/user')['useUserStore']
   const useVModel: typeof import('@vueuse/core')['useVModel']
   const useVModels: typeof import('@vueuse/core')['useVModels']
   const useVibrate: typeof import('@vueuse/core')['useVibrate']
@@ -271,7 +270,7 @@ declare global {
   const useWebSocket: typeof import('@vueuse/core')['useWebSocket']
   const useWebWorker: typeof import('@vueuse/core')['useWebWorker']
   const useWebWorkerFn: typeof import('@vueuse/core')['useWebWorkerFn']
-  const useWidgetMenuStore: typeof import('./store/widgetMenu')['useWidgetMenuStore']
+  const useWidgetMenuStore: typeof import('@poto/pinia')['useWidgetMenuStore']
   const useWindowFocus: typeof import('@vueuse/core')['useWindowFocus']
   const useWindowScroll: typeof import('@vueuse/core')['useWindowScroll']
   const useWindowSize: typeof import('@vueuse/core')['useWindowSize']
@@ -412,7 +411,7 @@ declare module '@vue/runtime-core' {
     readonly unref: UnwrapRef<typeof import('vue')['unref']>
     readonly unrefElement: UnwrapRef<typeof import('@vueuse/core')['unrefElement']>
     readonly until: UnwrapRef<typeof import('@vueuse/core')['until']>
-    readonly useActionsStore: UnwrapRef<typeof import('./store/actions')['useActionsStore']>
+    readonly useActionsStore: UnwrapRef<typeof import('@poto/pinia')['useActionsStore']>
     readonly useActiveElement: UnwrapRef<typeof import('@vueuse/core')['useActiveElement']>
     readonly useArrayEvery: UnwrapRef<typeof import('@vueuse/core')['useArrayEvery']>
     readonly useArrayFilter: UnwrapRef<typeof import('@vueuse/core')['useArrayFilter']>
@@ -441,14 +440,14 @@ declare module '@vue/runtime-core' {
     readonly useCssVar: UnwrapRef<typeof import('@vueuse/core')['useCssVar']>
     readonly useCssVars: UnwrapRef<typeof import('vue')['useCssVars']>
     readonly useCurrentElement: UnwrapRef<typeof import('@vueuse/core')['useCurrentElement']>
-    readonly useCustomBlocksStore: UnwrapRef<typeof import('./store/customBlocks')['useCustomBlocksStore']>
+    readonly useCustomBlocksStore: UnwrapRef<typeof import('@poto/pinia')['useCustomBlocksStore']>
     readonly useCycleList: UnwrapRef<typeof import('@vueuse/core')['useCycleList']>
     readonly useDark: UnwrapRef<typeof import('@vueuse/core')['useDark']>
     readonly useDateFormat: UnwrapRef<typeof import('@vueuse/core')['useDateFormat']>
     readonly useDebounce: UnwrapRef<typeof import('@vueuse/core')['useDebounce']>
     readonly useDebounceFn: UnwrapRef<typeof import('@vueuse/core')['useDebounceFn']>
     readonly useDebouncedRefHistory: UnwrapRef<typeof import('@vueuse/core')['useDebouncedRefHistory']>
-    readonly useDesignerStore: UnwrapRef<typeof import('./store/designer')['useDesignerStore']>
+    readonly useDesignerStore: UnwrapRef<typeof import('@poto/pinia')['useDesignerStore']>
     readonly useDeviceMotion: UnwrapRef<typeof import('@vueuse/core')['useDeviceMotion']>
     readonly useDeviceOrientation: UnwrapRef<typeof import('@vueuse/core')['useDeviceOrientation']>
     readonly useDevicePixelRatio: UnwrapRef<typeof import('@vueuse/core')['useDevicePixelRatio']>
@@ -554,7 +553,6 @@ declare module '@vue/runtime-core' {
     readonly useTransition: UnwrapRef<typeof import('@vueuse/core')['useTransition']>
     readonly useUrlSearchParams: UnwrapRef<typeof import('@vueuse/core')['useUrlSearchParams']>
     readonly useUserMedia: UnwrapRef<typeof import('@vueuse/core')['useUserMedia']>
-    readonly useUserStore: UnwrapRef<typeof import('./store/user')['useUserStore']>
     readonly useVModel: UnwrapRef<typeof import('@vueuse/core')['useVModel']>
     readonly useVModels: UnwrapRef<typeof import('@vueuse/core')['useVModels']>
     readonly useVibrate: UnwrapRef<typeof import('@vueuse/core')['useVibrate']>
@@ -564,7 +562,7 @@ declare module '@vue/runtime-core' {
     readonly useWebSocket: UnwrapRef<typeof import('@vueuse/core')['useWebSocket']>
     readonly useWebWorker: UnwrapRef<typeof import('@vueuse/core')['useWebWorker']>
     readonly useWebWorkerFn: UnwrapRef<typeof import('@vueuse/core')['useWebWorkerFn']>
-    readonly useWidgetMenuStore: UnwrapRef<typeof import('./store/widgetMenu')['useWidgetMenuStore']>
+    readonly useWidgetMenuStore: UnwrapRef<typeof import('@poto/pinia')['useWidgetMenuStore']>
     readonly useWindowFocus: UnwrapRef<typeof import('@vueuse/core')['useWindowFocus']>
     readonly useWindowScroll: UnwrapRef<typeof import('@vueuse/core')['useWindowScroll']>
     readonly useWindowSize: UnwrapRef<typeof import('@vueuse/core')['useWindowSize']>

@@ -1,12 +1,14 @@
-import { cloneDeep } from 'lodash'
-import type { BlockItem, FindedItem } from '~/types'
-import { UUID, cloneItem } from '~/utils'
-import { designerOptions } from '~/utils/constants'
+import { defineStore } from 'pinia'
+import { computed, ref } from 'vue'
+import { useWindowSize } from '@vueuse/core'
+import type { BlockItem, FindedItem } from '@poto/types'
+import { UUID, cloneItem, deepClone } from '../utils'
+import { designerOptions } from '../utils/constants'
 
 export const useDesignerStore = defineStore('designer', () => {
   const id = ref(UUID())
   const list = ref<BlockItem[]>([])
-  const options = ref(cloneDeep(designerOptions))
+  const options = ref(deepClone(designerOptions))
   // const actions = useActionsStore()
   const currentItem = ref<BlockItem | undefined>(undefined)
   const { height: windowHeight } = useWindowSize()
@@ -140,7 +142,7 @@ export const useDesignerStore = defineStore('designer', () => {
   const resetStore = () => {
     id.value = UUID()
     list.value = []
-    options.value = cloneDeep(designerOptions)
+    options.value = deepClone(designerOptions)
     currentItem.value = undefined
   }
 
@@ -164,5 +166,5 @@ export const useDesignerStore = defineStore('designer', () => {
   }
 })
 
-if (import.meta.hot)
-  import.meta.hot.accept(acceptHMRUpdate(useDesignerStore, import.meta.hot))
+// if (import.meta.hot)
+//   import.meta.hot.accept(acceptHMRUpdate(useDesignerStore, import.meta.hot))

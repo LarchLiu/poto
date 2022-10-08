@@ -1,4 +1,6 @@
-import type { ActionItem } from '~/types'
+import { defineStore } from 'pinia'
+import { ref } from 'vue'
+import type { ActionItem } from '@poto/types'
 
 export const useActionsStore = defineStore('actions', () => {
   const actions = ref<ActionItem[]>([])
@@ -32,5 +34,5 @@ export const useActionsStore = defineStore('actions', () => {
   }
 })
 
-if (import.meta.hot)
-  import.meta.hot.accept(acceptHMRUpdate(useActionsStore, import.meta.hot))
+// if (import.meta.hot)
+//   import.meta.hot.accept(acceptHMRUpdate(useActionsStore, import.meta.hot))

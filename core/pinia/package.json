@@ -1,0 +1,27 @@
+{
+  "name": "@poto/pinia",
+  "type": "module",
+  "private": true,
+  "exports": {
+    "types": "./dist/index.d.ts",
+    "require": "./dist/index.cjs",
+    "import": "./dist/index.js"
+  },
+  "main": "./dist/index.cjs",
+  "module": "./dist/index.js",
+  "types": "./dist/index.d.ts",
+  "scripts": {
+    "build": "tsup index.ts --format cjs,esm --dts --splitting --clean",
+    "dev": "tsup index..ts --format cjs,esm --dts --watch src"
+  },
+  "dependencies": {
+    "@vueuse/core": "^9.1.1",
+    "pinia": "^2.0.20",
+    "uuid": "^9.0.0",
+    "vue": "^3.2.40"
+  },
+  "devDependencies": {
+    "@poto/types": "workspace:*",
+    "tsup": "^6.2.2"
+  }
+}

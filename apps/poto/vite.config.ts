@@ -45,11 +45,19 @@ export default defineConfig({
         '@vueuse/head',
         '@vueuse/core',
         'pinia',
+        {
+          '@poto/pinia': [
+            // named imports
+            'useActionsStore',
+            'useCustomBlocksStore',
+            'useDesignerStore',
+            'useWidgetMenuStore',
+          ],
+        },
       ],
       dts: 'src/auto-imports.d.ts',
       dirs: [
         'src/composables',
-        'src/store',
       ],
       vueTemplate: true,
       resolvers: [ElementPlusResolver()],

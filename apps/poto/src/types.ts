@@ -11,8 +11,3 @@ interface AppContext<HasRouter extends boolean = true> {
 }
 
 export type UserModule = (ctx: AppContext) => void
-
-export interface Params {
-  key: string
-  value: string
-}

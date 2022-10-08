@@ -1,3 +1,6 @@
+import { defineStore } from 'pinia'
+import { ref } from 'vue'
+
 export const useWidgetMenuStore = defineStore('widgetMenu', () => {
   const id = ref('')
   const left = ref(0)
@@ -10,5 +13,5 @@ export const useWidgetMenuStore = defineStore('widgetMenu', () => {
   }
 })
 
-if (import.meta.hot)
-  import.meta.hot.accept(acceptHMRUpdate(useWidgetMenuStore, import.meta.hot))
+// if (import.meta.hot)
+//   import.meta.hot.accept(acceptHMRUpdate(useWidgetMenuStore, import.meta.hot))

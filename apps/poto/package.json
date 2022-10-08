@@ -13,6 +13,7 @@
     "typecheck": "vue-tsc --noEmit"
   },
   "dependencies": {
+    "@poto/pinia": "workspace:*",
     "@tiptap/core": "2.0.0-beta.182",
     "@tiptap/starter-kit": "2.0.0-beta.191",
     "@tiptap/vue-3": "2.0.0-beta.96",
@@ -50,7 +51,6 @@
     "@types/uuid": "^8.3.4",
     "@vitejs/plugin-vue": "^3.0.3",
     "@vue/test-utils": "^2.0.2",
-    "block-plugins-template": "workspace:*",
     "critters": "^0.0.16",
     "cross-env": "^7.0.3",
     "cypress": "^10.6.0",
