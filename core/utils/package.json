@@ -20,8 +20,12 @@
     "dev": "npm run build --watch",
     "prepublishOnly": "npm run build"
   },
-  "devDependencies": {
+  "dependencies": {
     "scule": "^0.3.2",
+    "uuid": "^9.0.0"
+  },
+  "devDependencies": {
+    "@poto/types": "workspace:*",
     "tsup": "^6.2.3"
   }
 }
