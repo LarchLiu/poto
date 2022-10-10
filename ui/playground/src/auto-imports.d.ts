@@ -2,14 +2,6 @@
 export {}
 declare global {
   const EffectScope: typeof import('vue')['EffectScope']
-  const ElColorPicker: typeof import('element-plus/es')['ElColorPicker']
-  const ElFormItem: typeof import('element-plus/es')['ElFormItem']
-  const ElOption: typeof import('element-plus/es')['ElOption']
-  const ElPopover: typeof import('element-plus/es')['ElPopover']
-  const ElPopoverDirective: typeof import('element-plus/es')['ElPopoverDirective']
-  const ElRadioButton: typeof import('element-plus/es')['ElRadioButton']
-  const ElRadioGroup: typeof import('element-plus/es')['ElRadioGroup']
-  const ElTabPane: typeof import('element-plus/es')['ElTabPane']
   const acceptHMRUpdate: typeof import('pinia')['acceptHMRUpdate']
   const asyncComputed: typeof import('@vueuse/core')['asyncComputed']
   const autoResetRef: typeof import('@vueuse/core')['autoResetRef']
@@ -286,14 +278,6 @@ import { UnwrapRef } from 'vue'
 declare module '@vue/runtime-core' {
   interface ComponentCustomProperties {
     readonly EffectScope: UnwrapRef<typeof import('vue')['EffectScope']>
-    readonly ElColorPicker: UnwrapRef<typeof import('element-plus/es')['ElColorPicker']>
-    readonly ElFormItem: UnwrapRef<typeof import('element-plus/es')['ElFormItem']>
-    readonly ElOption: UnwrapRef<typeof import('element-plus/es')['ElOption']>
-    readonly ElPopover: UnwrapRef<typeof import('element-plus/es')['ElPopover']>
-    readonly ElPopoverDirective: UnwrapRef<typeof import('element-plus/es')['ElPopoverDirective']>
-    readonly ElRadioButton: UnwrapRef<typeof import('element-plus/es')['ElRadioButton']>
-    readonly ElRadioGroup: UnwrapRef<typeof import('element-plus/es')['ElRadioGroup']>
-    readonly ElTabPane: UnwrapRef<typeof import('element-plus/es')['ElTabPane']>
     readonly acceptHMRUpdate: UnwrapRef<typeof import('pinia')['acceptHMRUpdate']>
     readonly asyncComputed: UnwrapRef<typeof import('@vueuse/core')['asyncComputed']>
     readonly autoResetRef: UnwrapRef<typeof import('@vueuse/core')['autoResetRef']>

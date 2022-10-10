@@ -49,4 +49,5 @@ export default defineConfig({
     },
   ],
   safelist: 'prose prose-sm m-auto text-left'.split(' '),
+  include: [/.*\/poto-block-basic\.mjs(.*)?$/, './**/*.vue', './**/*.md'],
 })

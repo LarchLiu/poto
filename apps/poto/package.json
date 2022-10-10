@@ -14,6 +14,7 @@
     "typecheck": "vue-tsc --noEmit"
   },
   "dependencies": {
+    "@poto/block-basic": "workspace:*",
     "@poto/pinia": "workspace:*",
     "@tiptap/core": "2.0.0-beta.182",
     "@tiptap/starter-kit": "2.0.0-beta.191",
@@ -74,7 +75,6 @@
     "vite-plugin-pwa": "^0.12.3",
     "vite-plugin-vue-layouts": "^0.7.0",
     "vite-plugin-vue-markdown": "^0.21.1",
-    "vitest": "^0.22.1",
-    "vue-tsc": "^1.0.0"
+    "vitest": "^0.22.1"
   }
 }
