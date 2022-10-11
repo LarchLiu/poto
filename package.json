@@ -23,6 +23,7 @@
     "dev:plugins": "turbo run dev --filter={./plugins/*}...",
     "dev:ui": "turbo run dev --filter={./ui/*}...",
     "build": "turbo run build",
+    "build:core": "turbo run build --filter={./core/*}...",
     "build:poto": "turbo run build --filter=poto...",
     "build:plugins": "turbo run build --filter={./plugins/*}...",
     "build:ui": "turbo run build --filter={./ui/*}...",

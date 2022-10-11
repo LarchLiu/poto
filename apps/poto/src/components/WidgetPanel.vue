@@ -1,7 +1,6 @@
 <script setup lang="ts">
 import type { BlockItem, CustomBlock } from '~/types'
-import { BlockComponents } from '~/utils/constants'
-import { cloneItem } from '~/utils'
+import { BlockComponents, cloneItem } from '~/utils'
 
 const designer = useDesignerStore()
 const customBlocks = useCustomBlocksStore()

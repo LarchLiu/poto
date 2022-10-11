@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import type { BlockItem } from '~/types'
-import { BlockComponents } from '~/utils/constants'
+import { BlockComponents } from '~/utils'
 
 // const designer = inject('designer') as Designer
 const designer = useDesignerStore()

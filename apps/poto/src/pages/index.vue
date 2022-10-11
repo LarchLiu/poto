@@ -1,7 +1,5 @@
 <script setup lang="ts">
 import { toPng } from 'html-to-image'
-// import { designerOptions } from '~/utils/constants'
-// import { Api } from '~/api/base'
 
 const { height: windowHeight } = useWindowSize()
 // const designer = useDesigner()

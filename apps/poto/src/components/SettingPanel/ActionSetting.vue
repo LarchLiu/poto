@@ -2,9 +2,7 @@
 import { cloneDeep } from 'lodash'
 import { BodyContent, RestApiAction, TransformerAction } from '~/types'
 import type { ActionItem, ActionType, Params } from '~/types'
-import { UUID } from '~/utils'
-import { Api } from '~/api/base'
-import { runTransformer } from '~/utils/evaluateDynamicString'
+import { UUID, runTransformer } from '~/utils'
 
 // const designer = inject('designer') as Designer
 const actionsStore = useActionsStore()
@@ -41,30 +39,25 @@ const newAction = () => {
   isAdd.value = true
 }
 
-const apiTest = () => {
-  Api.request(
-    {
-      method: 'GET',
-      url: (action.value?.content as RestApiAction<BodyContent>).url,
-    },
-    (_) => {
-      // const rawData = res.data
-      ElNotification({
-        title: 'Success',
-        message: '',
-        type: 'success',
-        duration: 2000,
-      })
-    },
-    (err) => {
-      ElNotification({
-        title: 'Error',
-        message: `${err.status} ${err.statusText}`,
-        type: 'error',
-        duration: 2000,
-      })
-    },
-  )
+const apiTest = async () => {
+  const { data, error } = await useFetch((action.value?.content as RestApiAction<BodyContent>).url)
+
+  if (data.value) {
+    ElNotification({
+      title: 'Success',
+      message: '',
+      type: 'success',
+      duration: 2000,
+    })
+  }
+  if (error.value) {
+    ElNotification({
+      title: 'Error',
+      message: error.value,
+      type: 'error',
+      duration: 2000,
+    })
+  }
 }
 
 const testAction = () => {

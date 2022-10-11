@@ -1,10 +1,8 @@
 <script setup lang="ts">
-// import type { Designer } from '~/types'
-import { BlockComponents } from '~/utils/constants'
+import { BlockComponents } from '~/utils'
 
 const activeTab = ref('2')
 const { height: windowHeight } = useWindowSize()
-// const designer = inject('designer') as Designer
 const designer = useDesignerStore()
 const scrollerHeight = computed(() => `${windowHeight.value - 48 - 55}px`)
 const currentItem = computed(() => designer.getCurrentItem())

@@ -16,13 +16,13 @@
     "dev": "tsup index.ts --format cjs,esm --dts --watch src"
   },
   "dependencies": {
+    "@poto/types": "workspace:*",
+    "@poto/utils": "workspace:*",
     "@vueuse/core": "^9.1.1",
     "pinia": "^2.0.20",
-    "uuid": "^9.0.0",
     "vue": "^3.2.40"
   },
   "devDependencies": {
-    "@poto/types": "workspace:*",
     "tsup": "^6.2.2"
   }
 }

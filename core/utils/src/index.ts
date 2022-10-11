@@ -21,7 +21,11 @@ const setID = (item: BlockItem) => {
   return item
 }
 
+export const deepClone = (src: any) => {
+  return JSON.parse(JSON.stringify(src))
+}
+
 export const cloneItem = (item: BlockItem) => {
-  const i: BlockItem = JSON.parse(JSON.stringify(item))
+  const i: BlockItem = deepClone(item)
   return setID(i)
 }

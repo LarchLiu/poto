@@ -2,8 +2,8 @@ import { defineStore } from 'pinia'
 import { computed, ref } from 'vue'
 import { useWindowSize } from '@vueuse/core'
 import type { BlockItem, FindedItem } from '@poto/types'
-import { UUID, cloneItem, deepClone } from '../utils'
-import { designerOptions } from '../utils/constants'
+import { UUID, cloneItem, deepClone } from '@poto/utils'
+import { designerOptions } from '../utils'
 
 export const useDesignerStore = defineStore('designer', () => {
   const id = ref(UUID())

@@ -33,6 +33,7 @@ importers:
       '@poto/block-basic': workspace:*
       '@poto/pinia': workspace:*
       '@poto/types': workspace:*
+      '@poto/utils': workspace:*
       '@tiptap/core': 2.0.0-beta.182
       '@tiptap/starter-kit': 2.0.0-beta.191
       '@tiptap/vue-3': 2.0.0-beta.96
@@ -87,6 +88,7 @@ importers:
     dependencies:
       '@poto/block-basic': link:../../ui/block-basic
       '@poto/pinia': link:../../core/pinia
+      '@poto/utils': link:../../core/utils
       '@tiptap/core': 2.0.0-beta.182
       '@tiptap/starter-kit': 2.0.0-beta.191
       '@tiptap/vue-3': 2.0.0-beta.96_zkli3kvp7ntv4k5rtppanctvoq
@@ -150,18 +152,18 @@ importers:
   core/pinia:
     specifiers:
       '@poto/types': workspace:*
+      '@poto/utils': workspace:*
       '@vueuse/core': ^9.1.1
       pinia: ^2.0.20
       tsup: ^6.2.2
-      uuid: ^9.0.0
       vue: ^3.2.40
     dependencies:
+      '@poto/types': link:../types
+      '@poto/utils': link:../utils
       '@vueuse/core': 9.3.0_vue@3.2.40
       pinia: 2.0.22_vue@3.2.40
-      uuid: 9.0.0
       vue: 3.2.40
     devDependencies:
-      '@poto/types': link:../types
       tsup: 6.2.3
 
   core/types:
