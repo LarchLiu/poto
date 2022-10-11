@@ -9,6 +9,7 @@ declare module '@vue/runtime-core' {
   export interface GlobalComponents {
     ActionSetting: typeof import('./components/SettingPanel/ActionSetting.vue')['default']
     DesignerPanel: typeof import('./components/DesignerPanel.vue')['default']
+    DesignerSetting: typeof import('./components/SettingPanel/DesignerSetting.vue')['default']
     ElAside: typeof import('element-plus/es')['ElAside']
     ElButton: typeof import('element-plus/es')['ElButton']
     ElContainer: typeof import('element-plus/es')['ElContainer']

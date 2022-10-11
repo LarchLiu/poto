@@ -3,9 +3,7 @@
 </script>
 
 <template>
-  <el-form size="small">
-    <basic-setting :is-designer="true" />
-  </el-form>
+  <basic-setting :is-designer="true" />
 </template>
 
 <style scoped>

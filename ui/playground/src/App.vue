@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { BlockComponents, Columns2Config, Columns3Config, GroupConfig, MarkdownConfig, TextConfig, TitleConfig } from '@poto/block-basic'
+import { BasicSetting, BlockComponents, Columns2Config, Columns3Config, GroupConfig, MarkdownConfig, TextConfig, TitleConfig } from '@poto/block-basic'
 import { BlockItem } from './types'
 
 const designer = useDesignerStore()
@@ -89,6 +89,9 @@ onMounted(() => {
 <template>
   <div id="page">
     <div class="flex flex-row justify-center">
+      <div class="p-2 border-r-2">
+        <BasicSetting is-designer />
+      </div>
       <div class="w-500px">
         <draggable
           v-bind="{
@@ -127,7 +130,7 @@ onMounted(() => {
         </div>
       </div>
       <div>
-        <div class="p-2 w-350px">
+        <div class="p-2 w-300px">
           <component :is="BlockComponents[currentItem.blockType].setting" v-if="currentItem" :key="currentItem.id" />
         </div>
       </div>
