@@ -1,9 +1,9 @@
 import draggable from 'vuedraggable'
-import { plugin } from '@poto/block-basic'
+import { plugin } from '@poto/block-basics'
 import '@unocss/reset/tailwind.css'
 import App from './App.vue'
 import './styles/main.css'
-import '@poto/block-basic/dist/style.css'
+import '@poto/block-basics/dist/style.css'
 import 'uno.css'
 
 const app = createApp(App)

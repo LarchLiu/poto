@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { BasicSetting, BlockBasics, Columns2Config, Columns3Config, GroupConfig, MarkdownConfig, TextConfig, TitleConfig } from '@poto/block-basic'
+import { BasicSetting, BlockBasics, Columns2Config, Columns3Config, GroupConfig, MarkdownConfig, TextConfig, TitleConfig } from '@poto/block-basics'
 import { BlockItem } from './types'
 
 const designer = useDesignerStore()

@@ -6,7 +6,7 @@ import App from './App.vue'
 import type { UserModule } from './types'
 import generatedRoutes from '~pages'
 
-import '@poto/block-basic/dist/style.css'
+import '@poto/block-basics/dist/style.css'
 import './styles/main.css'
 import 'uno.css'
 

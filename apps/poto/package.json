@@ -14,7 +14,7 @@
     "typecheck": "vue-tsc --noEmit"
   },
   "dependencies": {
-    "@poto/block-basic": "workspace:*",
+    "@poto/block-basics": "workspace:*",
     "@poto/pinia": "workspace:*",
     "@poto/utils": "workspace:*",
     "@tiptap/core": "2.0.0-beta.182",

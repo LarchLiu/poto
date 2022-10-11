@@ -1,5 +1,5 @@
 import { createPinia } from 'pinia'
-import { plugin } from '@poto/block-basic'
+import { plugin } from '@poto/block-basics'
 import { type UserModule } from '~/types'
 
 // Setup Pinia

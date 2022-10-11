@@ -13,7 +13,7 @@
     "typecheck": "vue-tsc --noEmit"
   },
   "dependencies": {
-    "@poto/block-basic": "workspace:*",
+    "@poto/block-basics": "workspace:*",
     "@poto/pinia": "workspace:*",
     "@poto/types": "workspace:*",
     "@poto/utils": "workspace:*",
