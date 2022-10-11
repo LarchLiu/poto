@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import type { BlockItem } from '~/types'
-import { BlockComponents } from '~/utils'
+import { BlockBasics } from '~/utils'
 
 // const designer = inject('designer') as Designer
 const designer = useDesignerStore()
@@ -87,7 +87,7 @@ const borderBackgroundImage = computed(() => {
       <template #item="{ element }: { element: BlockItem }">
         <div :id="`layout-${element.category}-${element.id}`" :style="{ width: `${element.options.size.width}%` }">
           <layout-wrapper :item="element">
-            <component :is="BlockComponents[element.blockType].widget" :item="element" :real-content="false" />
+            <component :is="BlockBasics[element.blockType].blockView" :item="element" :real-content="false" />
           </layout-wrapper>
           <!-- <div class="add-line opacity-0 hover:opacity-60">
             <div class="line" /><div class="add-button">

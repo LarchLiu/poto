@@ -1,11 +1,11 @@
 <script setup lang="ts">
 import type { BlockItem, CustomBlock } from '~/types'
-import { BlockComponents, cloneItem } from '~/utils'
+import { BlockBasics, cloneItem } from '~/utils'
 
 const designer = useDesignerStore()
 const customBlocks = useCustomBlocksStore()
-const list: BlockItem[] = Object.keys(BlockComponents).map((type) => {
-  return BlockComponents[type].config
+const list: BlockItem[] = Object.keys(BlockBasics).map((type) => {
+  return BlockBasics[type].config
 })
 
 const cloneCustomComponent = (component: CustomBlock) => {
@@ -54,7 +54,7 @@ const addItem = (item: BlockItem) => {
                         <div w-750px scale-50 origin-left>
                           <div :style="{ width: `${element.item.options.size.width}%` }">
                             <layout-wrapper :item="element.item">
-                              <component :is="BlockComponents[element.item.blockType].widget" :item="element.item" :real-content="false" />
+                              <component :is="BlockBasics[element.item.blockType].blockView" :item="element.item" :real-content="false" />
                             </layout-wrapper>
                           </div>
                         </div>

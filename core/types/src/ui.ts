@@ -1,3 +1,4 @@
+import type { Component } from 'vue'
 import type { SourceData } from './action'
 
 export enum BlockType {
@@ -173,5 +174,13 @@ export interface MenuTheme {
   textSelectedColor: string
 
   hoverBackground: string
+}
+
+export interface BlockInfo {
+  [key: string]: {
+    blockView: string | Component
+    settingsView: Component
+    config: BlockItem
+  }
 }
 

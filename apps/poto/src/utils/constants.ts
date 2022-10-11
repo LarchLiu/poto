@@ -1,1 +1,1 @@
-export { BlockComponents } from '@poto/block-basic'
+export { BlockBasics } from '@poto/block-basic'

@@ -1,4 +1,3 @@
-import type { Component } from 'vue'
 import PText from '~/components/Widgets/PText.vue'
 import Group from '~/components/Widgets/Group.vue'
 import List from '~/components/Widgets/List.vue'
@@ -6,7 +5,7 @@ import Markdown from '~/components/Widgets/Markdown.vue'
 import PTextSetting from '~/components/Settings/PTextSetting.vue'
 import GroupSetting from '~/components/Settings/GroupSetting.vue'
 import { BlockType } from '~/types'
-import type { BasicSettings, BlockItem, TextSettings } from '~/types'
+import type { BlockInfo, BlockItem, TextSettings } from '~/types'
 
 // @unocss-include
 export const TextConfig: BlockItem = {
@@ -396,14 +395,14 @@ export const MarkdownConfig: BlockItem = {
   } as TextSettings,
 }
 
-export const BlockComponents: Record<string, { widget: string | Component; setting: string | Component; config: BlockItem }> = {
-  [BlockType.Text]: { widget: PText, setting: PTextSetting, config: TextConfig },
-  [BlockType.Title]: { widget: PText, setting: PTextSetting, config: TitleConfig },
-  [BlockType.Markdown]: { widget: Markdown, setting: PTextSetting, config: MarkdownConfig },
-  [BlockType.Group]: { widget: Group, setting: GroupSetting, config: GroupConfig },
-  [BlockType.Columns2]: { widget: Group, setting: GroupSetting, config: Columns2Config },
-  [BlockType.Columns3]: { widget: Group, setting: GroupSetting, config: Columns3Config },
-  [BlockType.List]: { widget: List, setting: GroupSetting, config: ListConfig },
+export const BlockBasics: BlockInfo = {
+  [BlockType.Text]: { blockView: PText, settingsView: PTextSetting, config: TextConfig },
+  [BlockType.Title]: { blockView: PText, settingsView: PTextSetting, config: TitleConfig },
+  [BlockType.Markdown]: { blockView: Markdown, settingsView: PTextSetting, config: MarkdownConfig },
+  [BlockType.Group]: { blockView: Group, settingsView: GroupSetting, config: GroupConfig },
+  [BlockType.Columns2]: { blockView: Group, settingsView: GroupSetting, config: Columns2Config },
+  [BlockType.Columns3]: { blockView: Group, settingsView: GroupSetting, config: Columns3Config },
+  [BlockType.List]: { blockView: List, settingsView: GroupSetting, config: ListConfig },
 }
 
 export const MermaidTemplates = {
@@ -454,38 +453,5 @@ Another task     :after a1  , 20d
 section Another
 Task in sec      :2014-01-12  , 12d
 another task      : 24d`,
-}
-
-export const designerOptions: BasicSettings = {
-  name: 'Designer',
-  padding: [10, 10, 10, 10],
-  margin: [0, 0, 0, 0],
-  border: {
-    has: false,
-    width: [1, 1, 1, 1],
-    style: 'solid',
-    radius: [0, 0, 0, 0],
-    color: {
-      type: 'single',
-      options: {
-        colors: ['#000000'],
-        opacity: 1,
-        degree: 45,
-        gradient: true,
-        url: '',
-      },
-    },
-  },
-  size: { width: 100, height: 100 },
-  backgroundColor: {
-    type: 'single',
-    options: {
-      colors: ['#00000000'],
-      opacity: 1,
-      degree: 45,
-      gradient: true,
-      url: '',
-    },
-  },
 }
 

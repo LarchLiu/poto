@@ -58,7 +58,7 @@ export default defineConfig({
     cssCodeSplit: false,
     lib: {
       // Could also be a dictionary or array of multiple entry points
-      entry: path.resolve(__dirname, 'index.ts'),
+      entry: path.resolve(__dirname, 'src/index.ts'),
       name: 'poto-block-basic',
       // the proper extensions will be added
       fileName: 'poto-block-basic',

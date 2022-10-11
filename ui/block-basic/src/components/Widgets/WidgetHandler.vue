@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import { UUID } from '@poto/utils'
 import type { BlockItem, CustomBlock, MenuItem } from '~/types'
-import { BlockComponents } from '~/constants'
+import { BlockBasics } from '~/constants'
 import { store } from '~/store'
 
 const props = defineProps<{
@@ -20,8 +20,8 @@ const menuEle = ref<HTMLElement | null>(null)
 //   return menuEle.value?.offsetHeight || 0
 // })
 
-const widgetList = Object.keys(BlockComponents).map((type) => {
-  const config = BlockComponents[type].config
+const widgetList = Object.keys(BlockBasics).map((type) => {
+  const config = BlockBasics[type].config
   return {
     icon: config.icon!,
     label: config.options.name,

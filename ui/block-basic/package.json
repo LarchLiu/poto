@@ -4,6 +4,7 @@
   "private": true,
   "exports": {
     ".": {
+      "types": "./dist/index.d.ts",
       "require": "./dist/poto-block-basic.umd.js",
       "import": "./dist/poto-block-basic.mjs"
     },
@@ -11,10 +12,10 @@
   },
   "main": "./dist/poto-block-basic.umd.js",
   "module": "./dist/poto-block-basic.mjs",
+  "types": "./dist/index.d.ts",
   "files": ["dist"],
   "scripts": {
-    "build": "vite build",
-    "dev": "vite build --watch",
+    "build": "vite build && vue-tsc --declaration --emitDeclarationOnly",
     "lint": "eslint .",
     "preview": "vite preview",
     "preview-https": "serve dist",

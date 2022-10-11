@@ -1,9 +1,10 @@
 {
   "compilerOptions": {
+    "outDir": "dist",
     "baseUrl": ".",
     "module": "ESNext",
     "target": "ESNext",
-    "lib": ["DOM", "ESNext"],
+    "lib": ["esnext", "dom", "dom.iterable", "scripthost"],
     "strict": true,
     "esModuleInterop": true,
     "jsx": "preserve",
@@ -14,6 +15,9 @@
     "strictNullChecks": true,
     "allowJs": true,
     "forceConsistentCasingInFileNames": true,
+    "useDefineForClassFields": true,
+    "isolatedModules": true,
+    "sourceMap": true,
     "types": [
       "element-plus/global",
       "vitest",
@@ -26,5 +30,5 @@
       "~/*": ["src/*"]
     }
   },
-  "exclude": ["dist", "node_modules", "cypress"]
+  "include": ["src/**/*.ts", "src/**/*.d.ts", "src/**/*.tsx", "src/**/*.vue"]
 }

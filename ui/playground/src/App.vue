@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { BasicSetting, BlockComponents, Columns2Config, Columns3Config, GroupConfig, MarkdownConfig, TextConfig, TitleConfig } from '@poto/block-basic'
+import { BasicSetting, BlockBasics, Columns2Config, Columns3Config, GroupConfig, MarkdownConfig, TextConfig, TitleConfig } from '@poto/block-basic'
 import { BlockItem } from './types'
 
 const designer = useDesignerStore()
@@ -74,7 +74,7 @@ const borderBackgroundImage = computed(() => {
 })
 
 onMounted(() => {
-  // console.log(BlockComponents.TEXT.widget)
+  // console.log(BlockBasics.TEXT.widget)
   actionsStore.createByJsonString(jsonActions.value)
   customBlocks.createByJsonString(jsonComponents.value)
   designer.addItem(TextConfig)
@@ -110,7 +110,7 @@ onMounted(() => {
           <template #item="{ element }: { element: BlockItem }">
             <div :id="`layout-${element.category}-${element.id}`" :style="{ width: `${element.options.size.width}%` }">
               <layout-wrapper :item="element">
-                <component :is="BlockComponents[element.blockType].widget" :item="element" :real-content="false" />
+                <component :is="BlockBasics[element.blockType].blockView" :item="element" :real-content="false" />
               </layout-wrapper>
             </div>
           </template>
@@ -124,14 +124,14 @@ onMounted(() => {
         >
           <div v-for="element in designer.list" :id="`${element.category}-${element.id}`" :key="element.id" :style="{ width: `${element.options.size.width}%` }">
             <wrapper :item="element">
-              <component :is="BlockComponents[element.blockType].widget" :item="element" />
+              <component :is="BlockBasics[element.blockType].blockView" :item="element" />
             </wrapper>
           </div>
         </div>
       </div>
       <div>
         <div class="p-2 w-300px">
-          <component :is="BlockComponents[currentItem.blockType].setting" v-if="currentItem" :key="currentItem.id" />
+          <component :is="BlockBasics[currentItem.blockType].settingsView" v-if="currentItem" :key="currentItem.id" />
         </div>
       </div>
     </div>

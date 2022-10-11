@@ -3,7 +3,7 @@ import type { PropType } from 'vue'
 import { runTransformer } from '@poto/utils'
 // import { Api } from '~/api/base'
 import type { BlockItem, BodyContent, GroupSettings, RestApiAction, TransformerAction } from '~/types'
-import { BlockComponents } from '~/constants'
+import { BlockBasics } from '~/constants'
 import { store } from '~/store'
 
 const props = defineProps({
@@ -157,7 +157,7 @@ onMounted(() => {
   >
     <div v-for="element in options.list" :id="`${element.category}-${element.id}`" :key="`${element.id}-${keyIdx}`" :style="{ flexBasis: flexBasis(element) }">
       <wrapper :item="element">
-        <component :is="BlockComponents[element.blockType].widget" :item="setListItemData(element, ownData)" :parent-data="ownData" :list-index="listIndex" :real-content="realContent" />
+        <component :is="BlockBasics[element.blockType].blockView" :item="setListItemData(element, ownData)" :parent-data="ownData" :list-index="listIndex" :real-content="realContent" />
       </wrapper>
     </div>
   </div>
@@ -178,7 +178,7 @@ onMounted(() => {
     <template #item="{ element }: { element: BlockItem }">
       <div :id="`layout-${element.category}-${element.id}`" :style="{ flexBasis: flexBasis(element) }">
         <layout-wrapper :item="element" :un-resize="options.flex.basis > 0">
-          <component :is="BlockComponents[element.blockType].widget" :item="element" :real-content="realContent" />
+          <component :is="BlockBasics[element.blockType].blockView" :item="element" :real-content="realContent" />
         </layout-wrapper>
       </div>
     </template>
