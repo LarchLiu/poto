@@ -14,7 +14,7 @@
   "files": ["dist"],
   "scripts": {
     "build": "vite build",
-    "dev": "vite",
+    "dev": "vite build --watch",
     "lint": "eslint .",
     "preview": "vite preview",
     "preview-https": "serve dist",

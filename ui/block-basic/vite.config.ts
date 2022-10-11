@@ -31,6 +31,12 @@ export default defineConfig({
             'useWidgetMenuStore',
           ],
         },
+        {
+          'element-plus/es': [
+            // named imports
+            'ElMessage',
+          ],
+        },
       ],
       dts: 'src/auto-imports.d.ts',
       vueTemplate: true,
