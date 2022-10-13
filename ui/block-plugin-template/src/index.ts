@@ -1,11 +1,12 @@
 import type { BlockItem, TextSettings } from '@poto/types'
-import { BlockType } from '@poto/types'
+import blockView from './components/widget.vue'
+import settingsView from './components/settings.vue'
 
 const settings: BlockItem = {
   author: '[alex](github.com)',
   category: 'widget',
   icon: 'i-fluent-text-case-title-16-regular',
-  blockType: BlockType.Text,
+  blockType: __BLOCK_TYPE__,
   options: {
     // basic options
     name: 'Text',
@@ -60,7 +61,7 @@ const settings: BlockItem = {
 }
 
 export default {
-  blockView: 'plugin1',
-  blockSettingsView: 'widgetSettingsView1',
-  defaultSettings: settings,
+  blockView,
+  settingsView,
+  config: settings,
 }

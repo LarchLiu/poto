@@ -7,7 +7,7 @@ export default defineConfig({
   plugins: [
     Inspect(),
     AutoImport({
-      imports: ['block-plugins-template'],
+      imports: ['@poto/block-plugins-template'],
       dirs: ['src/block-plugins/*'],
       fileFilter(file: string) {
         const arr = file.split('.')

@@ -1,12 +1,26 @@
 {
   "compilerOptions": {
-    "target": "es2017",
-    "module": "esnext",
-    "lib": ["esnext", "DOM"],
-    "moduleResolution": "node",
-    "esModuleInterop": true,
+    "outDir": "dist",
+    "baseUrl": ".",
+    "module": "ESNext",
+    "target": "ESNext",
+    "lib": ["esnext", "dom", "dom.iterable", "scripthost"],
     "strict": true,
+    "esModuleInterop": true,
+    "jsx": "preserve",
+    "skipLibCheck": true,
+    "moduleResolution": "node",
+    "resolveJsonModule": true,
+    "noUnusedLocals": true,
     "strictNullChecks": true,
-    "resolveJsonModule": true
-  }
+    "allowJs": true,
+    "forceConsistentCasingInFileNames": true,
+    "useDefineForClassFields": true,
+    "isolatedModules": true,
+    "sourceMap": true,
+    "types": [
+      "vite/client"
+    ]
+  },
+  "include": ["src/**/*.ts", "src/**/*.vue"]
 }

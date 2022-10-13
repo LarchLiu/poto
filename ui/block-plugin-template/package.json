@@ -1,22 +1,38 @@
 {
-  "name": "block-plugins-template",
+  "name": "@poto/block-plugins-template",
   "type": "module",
   "version": "0.0.0",
   "private": true,
   "exports": {
-    "types": "./dist/index.d.ts",
-    "require": "./dist/index.cjs",
-    "import": "./dist/index.js"
+    ".": {
+      "types": "./dist/index.d.ts",
+      "require": "./dist/poto-block-plugin-template.umd.cjs",
+      "import": "./dist/poto-block-plugin-template.js"
+    },
+    "./dist/style.css": "./dist/style.css"
   },
-  "main": "./dist/index.cjs",
-  "module": "./dist/index.js",
+  "main": "./dist/poto-block-plugin-template.umd.cjs",
+  "module": "./dist/poto-block-plugin-template.js",
   "types": "./dist/index.d.ts",
+  "files": ["dist"],
   "scripts": {
-    "build": "tsup src/*.ts --format cjs,esm --dts --splitting --clean",
-    "dev": "tsup src/*.ts --format cjs,esm --dts --watch src"
+    "build": "vite build && vue-tsc --declaration --emitDeclarationOnly",
+    "lint": "eslint .",
+    "typecheck": "vue-tsc --noEmit"
+  },
+  "dependencies": {
+    "@poto/pinia": "workspace:*",
+    "@poto/types": "workspace:*",
+    "@poto/utils": "workspace:*",
+    "pinia": "^2.0.20",
+    "vue": "^3.2.40"
   },
   "devDependencies": {
+    "@poto/gen-block-type": "workspace:*",
     "@poto/types": "workspace:*",
-    "tsup": "^6.2.2"
+    "@vitejs/plugin-vue": "^3.0.3",
+    "typescript": "^4.8.4",
+    "vite": "^3.1.6",
+    "vue-tsc": "^1.0.6"
   }
 }

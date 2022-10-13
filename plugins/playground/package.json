@@ -7,8 +7,9 @@
   },
   "devDependencies": {
     "@poto/auto-import": "workspace:*",
+    "@poto/block-plugins-template": "workspace:*",
     "@poto/gen-block-type": "workspace:*",
-    "block-plugins-template": "workspace:*",
+    "@poto/types": "workspace:*",
     "nodemon": "^2.0.20"
   }
 }

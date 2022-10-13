@@ -11,7 +11,7 @@ importers:
       vite: ^3.1.6
       vite-plugin-inspect: ^0.7.5
       vitest: ^0.23.4
-      vue-tsc: ^1.0.6
+      vue-tsc: ^1.0.7
     devDependencies:
       '@antfu/eslint-config': 0.27.0_ypn2ylkkyfa5i233caldtndbqa
       eslint: 8.24.0
@@ -20,7 +20,7 @@ importers:
       vite: 3.1.6
       vite-plugin-inspect: 0.7.5_vite@3.1.6
       vitest: 0.23.4
-      vue-tsc: 1.0.6_typescript@4.8.4
+      vue-tsc: 1.0.7_typescript@4.8.4
 
   apps/poto:
     specifiers:
@@ -196,13 +196,15 @@ importers:
   plugins/playground:
     specifiers:
       '@poto/auto-import': workspace:*
+      '@poto/block-plugins-template': workspace:*
       '@poto/gen-block-type': workspace:*
-      block-plugins-template: workspace:*
+      '@poto/types': workspace:*
       nodemon: ^2.0.20
     devDependencies:
       '@poto/auto-import': link:../poto-auto-import
+      '@poto/block-plugins-template': link:../../ui/block-plugin-template
       '@poto/gen-block-type': link:../poto-gen-block-type
-      block-plugins-template: link:../../ui/block-plugin-template
+      '@poto/types': link:../../core/types
       nodemon: 2.0.20
 
   plugins/poto-auto-import:
@@ -217,12 +219,12 @@ importers:
       unplugin: ^0.9.3
     dependencies:
       '@antfu/utils': 0.5.2
+      '@poto/utils': link:../../core/utils
       magic-string: 0.26.6
       unimport: 0.6.8
       unplugin: 0.9.6
     devDependencies:
       '@antfu/ni': 0.17.2
-      '@poto/utils': link:../../core/utils
       bumpp: 8.2.1
       tsup: 6.2.3
 
@@ -231,9 +233,10 @@ importers:
       '@antfu/ni': ^0.17.2
       '@poto/utils': workspace:*
       tsup: ^6.2.2
+    dependencies:
+      '@poto/utils': link:../../core/utils
     devDependencies:
       '@antfu/ni': 0.17.2
-      '@poto/utils': link:../../core/utils
       tsup: 6.2.3
 
   ui/block-basics:
@@ -329,11 +332,28 @@ importers:
 
   ui/block-plugin-template:
     specifiers:
+      '@poto/gen-block-type': workspace:*
+      '@poto/pinia': workspace:*
       '@poto/types': workspace:*
-      tsup: ^6.2.2
-    devDependencies:
+      '@poto/utils': workspace:*
+      '@vitejs/plugin-vue': ^3.0.3
+      pinia: ^2.0.20
+      typescript: ^4.8.4
+      vite: ^3.1.6
+      vue: ^3.2.40
+      vue-tsc: ^1.0.6
+    dependencies:
+      '@poto/pinia': link:../../core/pinia
       '@poto/types': link:../../core/types
-      tsup: 6.2.3
+      '@poto/utils': link:../../core/utils
+      pinia: 2.0.22_bfjwoga25wxjazzogo7o372nwq
+      vue: 3.2.40
+    devDependencies:
+      '@poto/gen-block-type': link:../../plugins/poto-gen-block-type
+      '@vitejs/plugin-vue': 3.1.2_vite@3.1.6+vue@3.2.40
+      typescript: 4.8.4
+      vite: 3.1.6
+      vue-tsc: 1.0.6_typescript@4.8.4
 
   ui/playground:
     specifiers:
@@ -342,7 +362,9 @@ importers:
       '@iconify-json/iconoir': ^1.1.8
       '@iconify-json/mdi': ^1.1.31
       '@intlify/vite-plugin-vue-i18n': ^6.0.1
+      '@poto/auto-import': workspace:*
       '@poto/block-basics': workspace:*
+      '@poto/block-plugins-template': workspace:*
       '@poto/pinia': workspace:*
       '@poto/types': workspace:*
       '@poto/utils': workspace:*
@@ -410,6 +432,8 @@ importers:
       '@iconify-json/iconoir': 1.1.11
       '@iconify-json/mdi': 1.1.33
       '@intlify/vite-plugin-vue-i18n': 6.0.3_vite@3.1.6
+      '@poto/auto-import': link:../../plugins/poto-auto-import
+      '@poto/block-plugins-template': link:../block-plugin-template
       '@types/katex': 0.14.0
       '@types/markdown-it-link-attributes': 3.0.1
       '@types/mermaid': 8.2.9
@@ -3068,7 +3092,7 @@ packages:
       vite: ^3.0.0
       vue: ^3.2.25
     dependencies:
-      vite: 3.1.6_sass@1.55.0
+      vite: 3.1.6
       vue: 3.2.40
     dev: true
 
@@ -3080,8 +3104,22 @@ packages:
       muggle-string: 0.1.0
     dev: true
 
+  /@volar/language-core/1.0.7:
+    resolution: {integrity: sha512-T3iJ7Ej5Ywrsn1nEfvOQ98LdFZu3TtoXD8UELHto/u5QyQk4U2GfPl+0ZjuS39ZPocU9l/5CMhrxHsgv/hFWVA==}
+    dependencies:
+      '@volar/source-map': 1.0.7
+      '@vue/reactivity': 3.2.40
+      muggle-string: 0.1.0
+    dev: true
+
   /@volar/source-map/1.0.6:
     resolution: {integrity: sha512-RnsfanjHQlLR0BXPUPW8UXDU647yISnuywtJthkKlgCAoBDoJIA5LnUb6QqgPo9uImtMU1VZC8D8Cpx/EpaO6g==}
+    dependencies:
+      muggle-string: 0.1.0
+    dev: true
+
+  /@volar/source-map/1.0.7:
+    resolution: {integrity: sha512-58xtTXbriaBoGHl5epE5kYI0Pk81yGmM3Mb/5TEUEzA16dGovXiwtEGce2xCgo0ps42OInFvFuaRv3SvM0k6mg==}
     dependencies:
       muggle-string: 0.1.0
     dev: true
@@ -3090,6 +3128,12 @@ packages:
     resolution: {integrity: sha512-qfeqQZ2fCRnk8JUlIbpUlypdfm1D6uLSi8e4DtVHYlg7hWU5diZypyZdQX32CBrZ7mYzMmYe3C2czkrRCGoO3g==}
     dependencies:
       '@volar/language-core': 1.0.6
+    dev: true
+
+  /@volar/typescript/1.0.7:
+    resolution: {integrity: sha512-VH3dMxTqkdUqjmdVwIytBjppH5iy18qK9peb3E9CNbvzf/+b3TpdX0zoyglaKmC5IeHG68KHXK2yps734yZ4nQ==}
+    dependencies:
+      '@volar/language-core': 1.0.7
     dev: true
 
   /@volar/vue-language-core/1.0.6:
@@ -3105,11 +3149,31 @@ packages:
       vue-template-compiler: 2.7.10
     dev: true
 
+  /@volar/vue-language-core/1.0.7:
+    resolution: {integrity: sha512-5InGpRLu5FGeUkVNr1LvQfvThdSsyzIwvsYqYSGLj6VNmS7rzLacoKjZlTwz68/976aU3zjdgx94PoNl5n/SqA==}
+    dependencies:
+      '@volar/language-core': 1.0.7
+      '@volar/source-map': 1.0.7
+      '@vue/compiler-dom': 3.2.40
+      '@vue/compiler-sfc': 3.2.40
+      '@vue/reactivity': 3.2.40
+      '@vue/shared': 3.2.40
+      minimatch: 5.1.0
+      vue-template-compiler: 2.7.10
+    dev: true
+
   /@volar/vue-typescript/1.0.6:
     resolution: {integrity: sha512-1ct4Nc3fzCfwUorkx2NiJ07kB65ZKms3VKTHsH4OXWhy5wlGCd8Oq09KLYu3zz3eOd0WfjkNTrRmOnf6dfTO8A==}
     dependencies:
       '@volar/typescript': 1.0.6
       '@volar/vue-language-core': 1.0.6
+    dev: true
+
+  /@volar/vue-typescript/1.0.7:
+    resolution: {integrity: sha512-SZlUJfMh/9NOIfpYtSVcIAbJVEzEiH2qWBIYHPooMXC02qey56Tg6J2eMhIoKWIuZH0VRRbX8IgFHevSQzzGOw==}
+    dependencies:
+      '@volar/typescript': 1.0.7
+      '@volar/vue-language-core': 1.0.7
     dev: true
 
   /@vue/compiler-core/3.2.40:
@@ -9251,6 +9315,17 @@ packages:
     dependencies:
       '@volar/vue-language-core': 1.0.6
       '@volar/vue-typescript': 1.0.6
+      typescript: 4.8.4
+    dev: true
+
+  /vue-tsc/1.0.7_typescript@4.8.4:
+    resolution: {integrity: sha512-PaeWgISdXsPnV3a1NKfiAZb0iyvgLroxKzjPj1itoR5ZH0UOeVZBbDxpH7VPxAt6tCxiAoAIIisDs1QQrsSu3w==}
+    hasBin: true
+    peerDependencies:
+      typescript: '*'
+    dependencies:
+      '@volar/vue-language-core': 1.0.7
+      '@volar/vue-typescript': 1.0.7
       typescript: 4.8.4
     dev: true
 

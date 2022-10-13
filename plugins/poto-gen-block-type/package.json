@@ -29,9 +29,11 @@
     "lint:fix": "nr lint --fix",
     "release": "bumpp --commit --push --tag"
   },
+  "dependencies": {
+    "@poto/utils": "workspace:*"
+  },
   "devDependencies": {
     "@antfu/ni": "^0.17.2",
-    "@poto/utils": "workspace:*",
     "tsup": "^6.2.2"
   }
 }

@@ -5,6 +5,6 @@ const settings = {
 
 export default {
   blockView: 'widgetView3',
-  blockSettingsView: 'widgetSettingsView3',
-  defaultSettings: settings,
+  settingsView: 'widgetSettingsView3',
+  config: settings,
 }
