@@ -159,12 +159,12 @@ importers:
       vite: ^3.1.6
       vue: ^3.2.40
     dependencies:
-      '@poto/utils': link:../utils
       '@vueuse/core': 9.3.0_vue@3.2.40
       pinia: 2.0.22_vue@3.2.40
       vue: 3.2.40
     devDependencies:
       '@poto/types': link:../types
+      '@poto/utils': link:../utils
       tsup: 6.2.3
       vite: 3.1.6
 

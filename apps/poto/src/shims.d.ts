@@ -1,6 +1,3 @@
-/// <reference types="vite-plugin-pages/client" />
-/// <reference types="vite-plugin-vue-layouts/client" />
-
 declare interface Window {
   // extend the window
 }
