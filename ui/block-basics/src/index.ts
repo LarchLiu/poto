@@ -3,10 +3,10 @@ import { potoPinia } from '@poto/pinia'
 import * as components from './components'
 import type { PluginOptions } from './config'
 import { config } from './config'
-import BasicSetting from './components/Settings/BasicSetting.vue'
+import BasicSettingsView from './components/Settings/BasicSetting.vue'
 
 export { TextConfig, TitleConfig, MarkdownConfig, GroupConfig, Columns2Config, Columns3Config, ListConfig, BlockBasics } from './constants'
-export { BasicSetting }
+export { BasicSettingsView }
 
 export const potoBlockBasics = {
   install(app: App, options: PluginOptions) {

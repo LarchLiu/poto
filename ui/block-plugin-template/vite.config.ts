@@ -22,12 +22,22 @@ export default defineConfig({
       // into your library
       external: [
         'vue',
+        'pinia',
+        '@poto/pinia',
+        '@poto/utils',
+        '@poto/block-basics',
+        '@vueuse/core',
       ],
       output: {
         // Provide global variables to use in the UMD build
         // for externalized deps
         globals: {
-          vue: 'Vue',
+          'vue': 'Vue',
+          'pinia': 'pinia',
+          '@poto/pinia': '@poto/pinia',
+          '@poto/utils': '@poto/utils',
+          '@poto/block-basics': '@poto/block-basics',
+          '@vueuse/core': '@vueuse/core',
         },
       },
     },

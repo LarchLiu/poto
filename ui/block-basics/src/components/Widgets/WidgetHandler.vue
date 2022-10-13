@@ -9,6 +9,7 @@ const props = defineProps<{
 const designer = useDesignerStore()
 const customBlocks = useCustomBlocksStore()
 const widgetMenu = useWidgetMenuStore()
+const blockPlugins = designer.getBlockPlugins()
 const { height: windowHeight } = useWindowSize()
 const showMenu = ref(false)
 const menuId = UUID()
@@ -30,6 +31,27 @@ const widgetList = Object.keys(BlockBasics).map((type) => {
     },
   }
 })
+
+const pluginsList = blockPlugins
+  ? [
+      {
+        divider: true,
+      }, {
+        icon: 'i-clarity-plugin-line',
+        label: 'Plugins',
+        subMenu: Object.keys(blockPlugins).map((type) => {
+          const config = blockPlugins[type].config
+          return {
+            label: config.options.name,
+            callback: () => {
+              designer.addItem(config)
+              showMenu.value = false
+            },
+          }
+        }),
+      },
+    ]
+  : []
 
 const customComponentsSubmenu = computed(() => customBlocks.components.map((component) => {
   return {
@@ -66,9 +88,9 @@ const customComponentsList = computed(() => {
 
 const addList = computed(() => {
   if (customBlocks.components.length > 0)
-    return [...widgetList, ...customComponentsList.value]
+    return [...widgetList, ...pluginsList, ...customComponentsList.value]
   else
-    return [...widgetList]
+    return [...widgetList, ...pluginsList]
 })
 
 const blockMenu = computed(() => {
@@ -177,17 +199,6 @@ watch(() => widgetMenu.id, (value) => {
       >
         <div class="text-left divide-y">
           <div>
-            <!-- <div
-              v-for="option, i in blockMenu"
-              :key="option.label"
-              class="px-2 py-1 rounded flex items-center gap-2 cursor-pointer"
-              :class="[active === i ? 'bg-neutral-100' : '']"
-              @mousedown="option.callback"
-              @mouseover="active = i"
-            >
-              <div :class="option.icon" />
-              <span class="truncate">{{ option.label }}</span>
-            </div> -->
             <FloatMenu :data="blockMenu" />
           </div>
         </div>

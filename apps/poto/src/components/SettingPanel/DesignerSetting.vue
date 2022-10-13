@@ -3,7 +3,7 @@
 </script>
 
 <template>
-  <basic-setting :is-designer="true" />
+  <basic-settings-view :is-designer="true" />
 </template>
 
 <style scoped>

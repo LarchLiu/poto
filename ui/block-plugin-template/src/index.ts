@@ -1,15 +1,23 @@
 import type { BlockItem, TextSettings } from '@poto/types'
+import type { Pinia } from 'pinia'
+import { potoPinia } from '@poto/pinia'
+import type { App } from 'vue'
 import blockView from './components/widget.vue'
 import settingsView from './components/settings.vue'
 
+interface PluginOptions {
+  piniaInstance: Pinia
+}
+
+// @unocss-include
 const settings: BlockItem = {
-  author: '[alex](github.com)',
+  author: '[alex](github.com/larchliu)',
   category: 'widget',
   icon: 'i-fluent-text-case-title-16-regular',
   blockType: __BLOCK_TYPE__,
   options: {
     // basic options
-    name: 'Text',
+    name: 'MyBlockPlugin',
     padding: [0, 0, 0, 0],
     margin: [0, 0, 0, 0],
     border: {
@@ -58,6 +66,13 @@ const settings: BlockItem = {
     },
     align: 'left',
   } as TextSettings,
+}
+
+export const potoBlockPluginTemplate = {
+  install(app: App, options: PluginOptions) {
+    if (!app.config.globalProperties.$pinia)
+      app.use(potoPinia, { piniaInstance: options.piniaInstance })
+  },
 }
 
 export default {

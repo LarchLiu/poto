@@ -245,7 +245,7 @@ export default defineComponent({
               v-if="icon"
               class="menu-item-icon"
             >
-              <div :class="icon" text-lg />
+              <div :class="icon" class="text-lg" />
             </span>
             <span class="name" :class="[{ disabled }]">{{ label }}</span>
             <span

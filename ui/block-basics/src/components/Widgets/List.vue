@@ -24,6 +24,8 @@ const props = defineProps({
 })
 
 const actionsStore = useActionsStore()
+const blockPlugins = useDesignerStore().getBlockPlugins()
+const blockInfo = { ...BlockBasics, ...blockPlugins }
 const ownData = ref<any>()
 const keyIdx = ref(0)
 const options = computed(() => {
@@ -143,7 +145,7 @@ onMounted(() => {
       <div v-if="!!ownData">
         <div v-for="(data, index) in ownData" :key="`${element.id}-${index}-${keyIdx}`">
           <wrapper :item="element">
-            <component :is="BlockBasics[element.blockType].blockView" :parent-data="data" :list-index="index" :item="setListItemData(element, data, index)" :real-content="realContent" />
+            <component :is="blockInfo[element.blockType].blockView" :parent-data="data" :list-index="index" :item="setListItemData(element, data, index)" :real-content="realContent" />
           </wrapper>
         </div>
       </div>
@@ -166,7 +168,7 @@ onMounted(() => {
     <template #item="{ element }: { element: BlockItem }">
       <div :id="`layout-${element.category}-${element.id}`" :style="{ flexBasis: flexBasis(element) }">
         <layout-wrapper :item="element" :un-resize="options.flex.basis > 0">
-          <component :is="BlockBasics[element.blockType].blockView" :item="element" :real-content="realContent" />
+          <component :is="blockInfo[element.blockType].blockView" :item="element" :real-content="realContent" />
         </layout-wrapper>
       </div>
     </template>

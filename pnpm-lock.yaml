@@ -332,24 +332,24 @@ importers:
 
   ui/block-plugin-template:
     specifiers:
+      '@poto/block-basics': workspace:*
       '@poto/gen-block-type': workspace:*
       '@poto/pinia': workspace:*
       '@poto/types': workspace:*
       '@poto/utils': workspace:*
       '@vitejs/plugin-vue': ^3.0.3
-      pinia: ^2.0.20
       typescript: ^4.8.4
       vite: ^3.1.6
       vue: ^3.2.40
       vue-tsc: ^1.0.6
     dependencies:
+      '@poto/block-basics': link:../block-basics
       '@poto/pinia': link:../../core/pinia
-      '@poto/types': link:../../core/types
       '@poto/utils': link:../../core/utils
-      pinia: 2.0.22_bfjwoga25wxjazzogo7o372nwq
       vue: 3.2.40
     devDependencies:
       '@poto/gen-block-type': link:../../plugins/poto-gen-block-type
+      '@poto/types': link:../../core/types
       '@vitejs/plugin-vue': 3.1.2_vite@3.1.6+vue@3.2.40
       typescript: 4.8.4
       vite: 3.1.6
@@ -358,6 +358,7 @@ importers:
   ui/playground:
     specifiers:
       '@iconify-json/carbon': ^1.1.7
+      '@iconify-json/clarity': ^1.1.4
       '@iconify-json/fluent': ^1.1.16
       '@iconify-json/iconoir': ^1.1.8
       '@iconify-json/mdi': ^1.1.31
@@ -428,6 +429,7 @@ importers:
       vuedraggable: 4.1.0_vue@3.2.40
     devDependencies:
       '@iconify-json/carbon': 1.1.8
+      '@iconify-json/clarity': 1.1.4
       '@iconify-json/fluent': 1.1.16
       '@iconify-json/iconoir': 1.1.11
       '@iconify-json/mdi': 1.1.33
@@ -1907,6 +1909,12 @@ packages:
       '@iconify/types': 2.0.0
     dev: true
 
+  /@iconify-json/clarity/1.1.4:
+    resolution: {integrity: sha512-WnSp4vqVBDqoTvJqUsp39Vo+39iHsPckpLcKmlA5yKxghbt7C3nd9Twy4+WGFuVYq/p2Jy2PFr6EWqciFJSbNw==}
+    dependencies:
+      '@iconify/types': 2.0.0
+    dev: true
+
   /@iconify-json/fluent/1.1.16:
     resolution: {integrity: sha512-8pc7JBRh4nvtnx9IxNnW7IrkgVkFilShaspYs+iQekbRUMB/qsB9tcmKEHUnNiWgyoNSXRnKyQezdDfqn7jY4g==}
     dependencies:
@@ -3092,7 +3100,7 @@ packages:
       vite: ^3.0.0
       vue: ^3.2.25
     dependencies:
-      vite: 3.1.6
+      vite: 3.1.6_sass@1.55.0
       vue: 3.2.40
     dev: true
 

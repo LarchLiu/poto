@@ -1,7 +1,7 @@
 import { defineStore } from 'pinia'
 import { computed, ref } from 'vue'
 import { useWindowSize } from '@vueuse/core'
-import type { BlockItem, FindedItem } from '@poto/types'
+import type { BlockInfo, BlockItem, FindedItem } from '@poto/types'
 import { UUID, cloneItem, deepClone } from '@poto/utils'
 import { designerOptions } from './constants'
 import { config } from './config'
@@ -18,6 +18,7 @@ export const useDesignerStore = () => {
     const currentItem = ref<BlockItem | undefined>(undefined)
     const { height: windowHeight } = useWindowSize()
     const contentPanelHeight = computed(() => windowHeight.value - 48 - 16)
+    const blockPlugins = ref<BlockInfo | undefined>(undefined)
 
     const createByJsonString = (str: string) => {
       try {
@@ -151,6 +152,14 @@ export const useDesignerStore = () => {
       currentItem.value = undefined
     }
 
+    const getBlockPlugins = () => {
+      return blockPlugins.value
+    }
+
+    const setBlockPlugins = (plugins: BlockInfo) => {
+      blockPlugins.value = plugins
+    }
+
     return {
       id,
       // actions,
@@ -168,6 +177,8 @@ export const useDesignerStore = () => {
       resetSelectedItem,
       selectItem,
       resetStore,
+      getBlockPlugins,
+      setBlockPlugins,
     }
   })(config.piniaInstance)
 }

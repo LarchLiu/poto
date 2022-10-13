@@ -21,10 +21,9 @@
     "typecheck": "vue-tsc --noEmit"
   },
   "dependencies": {
+    "@poto/block-basics": "workspace:*",
     "@poto/pinia": "workspace:*",
-    "@poto/types": "workspace:*",
     "@poto/utils": "workspace:*",
-    "pinia": "^2.0.20",
     "vue": "^3.2.40"
   },
   "devDependencies": {

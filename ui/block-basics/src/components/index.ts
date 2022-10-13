@@ -13,6 +13,6 @@ export const LayoutWrapper = {
 }
 
 export const BasicSetting = {
-  name: 'BasicSetting',
+  name: 'BasicSettingsView',
   view: BasicSettingView,
 }
