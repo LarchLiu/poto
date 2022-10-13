@@ -37,7 +37,7 @@ export default defineConfig({
       dts: 'src/auto-imports.d.ts',
       vueTemplate: true,
       resolvers: [ElementPlusResolver()],
-      exclude: [/node_modules/, /\.git/, /core\/pinia/],
+      exclude: [/node_modules/, /\.git/, /core\/pinia/, /ui\/block-plugin-template/],
     }),
 
     // https://github.com/antfu/unplugin-vue-components

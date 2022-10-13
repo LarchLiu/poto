@@ -1,7 +1,9 @@
 <script setup lang="ts">
-import { BasicSetting, BlockBasics, Columns2Config, Columns3Config, GroupConfig, MarkdownConfig, TextConfig, TitleConfig } from '@poto/block-basics'
+import { BlockBasics, Columns2Config, Columns3Config, GroupConfig, MarkdownConfig, TextConfig, TitleConfig } from '@poto/block-basics'
 import { BlockItem } from './types'
+import { BlockPlugins } from './poto-auto-imports'
 
+const BlockList = { ...BlockBasics, ...BlockPlugins }
 const designer = useDesignerStore()
 const actionsStore = useActionsStore()
 const customBlocks = useCustomBlocksStore()
@@ -75,10 +77,12 @@ const borderBackgroundImage = computed(() => {
 
 onMounted(() => {
   // console.log(BlockBasics.TEXT.widget)
+  designer.setBlockPlugins(BlockPlugins)
   actionsStore.createByJsonString(jsonActions.value)
   customBlocks.createByJsonString(jsonComponents.value)
   designer.addItem(TextConfig)
   designer.addItem(TitleConfig)
+  designer.addItem(BlockPlugins.potoBlockPluginsTemplate.config)
   designer.addItem(MarkdownConfig)
   designer.addItem(GroupConfig)
   designer.addItem(Columns2Config)
@@ -90,7 +94,7 @@ onMounted(() => {
   <div id="page">
     <div class="flex flex-row justify-center">
       <div class="p-2 border-r-2">
-        <BasicSetting is-designer />
+        <BasicSettingsView is-designer />
       </div>
       <div class="w-500px">
         <draggable
@@ -110,7 +114,7 @@ onMounted(() => {
           <template #item="{ element }: { element: BlockItem }">
             <div :id="`layout-${element.category}-${element.id}`" :style="{ width: `${element.options.size.width}%` }">
               <layout-wrapper :item="element">
-                <component :is="BlockBasics[element.blockType].blockView" :item="element" :real-content="false" />
+                <component :is="BlockList[element.blockType].blockView" :item="element" :real-content="false" />
               </layout-wrapper>
             </div>
           </template>
@@ -124,14 +128,14 @@ onMounted(() => {
         >
           <div v-for="element in designer.list" :id="`${element.category}-${element.id}`" :key="element.id" :style="{ width: `${element.options.size.width}%` }">
             <wrapper :item="element">
-              <component :is="BlockBasics[element.blockType].blockView" :item="element" />
+              <component :is="BlockList[element.blockType].blockView" :item="element" />
             </wrapper>
           </div>
         </div>
       </div>
       <div>
         <div class="p-2 w-300px">
-          <component :is="BlockBasics[currentItem.blockType].settingsView" v-if="currentItem" :key="currentItem.id" />
+          <component :is="BlockList[currentItem.blockType].settingsView" v-if="currentItem" :key="currentItem.id" />
         </div>
       </div>
     </div>
