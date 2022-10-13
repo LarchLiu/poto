@@ -1,8 +1,7 @@
 <script setup lang="ts">
-import { store } from '~/store'
 import type { TextSettings } from '~/types'
 
-const designer = useDesignerStore(store.piniaInstance)
+const designer = useDesignerStore()
 const currentItem = computed(() => designer.getCurrentItem())
 const widgetOptions = computed(() => (currentItem.value ? currentItem.value.options as TextSettings : undefined))
 </script>

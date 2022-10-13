@@ -5,6 +5,7 @@ import Components from 'unplugin-vue-components/vite'
 import AutoImport from 'unplugin-auto-import/vite'
 import { ElementPlusResolver } from 'unplugin-vue-components/resolvers'
 import Unocss from 'unocss/vite'
+import Inspect from 'vite-plugin-inspect'
 
 export default defineConfig({
   resolve: {
@@ -35,6 +36,7 @@ export default defineConfig({
       dts: 'src/auto-imports.d.ts',
       vueTemplate: true,
       resolvers: [ElementPlusResolver()],
+      exclude: [/node_modules/, /\.git/, /core\/pinia/],
     }),
 
     // https://github.com/antfu/unplugin-vue-components
@@ -46,5 +48,7 @@ export default defineConfig({
     }),
 
     Unocss(),
+
+    Inspect(),
   ],
 })

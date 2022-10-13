@@ -67,13 +67,27 @@ export default defineConfig({
       // make sure to externalize deps that shouldn't be bundled
       // into your library
       external: [
+        '@poto/pinia',
+        '@poto/utils',
+        '@vueuse/core',
+        'element-plus',
+        'katex',
+        'mermaid',
+        'pinia',
         'vue',
       ],
       output: {
         // Provide global variables to use in the UMD build
         // for externalized deps
         globals: {
-          vue: 'Vue',
+          'vue': 'Vue',
+          'pinia': 'pinia',
+          '@poto/pinia': '@poto/pinia',
+          '@poto/utils': '@poto/utils',
+          '@vueuse/core': '@vueuse/core',
+          'element-plus': 'element-plus',
+          'katex': 'katex',
+          'mermaid': 'mermaid',
         },
       },
     },

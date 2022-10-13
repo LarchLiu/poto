@@ -22,15 +22,10 @@ export default defineConfig({
   },
 
   plugins: [
-    Vue({
-      include: [/\.vue$/, /\.md$/],
-      reactivityTransform: true,
-    }),
+    Vue(),
 
     // https://github.com/hannoeru/vite-plugin-pages
-    Pages({
-      extensions: ['vue', 'md'],
-    }),
+    Pages(),
 
     // https://github.com/JohnCampionJr/vite-plugin-vue-layouts
     Layouts(),
@@ -41,7 +36,6 @@ export default defineConfig({
         'vue',
         'vue-router',
         'vue-i18n',
-        'vue/macros',
         '@vueuse/head',
         '@vueuse/core',
         'pinia',
@@ -61,6 +55,7 @@ export default defineConfig({
       ],
       vueTemplate: true,
       resolvers: [ElementPlusResolver()],
+      exclude: [/node_modules/, /\.git/, /core\/pinia/],
     }),
 
     // https://github.com/antfu/unplugin-vue-components

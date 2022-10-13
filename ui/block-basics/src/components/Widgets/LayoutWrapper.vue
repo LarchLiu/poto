@@ -1,5 +1,4 @@
 <script setup lang="ts">
-import { store } from '~/store'
 import type { BasicSettings, BlockItem } from '~/types'
 import { BlockType } from '~/types'
 
@@ -8,7 +7,7 @@ const props = defineProps<{
   unResize?: boolean
 }>()
 
-const designer = useDesignerStore(store.piniaInstance)
+const designer = useDesignerStore()
 const wrapper = ref<HTMLElement>()
 const isResizing = ref(false)
 

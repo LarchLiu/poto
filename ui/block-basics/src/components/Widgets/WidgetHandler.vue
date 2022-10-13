@@ -2,14 +2,13 @@
 import { UUID } from '@poto/utils'
 import type { BlockItem, CustomBlock, MenuItem } from '~/types'
 import { BlockBasics } from '~/constants'
-import { store } from '~/store'
 
 const props = defineProps<{
   item: BlockItem
 }>()
-const designer = useDesignerStore(store.piniaInstance)
-const customBlocks = useCustomBlocksStore(store.piniaInstance)
-const widgetMenu = useWidgetMenuStore(store.piniaInstance)
+const designer = useDesignerStore()
+const customBlocks = useCustomBlocksStore()
+const widgetMenu = useWidgetMenuStore()
 const { height: windowHeight } = useWindowSize()
 const showMenu = ref(false)
 const menuId = UUID()

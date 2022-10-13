@@ -1,5 +1,4 @@
 <script setup lang="ts">
-import { store } from '~/store'
 import type { BasicSettings, BlockItem } from '~/types'
 
 const props = defineProps<{
@@ -7,7 +6,7 @@ const props = defineProps<{
   isEmpty?: boolean
 }>()
 
-const designer = useDesignerStore(store.piniaInstance)
+const designer = useDesignerStore()
 const hoverStyle = ref('')
 const options = computed(() => {
   return props.item.options as BasicSettings

@@ -1,8 +1,7 @@
 <script setup lang="ts">
-import { store } from '~/store'
 import type { GroupSettings } from '~/types'
 
-const designer = useDesignerStore(store.piniaInstance)
+const designer = useDesignerStore()
 const currentItem = computed(() => designer.getCurrentItem())
 const widgetOptions = computed(() => (currentItem.value ? currentItem.value.options as GroupSettings : undefined))
 const alignStyle = (dir: string, idx: number) => {

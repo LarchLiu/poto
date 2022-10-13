@@ -5,7 +5,7 @@ export interface PluginOptions {
   pixabayApiKey: string
 }
 
-export const store: PluginOptions = {
+export const config: PluginOptions = {
   piniaInstance: undefined,
   pixabayApiKey: '',
 }

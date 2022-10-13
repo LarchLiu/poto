@@ -4,25 +4,29 @@
   "version": "0.0.0",
   "private": true,
   "exports": {
-    "types": "./dist/index.d.ts",
-    "require": "./dist/index.cjs",
-    "import": "./dist/index.js"
+    ".": {
+      "types": "./dist/index.d.ts",
+      "require": "./dist/index.cjs",
+      "import": "./dist/index.js"
+    }
   },
   "main": "./dist/index.cjs",
   "module": "./dist/index.js",
   "types": "./dist/index.d.ts",
+  "files": ["dist"],
   "scripts": {
-    "build": "tsup index.ts --format cjs,esm --dts --splitting --clean",
+    "build": "vite build && vue-tsc --declaration --emitDeclarationOnly",
     "dev": "tsup index.ts --format cjs,esm --dts --watch src"
   },
   "dependencies": {
-    "@poto/types": "workspace:*",
-    "@poto/utils": "workspace:*",
     "@vueuse/core": "^9.1.1",
     "pinia": "^2.0.20",
     "vue": "^3.2.40"
   },
   "devDependencies": {
-    "tsup": "^6.2.2"
+    "@poto/types": "workspace:*",
+    "@poto/utils": "workspace:*",
+    "tsup": "^6.2.2",
+    "vite": "^3.1.6"
   }
 }

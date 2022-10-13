@@ -1,5 +1,4 @@
 <script setup lang="ts">
-import { store } from '~/store'
 import type { BasicSettings } from '~/types'
 
 const props = defineProps({
@@ -15,8 +14,8 @@ const props = defineProps({
 })
 
 // const designer = inject('designer') as Designer
-const designer = useDesignerStore(store.piniaInstance)
-const actionsStore = useActionsStore(store.piniaInstance)
+const designer = useDesignerStore()
+const actionsStore = useActionsStore()
 const currentItem = computed(() => {
   return props.isDesigner ? designer : designer.getCurrentItem()
 })

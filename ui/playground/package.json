@@ -3,6 +3,7 @@
   "version": "0.0.0",
   "private": true,
   "scripts": {
+    "build": "vite build",
     "dev": "vite --mode dev",
     "lint": "eslint .",
     "preview": "vite preview",
@@ -45,7 +46,6 @@
     "@types/nprogress": "^0.2.0",
     "@types/qs": "^6.9.7",
     "@types/uuid": "^8.3.4",
-    "@unocss/reset": "*",
     "@vitejs/plugin-vue": "^3.0.3",
     "@vue/test-utils": "^2.0.2",
     "critters": "^0.0.16",
@@ -63,6 +63,7 @@
     "unocss": "^0.45.26",
     "unplugin-auto-import": "^0.11.2",
     "unplugin-vue-components": "^0.22.4",
-    "vite": "^3.1.6"
+    "vite": "^3.1.6",
+    "vite-plugin-inspect": "^0.6.0"
   }
 }

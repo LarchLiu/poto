@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { store } from '~/store'
+import { config } from '~/config'
 
 const props = defineProps<{
   open: boolean
@@ -31,7 +31,7 @@ const saveUrl = (value: string) => {
   emit('update:url', value)
 }
 onMounted(async () => {
-  const { data } = await useFetch(`https://pixabay.com/api/?key=${store.pixabayApiKey}&image_type=photo`)
+  const { data } = await useFetch(`https://pixabay.com/api/?key=${config.pixabayApiKey}&image_type=photo`)
   photoList.value = JSON.parse(data.value as string).hits
 })
 </script>

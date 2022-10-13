@@ -1,8 +1,6 @@
 <script setup lang="ts">
 import type { PropType } from 'vue'
 import { runTransformer } from '@poto/utils'
-import { store } from '~/store'
-// import { Api } from '~/api/base'
 import type { BlockItem, BodyContent, RestApiAction, TextSettings, TransformerAction } from '~/types'
 
 const props = defineProps({
@@ -24,7 +22,7 @@ const props = defineProps({
   },
 })
 
-const actionsStore = useActionsStore(store.piniaInstance)
+const actionsStore = useActionsStore()
 const options = computed(() => {
   return props.item.options as TextSettings
 })
@@ -90,19 +88,6 @@ const fetchSourceData = async (actionId: string) => {
               options.value.text = rawData
             else
               ElMessage.error(err)
-            // Api.request({
-            //   url,
-            // },
-            // (res) => {
-            //   let rawData = res.data
-            //   if (options.value.sourceData?.transformer)
-            //     rawData = runTransformer(options.value.sourceData.transformer, rawData)
-
-            //   if (typeof rawData === 'string')
-            //     options.value.text = rawData
-            //   else
-            //     ElMessage.error(err)
-            // })
           }
         }
         else if (action.type === 'transformer') {
