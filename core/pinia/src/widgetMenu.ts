@@ -3,10 +3,8 @@ import { ref } from 'vue'
 import { config } from './config'
 
 export const useWidgetMenuStore = () => {
-  if (!config.piniaInstance) {
+  if (!config.piniaInstance)
     console.error('[@poto/pinia]: create pinia first and pass instance to plugin')
-    return
-  }
 
   return defineStore('widgetMenu', () => {
     const id = ref('')

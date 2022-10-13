@@ -4,10 +4,8 @@ import type { ActionItem } from '@poto/types'
 import { config } from './config'
 
 export const useActionsStore = () => {
-  if (!config.piniaInstance) {
+  if (!config.piniaInstance)
     console.error('[@poto/pinia]: create pinia first and pass instance to plugin')
-    return
-  }
 
   return defineStore('actions', () => {
     const actions = ref<ActionItem[]>([])

@@ -7,10 +7,8 @@ import { designerOptions } from './constants'
 import { config } from './config'
 
 export const useDesignerStore = () => {
-  if (!config.piniaInstance) {
+  if (!config.piniaInstance)
     console.error('[@poto/pinia]: create pinia first and pass instance to plugin')
-    return
-  }
 
   return defineStore('designer', () => {
     const id = ref(UUID())

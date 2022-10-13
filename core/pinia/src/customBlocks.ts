@@ -4,10 +4,8 @@ import type { CustomBlock } from '@poto/types'
 import { config } from './config'
 
 export const useCustomBlocksStore = () => {
-  if (!config.piniaInstance) {
+  if (!config.piniaInstance)
     console.error('[@poto/pinia]: create pinia first and pass instance to plugin')
-    return
-  }
 
   return defineStore('customBlocks', () => {
     const components = ref<CustomBlock[]>([])
