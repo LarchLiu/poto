@@ -55,7 +55,7 @@ export default defineConfig({
       ],
       vueTemplate: true,
       resolvers: [ElementPlusResolver()],
-      exclude: [/node_modules/, /\.git/, /core\/pinia/],
+      exclude: [/node_modules/, /\.git/, /^(?!.*\/apps\/poto\/)/],
     }),
 
     // https://github.com/antfu/unplugin-vue-components
