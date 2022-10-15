@@ -1,4 +1,4 @@
-import { Options } from './types'
+import type { Options } from './types'
 
 export function applyStyle<T extends HTMLElement>(
   node: T,
@@ -6,17 +6,14 @@ export function applyStyle<T extends HTMLElement>(
 ): T {
   const { style } = node
 
-  if (options.backgroundColor) {
+  if (options.backgroundColor)
     style.backgroundColor = options.backgroundColor
-  }
 
-  if (options.width) {
+  if (options.width)
     style.width = `${options.width}px`
-  }
 
-  if (options.height) {
+  if (options.height)
     style.height = `${options.height}px`
-  }
 
   const manual = options.style
   if (manual != null) {

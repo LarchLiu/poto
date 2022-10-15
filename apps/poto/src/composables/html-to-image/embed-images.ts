@@ -1,4 +1,4 @@
-import { Options } from './types'
+import type { Options } from './types'
 import { embedResources } from './embed-resources'
 import { toArray } from './util'
 import { isDataUrl, resourceToDataURL } from './dataurl'
@@ -24,17 +24,16 @@ async function embedImageNode<T extends HTMLElement | SVGImageElement>(
   options: Options,
 ) {
   if (
-    !(clonedNode instanceof HTMLImageElement && !isDataUrl(clonedNode.src)) &&
-    !(
-      clonedNode instanceof SVGImageElement &&
-      !isDataUrl(clonedNode.href.baseVal)
+    !(clonedNode instanceof HTMLImageElement && !isDataUrl(clonedNode.src))
+    && !(
+      clonedNode instanceof SVGImageElement
+      && !isDataUrl(clonedNode.href.baseVal)
     )
-  ) {
+  )
     return
-  }
 
-  const url =
-    clonedNode instanceof HTMLImageElement
+  const url
+    = clonedNode instanceof HTMLImageElement
       ? clonedNode.src
       : clonedNode.href.baseVal
 
@@ -45,7 +44,8 @@ async function embedImageNode<T extends HTMLElement | SVGImageElement>(
     if (clonedNode instanceof HTMLImageElement) {
       clonedNode.srcset = ''
       clonedNode.src = dataURL
-    } else {
+    }
+    else {
       clonedNode.href.baseVal = dataURL
     }
   })
@@ -56,7 +56,7 @@ async function embedChildren<T extends HTMLElement>(
   options: Options,
 ) {
   const children = toArray<HTMLElement>(clonedNode.childNodes)
-  const deferreds = children.map((child) => embedImages(child, options))
+  const deferreds = children.map(child => embedImages(child, options))
   await Promise.all(deferreds).then(() => clonedNode)
 }
 

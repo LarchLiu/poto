@@ -1,7 +1,7 @@
 import type { Options } from './types'
 import { toArray } from './util'
 import { fetchAsDataURL } from './dataurl'
-import { shouldEmbed, embedResources } from './embed-resources'
+import { embedResources, shouldEmbed } from './embed-resources'
 
 interface Metadata {
   url: string
@@ -12,9 +12,8 @@ const cssFetchCache: { [href: string]: Metadata } = {}
 
 async function fetchCSS(url: string) {
   let cache = cssFetchCache[url]
-  if (cache != null) {
+  if (cache != null)
     return cache
-  }
 
   const res = await fetch(url)
   const cssText = await res.text()
@@ -31,9 +30,8 @@ async function embedFonts(data: Metadata, options: Options): Promise<string> {
   const fontLocs = cssText.match(/url\([^)]+\)/g) || []
   const loadFonts = fontLocs.map(async (loc: string) => {
     let url = loc.replace(regexUrl, '$1')
-    if (!url.startsWith('https://')) {
+    if (!url.startsWith('https://'))
       url = new URL(url, data.url).href
-    }
 
     return fetchAsDataURL<[string, string]>(
       url,
@@ -49,9 +47,8 @@ async function embedFonts(data: Metadata, options: Options): Promise<string> {
 }
 
 function parseCSS(source: string) {
-  if (source == null) {
+  if (source == null)
     return []
-  }
 
   const result: string[] = []
   const commentsRegex = /(\/\*[\s\S]*?\*\/)/gi
@@ -64,35 +61,34 @@ function parseCSS(source: string) {
     'gi',
   )
 
-  // eslint-disable-next-line no-constant-condition
   while (true) {
     const matches = keyframesRegex.exec(cssText)
-    if (matches === null) {
+    if (matches === null)
       break
-    }
+
     result.push(matches[0])
   }
   cssText = cssText.replace(keyframesRegex, '')
 
   const importRegex = /@import[\s\S]*?url\([^)]*\)[\s\S]*?;/gi
   // to match css & media queries together
-  const combinedCSSRegex =
-    '((\\s*?(?:\\/\\*[\\s\\S]*?\\*\\/)?\\s*?@media[\\s\\S]' +
-    '*?){([\\s\\S]*?)}\\s*?})|(([\\s\\S]*?){([\\s\\S]*?)})'
+  const combinedCSSRegex
+    = '((\\s*?(?:\\/\\*[\\s\\S]*?\\*\\/)?\\s*?@media[\\s\\S]'
+    + '*?){([\\s\\S]*?)}\\s*?})|(([\\s\\S]*?){([\\s\\S]*?)})'
   // unified regex
   const unifiedRegex = new RegExp(combinedCSSRegex, 'gi')
 
-  // eslint-disable-next-line no-constant-condition
   while (true) {
     let matches = importRegex.exec(cssText)
     if (matches === null) {
       matches = unifiedRegex.exec(cssText)
-      if (matches === null) {
+      if (matches === null)
         break
-      } else {
+
+      else
         importRegex.lastIndex = unifiedRegex.lastIndex
-      }
-    } else {
+    }
+    else {
       unifiedRegex.lastIndex = importRegex.lastIndex
     }
     result.push(matches[0])
@@ -117,8 +113,8 @@ async function getCSSRules(
             let importIndex = index + 1
             const url = (item as CSSImportRule).href
             const deferred = fetchCSS(url)
-              .then((metadata) => embedFonts(metadata, options))
-              .then((cssText) =>
+              .then(metadata => embedFonts(metadata, options))
+              .then(cssText =>
                 parseCSS(cssText).forEach((rule) => {
                   try {
                     sheet.insertRule(
@@ -127,7 +123,8 @@ async function getCSSRules(
                         ? (importIndex += 1)
                         : sheet.cssRules.length,
                     )
-                  } catch (error) {
+                  }
+                  catch (error) {
                     console.error('Error inserting rule from remote css', {
                       rule,
                       error,
@@ -142,14 +139,15 @@ async function getCSSRules(
             deferreds.push(deferred)
           }
         })
-      } catch (e) {
-        const inline =
-          styleSheets.find((a) => a.href == null) || document.styleSheets[0]
+      }
+      catch (e: any) {
+        const inline
+          = styleSheets.find(a => a.href == null) || document.styleSheets[0]
         if (sheet.href != null) {
           deferreds.push(
             fetchCSS(sheet.href)
-              .then((metadata) => embedFonts(metadata, options))
-              .then((cssText) =>
+              .then(metadata => embedFonts(metadata, options))
+              .then(cssText =>
                 parseCSS(cssText).forEach((rule) => {
                   inline.insertRule(rule, sheet.cssRules.length)
                 }),
@@ -172,7 +170,8 @@ async function getCSSRules(
           toArray<CSSStyleRule>(sheet.cssRules || []).forEach((item) => {
             ret.push(item)
           })
-        } catch (e) {
+        }
+        catch (e: any) {
           console.error(
             `Error while reading CSS rules from ${sheet.href}`,
             e.toString(),
@@ -187,17 +186,16 @@ async function getCSSRules(
 
 function getWebFontRules(cssRules: CSSStyleRule[]): CSSStyleRule[] {
   return cssRules
-    .filter((rule) => rule.type === CSSRule.FONT_FACE_RULE)
-    .filter((rule) => shouldEmbed(rule.style.getPropertyValue('src')))
+    .filter(rule => rule.type === CSSRule.FONT_FACE_RULE)
+    .filter(rule => shouldEmbed(rule.style.getPropertyValue('src')))
 }
 
 async function parseWebFontRules<T extends HTMLElement>(
   node: T,
   options: Options,
 ) {
-  if (node.ownerDocument == null) {
+  if (node.ownerDocument == null)
     throw new Error('Provided element is not within a Document')
-  }
 
   const styleSheets = toArray<CSSStyleSheet>(node.ownerDocument.styleSheets)
   const cssRules = await getCSSRules(styleSheets, options)
@@ -224,12 +222,12 @@ export async function embedWebFonts<T extends HTMLElement>(
   clonedNode: T,
   options: Options,
 ) {
-  const cssText =
-    options.fontEmbedCSS != null
+  const cssText
+    = options.fontEmbedCSS != null
       ? options.fontEmbedCSS
       : options.skipFonts
-      ? null
-      : await getWebFontCSS(clonedNode, options)
+        ? null
+        : await getWebFontCSS(clonedNode, options)
 
   if (cssText) {
     const styleNode = document.createElement('style')
@@ -237,10 +235,10 @@ export async function embedWebFonts<T extends HTMLElement>(
 
     styleNode.appendChild(sytleContent)
 
-    if (clonedNode.firstChild) {
+    if (clonedNode.firstChild)
       clonedNode.insertBefore(styleNode, clonedNode.firstChild)
-    } else {
+
+    else
       clonedNode.appendChild(styleNode)
-    }
   }
 }
