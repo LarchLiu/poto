@@ -15,8 +15,7 @@
   "types": "./dist/index.d.ts",
   "files": ["dist"],
   "scripts": {
-    "build": "vite build && vue-tsc --declaration --emitDeclarationOnly",
-    "dev": "tsup index.ts --format cjs,esm --dts --watch src"
+    "build": "vite build && vue-tsc --declaration --emitDeclarationOnly"
   },
   "dependencies": {
     "@vueuse/core": "^9.1.1",

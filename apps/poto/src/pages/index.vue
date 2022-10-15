@@ -1,6 +1,4 @@
 <script setup lang="ts">
-import { toPng } from 'html-to-image'
-
 const { height: windowHeight } = useWindowSize()
 // const designer = useDesigner()
 const designer = useDesignerStore()
@@ -11,14 +9,14 @@ const widgetMenu = useWidgetMenuStore()
 const jsonActions = useLocalStorage('jsonActions', '')
 const jsonComponents = useLocalStorage('jsonCustomBlocks', '')
 const jsonDesigner = useLocalStorage('jsonDesigner', '')
-const header = ref<HTMLElement | null>(null)
+const page = ref<HTMLElement | null>(null)
 // provide('designer', designer)
 const containerHeight = computed(() => `${windowHeight.value - 48 - 4}px`) // windowHeight - top header - main header - margin * 2
 const contentPanelHeight = computed(() => `${windowHeight.value - 48}px`)
 const showLayout = ref(true)
 
 const handleScreenShot = () => {
-  toPng(header.value!.querySelector('.preview') as HTMLElement) // , { width: 750 })
+  toPng(page.value!.querySelector('.preview') as HTMLElement) // , { width: 750 })
     .then((dataUrl) => {
       const a = document.createElement('a')
       a.setAttribute('download', 'screenshot')
@@ -79,7 +77,7 @@ onMounted(() => {
 </script>
 
 <template>
-  <div id="page" ref="header" relative>
+  <div id="page" ref="page" relative>
     <el-container class="bg-white h-full overflow-y-hidden">
       <el-header class="h-48px leading-48px min-w-800px border-b-2 border-#EBEEF5" flex items-center justify-between>
         <div>

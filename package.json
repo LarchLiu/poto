@@ -19,7 +19,7 @@
   },
   "scripts": {
     "dev": "turbo run dev --parallel",
-    "dev:poto": "turbo run dev --filter=poto...",
+    "dev:poto": "turbo run dev --filter=poto",
     "dev:plugins": "turbo run dev --filter={./plugins/*}...",
     "dev:ui": "turbo run dev --filter={./ui/*}...",
     "build": "turbo run build",
@@ -39,6 +39,6 @@
     "vite": "^3.1.6",
     "vite-plugin-inspect": "^0.7.5",
     "vitest": "^0.23.4",
-    "vue-tsc": "^1.0.7"
+    "vue-tsc": "^1.0.8"
   }
 }
