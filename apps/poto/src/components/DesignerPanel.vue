@@ -79,7 +79,7 @@ const borderBackgroundImage = computed(() => {
       class="ele-padding ele-margin box-border"
     >
       <div v-for="element in designer.list" :id="`${element.category}-${element.id}`" :key="element.id" :style="{ width: `${element.options.size.width}%` }">
-        <wrapper :item="element">
+        <wrapper v-if="!!blockInfo[element.blockType]" :item="element">
           <component :is="blockInfo[element.blockType].blockView" :item="element" />
         </wrapper>
       </div>

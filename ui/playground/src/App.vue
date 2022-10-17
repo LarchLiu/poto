@@ -113,7 +113,7 @@ onMounted(() => {
         >
           <template #item="{ element }: { element: BlockItem }">
             <div :id="`layout-${element.category}-${element.id}`" :style="{ width: `${element.options.size.width}%` }">
-              <layout-wrapper :item="element">
+              <layout-wrapper :block-err="!BlockList[element.blockType]" :item="element">
                 <component :is="BlockList[element.blockType].blockView" :item="element" :real-content="false" />
               </layout-wrapper>
             </div>
@@ -127,7 +127,7 @@ onMounted(() => {
           class="ele-padding ele-margin box-border"
         >
           <div v-for="element in designer.list" :id="`${element.category}-${element.id}`" :key="element.id" :style="{ width: `${element.options.size.width}%` }">
-            <wrapper :item="element">
+            <wrapper v-if="!!BlockList[element.blockType]" :item="element">
               <component :is="BlockList[element.blockType].blockView" :item="element" />
             </wrapper>
           </div>

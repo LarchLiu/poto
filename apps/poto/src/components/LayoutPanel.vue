@@ -88,14 +88,9 @@ const borderBackgroundImage = computed(() => {
     >
       <template #item="{ element }: { element: BlockItem }">
         <div :id="`layout-${element.category}-${element.id}`" :style="{ width: `${element.options.size.width}%` }">
-          <layout-wrapper :item="element">
+          <layout-wrapper :block-err="!blockInfo[element.blockType]" :item="element">
             <component :is="blockInfo[element.blockType].blockView" :item="element" :real-content="false" />
           </layout-wrapper>
-          <!-- <div class="add-line opacity-0 hover:opacity-60">
-            <div class="line" /><div class="add-button">
-              <span>+</span><span>Add New Group Here</span>
-            </div><div class="line" />
-          </div> -->
 
           <div class="group add-line opacity-0 my-1 hover:opacity-100">
             <button type="button" class="add-button text-[#3c3836] hover:text-red-500 group-hover:opacity-100">

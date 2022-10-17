@@ -5,6 +5,7 @@ import { BlockType } from '~/types'
 const props = defineProps<{
   item: BlockItem
   unResize?: boolean
+  blockErr?: boolean
 }>()
 
 const designer = useDesignerStore()
@@ -95,16 +96,20 @@ const borderBackgroundImage = computed(() => {
   <div ref="wrapper" class="flex relative" :class="isResizing ? 'cursor-col-resize' : ''">
     <WidgetHandler :item="item" />
     <resizer
-      v-if="!unResize && selected"
+      v-if="!unResize && selected && !blockErr"
       v-model:width="options.size.width"
       :class="isWidget ? 'border-blue-500' : 'border-green-500'"
       :wrapper="wrapper!"
       @is-resizing="(is: boolean) => setIsResizing(is)"
     />
+    <div v-if="blockErr" class="w-full border border-dashed! border-red-400">
+      Block Type Error
+    </div>
 
     <div
+      v-else
       :class="selected ? `border ${isWidget ? 'border-blue-400' : 'border-green-400'}`
-        : (isEmpty ? 'border border-dashed! border-red-400'
+        : (isEmpty ? 'border border-dashed! border-orange-400'
           : `border border-dashed! ${isWidget ? 'border-blue-300!' : 'border-green-300!'}`)"
       class="p-1 w-full box-border"
     >

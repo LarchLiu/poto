@@ -1,5 +1,5 @@
 import { defineStore } from 'pinia'
-import { computed, ref } from 'vue'
+import { computed, ref, shallowRef } from 'vue'
 import { useWindowSize } from '@vueuse/core'
 import type { BlockInfo, BlockItem, FindedItem } from '@poto/types'
 import { UUID, cloneItem, deepClone } from '@poto/utils'
@@ -18,7 +18,7 @@ export const useDesignerStore = () => {
     const currentItem = ref<BlockItem | undefined>(undefined)
     const { height: windowHeight } = useWindowSize()
     const contentPanelHeight = computed(() => windowHeight.value - 48 - 16)
-    const blockPlugins = ref<BlockInfo | undefined>(undefined)
+    const blockPlugins = shallowRef<BlockInfo | undefined>(undefined)
 
     const createByJsonString = (str: string) => {
       try {

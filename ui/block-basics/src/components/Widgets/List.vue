@@ -144,7 +144,7 @@ onMounted(() => {
     <div v-for="element in item.options.list" :id="`${element.category}-${element.id}`" :key="element.id" :style="{ flexBasis: flexBasis(element) }">
       <div v-if="!!ownData">
         <div v-for="(data, index) in ownData" :key="`${element.id}-${index}-${keyIdx}`">
-          <wrapper :item="element">
+          <wrapper v-if="!!blockInfo[element.blockType]" :item="element">
             <component :is="blockInfo[element.blockType].blockView" :parent-data="data" :list-index="index" :item="setListItemData(element, data, index)" :real-content="realContent" />
           </wrapper>
         </div>
@@ -167,7 +167,7 @@ onMounted(() => {
   >
     <template #item="{ element }: { element: BlockItem }">
       <div :id="`layout-${element.category}-${element.id}`" :style="{ flexBasis: flexBasis(element) }">
-        <layout-wrapper :item="element" :un-resize="options.flex.basis > 0">
+        <layout-wrapper :block-err="!blockInfo[element.blockType]" :item="element" :un-resize="options.flex.basis > 0">
           <component :is="blockInfo[element.blockType].blockView" :item="element" :real-content="realContent" />
         </layout-wrapper>
       </div>
