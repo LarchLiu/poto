@@ -13,6 +13,7 @@ import LinkAttributes from 'markdown-it-link-attributes'
 import Unocss from 'unocss/vite'
 import Shiki from 'markdown-it-shiki'
 import { ElementPlusResolver } from 'unplugin-vue-components/resolvers'
+import PotoAutoImport from '@poto/auto-import/vite'
 
 export default defineConfig({
   resolve: {
@@ -136,6 +137,10 @@ export default defineConfig({
     // https://github.com/antfu/vite-plugin-inspect
     // Visit http://localhost:3333/__inspect/ to see the inspector
     Inspect(),
+
+    PotoAutoImport({
+      imports: ['@poto/block-plugins-template'],
+    }),
   ],
 
   // https://github.com/vitest-dev/vitest

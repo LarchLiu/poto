@@ -1,7 +1,9 @@
 <script setup lang="ts">
+import { BlockPlugins } from '~/poto-auto-imports'
 import type { BlockItem } from '~/types'
 import { BlockBasics } from '~/utils'
 
+const blockInfo = { ...BlockBasics, ...BlockPlugins }
 // const designer = inject('designer') as Designer
 const designer = useDesignerStore()
 const borderIsSingleColor = computed(() => {
@@ -87,7 +89,7 @@ const borderBackgroundImage = computed(() => {
       <template #item="{ element }: { element: BlockItem }">
         <div :id="`layout-${element.category}-${element.id}`" :style="{ width: `${element.options.size.width}%` }">
           <layout-wrapper :item="element">
-            <component :is="BlockBasics[element.blockType].blockView" :item="element" :real-content="false" />
+            <component :is="blockInfo[element.blockType].blockView" :item="element" :real-content="false" />
           </layout-wrapper>
           <!-- <div class="add-line opacity-0 hover:opacity-60">
             <div class="line" /><div class="add-button">

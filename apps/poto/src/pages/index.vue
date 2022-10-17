@@ -1,16 +1,15 @@
 <script setup lang="ts">
+import { BlockPlugins } from '~/poto-auto-imports'
+
 const { height: windowHeight } = useWindowSize()
-// const designer = useDesigner()
 const designer = useDesignerStore()
 const actionsStore = useActionsStore()
 const customBlocks = useCustomBlocksStore()
 const widgetMenu = useWidgetMenuStore()
-// const jsonList = useLocalStorage('jsonList', '')
-const jsonActions = useLocalStorage('jsonActions', '')
-const jsonComponents = useLocalStorage('jsonCustomBlocks', '')
-const jsonDesigner = useLocalStorage('jsonDesigner', '')
+const potoActions = useLocalStorage('potoActions', '')
+const potoCustomBlocks = useLocalStorage('potoCustomBlocks', '')
+const potoDesigner = useLocalStorage('potoDesigner', '')
 const page = ref<HTMLElement | null>(null)
-// provide('designer', designer)
 const containerHeight = computed(() => `${windowHeight.value - 48 - 4}px`) // windowHeight - top header - main header - margin * 2
 const contentPanelHeight = computed(() => `${windowHeight.value - 48}px`)
 const showLayout = ref(true)
@@ -29,11 +28,10 @@ const handleScreenShot = () => {
 }
 
 const saveList = () => {
-  // jsonList.value = JSON.stringify(designer.list.value)
-  jsonActions.value = JSON.stringify(actionsStore.actions)
-  jsonComponents.value = JSON.stringify(customBlocks.components)
+  potoActions.value = JSON.stringify(actionsStore.actions)
+  potoCustomBlocks.value = JSON.stringify(customBlocks.components)
 
-  jsonDesigner.value = JSON.stringify({
+  potoDesigner.value = JSON.stringify({
     id: designer.id,
     list: designer.list,
     options: designer.options,
@@ -41,38 +39,20 @@ const saveList = () => {
 }
 
 const reloadList = () => {
-  // designer.list = (JSON.parse(jsonDesigner.value)).list // jsonList.value ? JSON.parse(jsonList.value) : []
-  // designer.actions.value = jsonActions.value ? JSON.parse(jsonActions.value) : []
-  // designer.options = (JSON.parse(jsonDesigner.value)).options // { ...JSON.parse(jsonOptions.value) }
-  designer.createByJsonString(jsonDesigner.value)
-  // designer.resetSelectedItem()
+  designer.createByJsonString(potoDesigner.value)
 }
 
 const resetList = () => {
-  // designer.list.value = []
-  // designer.actions.value = []
-  // designer.options.value = designerOptions
   designer.resetStore()
 }
 
 const apiTest = async () => {
-  // const { data } = await useFetch('https://dummyjson.com/products?limit=5')
-  // console.log(typeof data.value)
   ElMessage('test')
-  // Api.request(
-  //   {
-  //     method: 'GET',
-  //     url: 'https://dummyjson.com/products',
-  //   },
-  //   (data) => {
-  //     const rawData = data.data
-  //     console.log(rawData)
-  //   },
-  // )
 }
 onMounted(() => {
-  actionsStore.createByJsonString(jsonActions.value)
-  customBlocks.createByJsonString(jsonComponents.value)
+  actionsStore.createByJsonString(potoActions.value)
+  customBlocks.createByJsonString(potoCustomBlocks.value)
+  designer.setBlockPlugins(BlockPlugins)
 })
 </script>
 
@@ -108,7 +88,7 @@ onMounted(() => {
         <el-aside class="sticky w-50px" z-9999>
           <div border-r-2>
             <div :style="{ height: contentPanelHeight }" flex items-center justify-center>
-              <widget-panel />
+              <block-panel />
             </div>
           </div>
         </el-aside>

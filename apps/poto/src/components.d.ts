@@ -8,6 +8,7 @@ export {}
 declare module '@vue/runtime-core' {
   export interface GlobalComponents {
     ActionSetting: typeof import('./components/SettingPanel/ActionSetting.vue')['default']
+    BlockPanel: typeof import('./components/BlockPanel.vue')['default']
     DesignerPanel: typeof import('./components/DesignerPanel.vue')['default']
     DesignerSetting: typeof import('./components/SettingPanel/DesignerSetting.vue')['default']
     ElAside: typeof import('element-plus/es')['ElAside']
@@ -31,6 +32,5 @@ declare module '@vue/runtime-core' {
     RouterLink: typeof import('vue-router')['RouterLink']
     RouterView: typeof import('vue-router')['RouterView']
     SettingPanel: typeof import('./components/SettingPanel/index.vue')['default']
-    WidgetPanel: typeof import('./components/WidgetPanel.vue')['default']
   }
 }

@@ -1,7 +1,9 @@
 <script setup lang="ts">
 // import type { Designer } from '~/types'
+import { BlockPlugins } from '~/poto-auto-imports'
 import { BlockBasics } from '~/utils'
 
+const blockInfo = { ...BlockBasics, ...BlockPlugins }
 // const designer = inject('designer') as Designer
 const designer = useDesignerStore()
 // const designer.options = designer.options
@@ -78,7 +80,7 @@ const borderBackgroundImage = computed(() => {
     >
       <div v-for="element in designer.list" :id="`${element.category}-${element.id}`" :key="element.id" :style="{ width: `${element.options.size.width}%` }">
         <wrapper :item="element">
-          <component :is="BlockBasics[element.blockType].blockView" :item="element" />
+          <component :is="blockInfo[element.blockType].blockView" :item="element" />
         </wrapper>
       </div>
     </div>
