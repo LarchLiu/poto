@@ -40,7 +40,7 @@ const settings: BlockItem = {
     backgroundColor: {
       type: 'single',
       options: {
-        colors: ['#00000000'],
+        colors: ['#ffffff'],
         opacity: 1,
         degree: 45,
         gradient: true,

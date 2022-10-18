@@ -26,6 +26,7 @@
     "axios": "^0.27.2",
     "codemirror": "^6.0.1",
     "element-plus": "^2.2.14",
+    "get-contrast": "^3.0.0",
     "katex": "^0.16.2",
     "mermaid": "^9.1.6",
     "nprogress": "^0.2.0",

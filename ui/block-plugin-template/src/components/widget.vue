@@ -1,4 +1,5 @@
 <script setup lang="ts">
+import { TextSettings } from '@poto/types'
 import type { BlockItem } from '@poto/types'
 import type { PropType } from 'vue'
 
@@ -23,10 +24,10 @@ defineProps({
 </script>
 
 <template>
-  <div v-if="realContent">
+  <div v-if="realContent" :style="{ color: (item.options as TextSettings).font.color.options.colors[0] }">
     block plugin template block view
   </div>
-  <div v-else>
+  <div v-else :style="{ color: (item.options as TextSettings).font.color.options.colors[0] }">
     {{ item.options.name }}
   </div>
 </template>

@@ -123,6 +123,7 @@ const borderBackgroundImage = computed(() => {
   }
   .bg-single {
     background-color: v-bind('designer.options.backgroundColor.options.colors[0]') !important;
+    transition: color 0.2s ease 0s, background-color 0.3s ease 0s;
   }
   .bg-colorful {
     background-image: v-bind(bgLinearGradient) !important;

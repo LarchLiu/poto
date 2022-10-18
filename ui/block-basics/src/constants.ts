@@ -37,7 +37,7 @@ export const TextConfig: BlockItem = {
     backgroundColor: {
       type: 'single',
       options: {
-        colors: ['#00000000'],
+        colors: ['#ffffff'],
         opacity: 1,
         degree: 45,
         gradient: true,
@@ -55,6 +55,7 @@ export const TextConfig: BlockItem = {
           opacity: 1,
           degree: 45,
           gradient: true,
+          url: '',
         },
       },
       weight: 400,
@@ -95,7 +96,7 @@ export const GroupConfig: BlockItem = {
     backgroundColor: {
       type: 'single',
       options: {
-        colors: ['#00000000'],
+        colors: ['#ffffff'],
         opacity: 1,
         degree: 45,
         gradient: true,
@@ -147,7 +148,7 @@ export const ListConfig: BlockItem = {
     backgroundColor: {
       type: 'single',
       options: {
-        colors: ['#00000000'],
+        colors: ['#ffffff'],
         opacity: 1,
         degree: 45,
         gradient: true,
@@ -207,7 +208,7 @@ export const Columns2Config: BlockItem = {
     backgroundColor: {
       type: 'single',
       options: {
-        colors: ['#00000000'],
+        colors: ['#ffffff'],
         opacity: 1,
         degree: 45,
         gradient: true,
@@ -259,7 +260,7 @@ export const Columns3Config: BlockItem = {
     backgroundColor: {
       type: 'single',
       options: {
-        colors: ['#00000000'],
+        colors: ['#ffffff'],
         opacity: 1,
         degree: 45,
         gradient: true,
@@ -310,7 +311,7 @@ export const TitleConfig: BlockItem = {
     backgroundColor: {
       type: 'single',
       options: {
-        colors: ['#00000000'],
+        colors: ['#ffffff'],
         opacity: 1,
         degree: 45,
         gradient: true,
@@ -328,6 +329,7 @@ export const TitleConfig: BlockItem = {
           opacity: 1,
           degree: 45,
           gradient: true,
+          url: '',
         },
       },
       weight: 500,
@@ -367,7 +369,7 @@ export const MarkdownConfig: BlockItem = {
     backgroundColor: {
       type: 'single',
       options: {
-        colors: ['#00000000'],
+        colors: ['#ffffff'],
         opacity: 1,
         degree: 45,
         gradient: true,
@@ -385,6 +387,7 @@ export const MarkdownConfig: BlockItem = {
           opacity: 1,
           degree: 45,
           gradient: true,
+          url: '',
         },
       },
       weight: 400,

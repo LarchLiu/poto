@@ -1,6 +1,6 @@
-import type { BasicSettings } from '@poto/types'
+import type { DesignerSettings, DesignerTheme } from '@poto/types'
 
-export const designerOptions: BasicSettings = {
+export const designerOptions: DesignerSettings = {
   name: 'Designer',
   padding: [10, 10, 10, 10],
   margin: [0, 0, 0, 0],
@@ -12,7 +12,7 @@ export const designerOptions: BasicSettings = {
     color: {
       type: 'single',
       options: {
-        colors: ['#000000'],
+        colors: ['#26162f'],
         opacity: 1,
         degree: 45,
         gradient: true,
@@ -24,12 +24,20 @@ export const designerOptions: BasicSettings = {
   backgroundColor: {
     type: 'single',
     options: {
-      colors: ['#00000000'],
+      colors: ['#ffffff'],
       opacity: 1,
       degree: 45,
       gradient: true,
       url: '',
     },
   },
+}
+
+export const designerTheme: DesignerTheme = {
+  elFontSize: 32,
+  fontFamily: '',
+  fontColor: '#220425',
+  backgroundColor: '#ffffff',
+  primaryColor: '#26162f',
 }
 

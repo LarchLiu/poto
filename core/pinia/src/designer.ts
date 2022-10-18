@@ -1,9 +1,10 @@
 import { defineStore } from 'pinia'
 import { computed, ref, shallowRef } from 'vue'
 import { useWindowSize } from '@vueuse/core'
-import type { BlockInfo, BlockItem, FindedItem } from '@poto/types'
+import type { BlockInfo, BlockItem, DesignerSettings, DesignerTheme, FindedItem, TextSettings } from '@poto/types'
 import { UUID, cloneItem, deepClone } from '@poto/utils'
-import { designerOptions } from './constants'
+import { isArray } from 'lodash'
+import { designerOptions, designerTheme } from './constants'
 import { config } from './config'
 
 export const useDesignerStore = () => {
@@ -13,7 +14,8 @@ export const useDesignerStore = () => {
   return defineStore('designer', () => {
     const id = ref(UUID())
     const list = ref<BlockItem[]>([])
-    const options = ref(deepClone(designerOptions))
+    const options = ref<DesignerSettings>(deepClone(designerOptions))
+    const theme = ref<DesignerTheme>(deepClone(designerTheme))
     // const actions = useActionsStore()
     const currentItem = ref<BlockItem | undefined>(undefined)
     const { height: windowHeight } = useWindowSize()
@@ -27,6 +29,7 @@ export const useDesignerStore = () => {
           id.value = json.id
           list.value = json.list
           options.value = json.options
+          theme.value = json.theme
           currentItem.value = undefined
         }
       }
@@ -102,8 +105,54 @@ export const useDesignerStore = () => {
       currentItem.value = undefined
     }
 
+    const instanceOfBlockItem = (object: any): object is BlockItem => {
+      return 'blockType' in object
+    }
+
+    const replaceTheme = (cur: DesignerTheme, src: BlockItem | BlockItem[] | DesignerSettings, old?: DesignerTheme) => {
+      if (!cur)
+        return
+      const replace = (item: BlockItem | DesignerSettings) => {
+        if (instanceOfBlockItem(item)) {
+          if (item.isCustom)
+            return
+
+          if (item.options.backgroundColor.type === 'single' && ((old && item.options.backgroundColor.options.colors[0] === old.backgroundColor) || !old))
+            item.options.backgroundColor.options.colors[0] = cur.backgroundColor
+
+          if (item.options.border.color.type === 'single' && ((old && item.options.border.color.options.colors[0] === old.primaryColor) || !old))
+            item.options.border.color.options.colors[0] = cur.primaryColor
+
+          const options = item.options as TextSettings
+          if (!!options.font && options.font.color.type === 'single' && ((old && options.font.color.options.colors[0] === old.fontColor) || !old))
+            options.font.color.options.colors[0] = cur.fontColor
+
+          if (item.options.list)
+            replaceTheme(cur, item.options.list, old)
+        }
+        else {
+          if (item.backgroundColor.type === 'single' && ((old && item.backgroundColor.options.colors[0] === old.backgroundColor) || !old))
+            item.backgroundColor.options.colors[0] = cur.backgroundColor
+
+          if (item.border.color.type === 'single' && ((old && item.border.color.options.colors[0] === old.primaryColor) || !old))
+            item.border.color.options.colors[0] = cur.primaryColor
+        }
+      }
+
+      if (isArray(src)) {
+        for (let i = 0, len = src.length; i < len; i++) {
+          const item = src[i]
+          replace(item)
+        }
+      }
+      else {
+        replace(src)
+      }
+    }
+
     const addItem = (src: BlockItem) => {
       const item = cloneItem(src)
+      replaceTheme(theme.value, item)
       if (!currentItem.value) {
         list.value.push(item)
         selectItem(item)
@@ -160,11 +209,22 @@ export const useDesignerStore = () => {
       blockPlugins.value = plugins
     }
 
+    const resetTheme = () => {
+      theme.value = deepClone(designerTheme)
+    }
+
+    const setTheme = (curTheme: DesignerTheme) => {
+      const oldTheme = { ...theme.value }
+      theme.value = curTheme
+      replaceTheme(curTheme, list.value, oldTheme)
+      replaceTheme(curTheme, options.value, oldTheme)
+    }
+
     return {
       id,
-      // actions,
       list,
       options,
+      theme,
       currentItem,
       getCurrentItem,
       createByJsonString,
@@ -179,6 +239,8 @@ export const useDesignerStore = () => {
       resetStore,
       getBlockPlugins,
       setBlockPlugins,
+      resetTheme,
+      setTheme,
     }
   })(config.piniaInstance)
 }

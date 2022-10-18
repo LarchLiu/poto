@@ -35,6 +35,7 @@ const saveList = () => {
     id: designer.id,
     list: designer.list,
     options: designer.options,
+    theme: designer.theme,
   })
 }
 

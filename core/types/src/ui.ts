@@ -91,6 +91,7 @@ export interface BlockItem {
   id?: string
   icon?: string
   author?: string
+  isCustom?: boolean
   blockType: BlockType | BlockPluginType
   category: 'widget' | 'group'
   options: TextSettings | GroupSettings | BlockPluginSettings
@@ -183,4 +184,30 @@ export interface BlockInfo {
     config: BlockItem
   }
 }
+
+export interface DesignerTheme {
+  /**
+   * Element font size unit: px
+   */
+  elFontSize: number
+  /**
+   * Font family
+   */
+  fontFamily: string
+  /**
+   * Font color
+   */
+  fontColor: string
+  /**
+   * Background color
+   */
+  backgroundColor: string
+  /**
+   * Primary color such as border color
+   */
+  primaryColor: string
+
+}
+
+export interface DesignerSettings extends BasicSettings {}
 

@@ -65,7 +65,7 @@ const customComponentsSubmenu = computed(() => customBlocks.components.map((comp
 )
 
 const saveAsMenu = computed(() => customBlocks.components.map((component) => {
-  const update = { ...component, item: props.item }
+  const update = { ...component, item: { ...props.item, isCustom: true } }
   return {
     label: component.name,
     callback: () => {
@@ -114,9 +114,9 @@ const blockMenu = computed(() => {
       callback: () => {
         const component: CustomBlock = {
           id: UUID(),
-          name: 'test',
+          name: 'test', // TODO: edit by user
           description: 'test',
-          item: props.item,
+          item: { ...props.item, isCustom: true },
         }
         customBlocks.addComponent(component)
         showMenu.value = false

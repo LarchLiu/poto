@@ -14,3 +14,17 @@ declare module '*.vue' {
   const component: DefineComponent<{}, {}, any>
   export default component
 }
+
+declare module 'get-contrast' {
+  interface Options {
+    ignoreAlpha: boolean
+  }
+  const ratio = (colorOne: string, colorTwo: string, options?: Options): number => {}
+  const score = (colorOne: string, colorTwo: string, options?: Options): string => {}
+  const isAccessible = (colorOne: string, colorTwo: string, options?: Options): boolean => {}
+  export {
+    ratio,
+    score,
+    isAccessible
+  }
+}

@@ -38,3 +38,7 @@ html.dark {
   color: rgba(0, 0, 0, 0.2);
   cursor: text;
 }
+
+:root {
+  --el-color-primary: rgb(38, 22, 47);
+}
