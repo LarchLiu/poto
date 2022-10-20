@@ -18,6 +18,17 @@ const cloneCustomComponent = (component: CustomBlock) => {
 const addItem = (item: BlockItem) => {
   designer.addItem(item)
 }
+
+const tempList = ref()
+const dragStart = () => {
+  tempList.value = JSON.stringify(designer.list)
+}
+const dragEnd = async () => {
+  await nextTick(() => {
+    if (tempList.value !== JSON.stringify(designer.list))
+      designer.addHistory()
+  })
+}
 </script>
 
 <template>
@@ -25,6 +36,8 @@ const addItem = (item: BlockItem) => {
     <draggable
       :list="basicsList" item-key="key" :group="{ name: 'standard', pull: 'clone', put: false }"
       :clone="cloneItem" ghost-class="ghost" :sort="false"
+      @start="dragStart"
+      @end="dragEnd"
     >
       <template #item="{ element }: { element: BlockItem }">
         <div class="container-widget-item" :title="element.options.name" @dblclick="addItem(element)">

@@ -92,7 +92,7 @@ onMounted(() => {
         </div>
       </el-header>
       <el-container>
-        <el-aside class="sticky w-50px" z-9999>
+        <el-aside class="sticky w-50px">
           <div border-r-2>
             <div :style="{ height: contentPanelHeight }" flex items-center justify-center>
               <block-panel />

@@ -24,6 +24,7 @@ const props = defineProps({
 })
 
 const actionsStore = useActionsStore()
+const designer = useDesignerStore()
 const blockPlugins = useDesignerStore().getBlockPlugins()
 const blockInfo = { ...BlockBasics, ...blockPlugins }
 const ownData = ref<any>()
@@ -129,6 +130,17 @@ watch(() => props.parentData, (value) => {
   deep: true,
 })
 
+const tempList = ref()
+const dragStart = () => {
+  tempList.value = JSON.stringify(designer.list)
+}
+const dragEnd = async () => {
+  await nextTick(() => {
+    if (tempList.value !== JSON.stringify(designer.list))
+      designer.addHistory()
+  })
+}
+
 onMounted(() => {
   if (options.value.sourceData?.enable)
     fetchSourceData(options.value.sourceData.actionId)
@@ -164,6 +176,8 @@ onMounted(() => {
     :list="item.options.list"
     class="min-h-26px min-w-26px"
     :style="getContainerStyle()"
+    @start="dragStart"
+    @end="dragEnd"
   >
     <template #item="{ element }: { element: BlockItem }">
       <div :id="`layout-${element.category}-${element.id}`" :style="{ flexBasis: flexBasis(element) }">

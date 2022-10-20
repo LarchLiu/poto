@@ -68,6 +68,17 @@ const backgroundImage = computed(() => {
 const borderBackgroundImage = computed(() => {
   return `url('${designer.options.border.color.options.url}')`
 })
+
+const tempList = ref()
+const dragStart = () => {
+  tempList.value = JSON.stringify(designer.list)
+}
+const dragEnd = async () => {
+  await nextTick(() => {
+    if (tempList.value !== JSON.stringify(designer.list))
+      designer.addHistory()
+  })
+}
 </script>
 
 <template>
@@ -85,6 +96,8 @@ const borderBackgroundImage = computed(() => {
       class="ele-padding ele-margin box-border"
       :class="[designer.options.border.has ? `border-${designer.options.border.color.type}` : '',
                (designer.options.border.has && !borderIsSingleColor) ? '' : `bg-${designer.options.backgroundColor.type}`]"
+      @start="dragStart"
+      @end="dragEnd"
     >
       <template #item="{ element }: { element: BlockItem }">
         <div :id="`layout-${element.category}-${element.id}`" :style="{ width: `${element.options.size.width}%` }">
