@@ -60,6 +60,20 @@ const enableTransformer = computed({
       widgetOptions.value.sourceData.transformer.enable = value
   },
 })
+
+watch(widgetOptions, () => {
+  // watching options change of designer and add to history
+  if (props.isDesigner) {
+    if (designer.ignoreOptionsHis) {
+      designer.ignoreOptionsHis = false
+      return
+    }
+
+    designer.addHistory()
+  }
+}, {
+  deep: true,
+})
 </script>
 
 <template>

@@ -1,11 +1,13 @@
 import { defineStore } from 'pinia'
-import { computed, ref, shallowRef } from 'vue'
-import { useWindowSize } from '@vueuse/core'
+import { computed, nextTick, ref, shallowRef } from 'vue'
+import { useManualRefHistory, useWindowSize } from '@vueuse/core'
 import type { BlockInfo, BlockItem, DesignerSettings, DesignerTheme, FindedItem, TextSettings } from '@poto/types'
 import { UUID, cloneItem, deepClone } from '@poto/utils'
 import { isArray } from 'lodash'
 import { designerOptions, designerTheme } from './constants'
 import { config } from './config'
+
+type TodoType = 'list' | 'options' | 'theme'
 
 export const useDesignerStore = () => {
   if (!config.piniaInstance)
@@ -16,11 +18,48 @@ export const useDesignerStore = () => {
     const list = ref<BlockItem[]>([])
     const options = ref<DesignerSettings>(deepClone(designerOptions))
     const theme = ref<DesignerTheme>(deepClone(designerTheme))
-    // const actions = useActionsStore()
     const currentItem = ref<BlockItem | undefined>(undefined)
+    const todo = ref <TodoType[]>([])
+    const ignoreListHis = ref(false)
+    const ignoreOptionsHis = ref(false)
+    let isFirstUndo = true
+    let isFirstRedo = true
+
+    const listHis = useManualRefHistory(list, { clone: true })
+    const optionsHis = useManualRefHistory(options, { clone: true })
+    const themeHis = useManualRefHistory(theme, { clone: true })
+    const todoHis = useManualRefHistory(todo, { clone: true })
+
     const { height: windowHeight } = useWindowSize()
     const contentPanelHeight = computed(() => windowHeight.value - 48 - 16)
     const blockPlugins = shallowRef<BlockInfo | undefined>(undefined)
+
+    const addHistory = async () => {
+      const todos: TodoType[] = ['list', 'options', 'theme']
+      for (let i = 0; i < todos.length; i++) {
+        if (todos[i] === 'list') {
+          ignoreListHis.value = true
+          listHis.commit()
+        }
+        else if (todos[i] === 'options') {
+          ignoreOptionsHis.value = true
+          optionsHis.commit()
+        }
+        else {
+          themeHis.commit()
+        }
+      }
+      if (todos.length) {
+        todo.value = todos
+        todoHis.commit()
+      }
+      await nextTick(() => {
+        if (ignoreListHis.value)
+          ignoreListHis.value = false
+        if (ignoreOptionsHis.value)
+          ignoreOptionsHis.value = false
+      })
+    }
 
     const createByJsonString = (str: string) => {
       try {
@@ -31,6 +70,8 @@ export const useDesignerStore = () => {
           options.value = json.options
           theme.value = json.theme
           currentItem.value = undefined
+
+          addHistory()
         }
       }
       catch (e) {
@@ -105,7 +146,7 @@ export const useDesignerStore = () => {
       currentItem.value = undefined
     }
 
-    const instanceOfBlockItem = (object: any): object is BlockItem => {
+    const isBlockItem = (object: any): object is BlockItem => {
       return 'blockType' in object
     }
 
@@ -113,7 +154,7 @@ export const useDesignerStore = () => {
       if (!cur)
         return
       const replace = (item: BlockItem | DesignerSettings) => {
-        if (instanceOfBlockItem(item)) {
+        if (isBlockItem(item)) {
           if (item.isCustom)
             return
 
@@ -170,12 +211,18 @@ export const useDesignerStore = () => {
           }
         }
       }
+      addHistory()
     }
 
     const removeItem = (item: BlockItem) => {
       const { parentList, index } = findItemById(list.value, item.id)
-      if (parentList)
+      if (parentList) {
+        if (currentItem.value && item.id === currentItem.value.id)
+          currentItem.value = undefined
+
         parentList.splice(index, 1)
+        addHistory()
+      }
     }
 
     const copyItem = (item: BlockItem) => {
@@ -183,6 +230,7 @@ export const useDesignerStore = () => {
       if (parentList) {
         const _item = { ...item, id: UUID() }
         parentList.splice(index + 1, 0, _item)
+        addHistory()
       }
     }
 
@@ -199,6 +247,7 @@ export const useDesignerStore = () => {
       list.value = []
       options.value = deepClone(designerOptions)
       currentItem.value = undefined
+      addHistory()
     }
 
     const getBlockPlugins = () => {
@@ -211,6 +260,7 @@ export const useDesignerStore = () => {
 
     const resetTheme = () => {
       theme.value = deepClone(designerTheme)
+      addHistory()
     }
 
     const setTheme = (curTheme: DesignerTheme) => {
@@ -218,6 +268,91 @@ export const useDesignerStore = () => {
       theme.value = curTheme
       replaceTheme(curTheme, list.value, oldTheme)
       replaceTheme(curTheme, options.value, oldTheme)
+      addHistory()
+    }
+
+    const undo = async () => {
+      if (currentItem.value)
+        currentItem.value = undefined
+
+      if (isFirstUndo)
+        isFirstUndo = false
+      else
+        todoHis.undo()
+
+      if (!isFirstRedo)
+        isFirstRedo = true
+
+      for (let i = 0, len = todo.value.length; i < len; i++) {
+        const t = todo.value[i]
+        switch (t) {
+          case 'list':
+            ignoreListHis.value = true
+            listHis.undo()
+            break
+
+          case 'options':
+            ignoreOptionsHis.value = true
+            optionsHis.undo()
+            break
+
+          case 'theme':
+            themeHis.undo()
+            break
+
+          default:
+            break
+        }
+      }
+      await nextTick(() => {
+        if (ignoreListHis.value)
+          ignoreListHis.value = false
+        if (ignoreOptionsHis.value)
+          ignoreOptionsHis.value = false
+      })
+    }
+
+    const redo = async () => {
+      if (currentItem.value)
+        currentItem.value = undefined
+
+      if (isFirstRedo) {
+        isFirstRedo = false
+        if (todo.value.length === 0)
+          todoHis.redo()
+      }
+      else { todoHis.redo() }
+
+      if (!isFirstUndo)
+        isFirstUndo = true
+
+      for (let i = 0, len = todo.value.length; i < len; i++) {
+        const t = todo.value[i]
+        switch (t) {
+          case 'list':
+            ignoreListHis.value = true
+            listHis.redo()
+            break
+
+          case 'options':
+            ignoreOptionsHis.value = true
+            optionsHis.redo()
+            break
+
+          case 'theme':
+            themeHis.redo()
+            break
+
+          default:
+            break
+        }
+      }
+      await nextTick(() => {
+        if (ignoreListHis.value)
+          ignoreListHis.value = false
+        if (ignoreOptionsHis.value)
+          ignoreOptionsHis.value = false
+      })
     }
 
     return {
@@ -225,6 +360,8 @@ export const useDesignerStore = () => {
       list,
       options,
       theme,
+      ignoreListHis,
+      ignoreOptionsHis,
       currentItem,
       getCurrentItem,
       createByJsonString,
@@ -241,6 +378,9 @@ export const useDesignerStore = () => {
       setBlockPlugins,
       resetTheme,
       setTheme,
+      undo,
+      redo,
+      addHistory,
     }
   })(config.piniaInstance)
 }

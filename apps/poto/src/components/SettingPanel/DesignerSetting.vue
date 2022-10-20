@@ -80,7 +80,7 @@ onMounted(() => {
   <div id="theme">
     <div>Theme</div>
     <el-form size="small">
-      <el-form-item label="preset">
+      <el-form-item label="Pinned">
         <el-switch v-model="usePreset" />
       </el-form-item>
     </el-form>

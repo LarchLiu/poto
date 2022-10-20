@@ -80,6 +80,12 @@ onMounted(() => {
           <el-button @click="apiTest">
             API
           </el-button>
+          <el-button @click="designer.undo()">
+            Undo
+          </el-button>
+          <el-button @click="designer.redo()">
+            Redo
+          </el-button>
         </div>
         <div>
           退出

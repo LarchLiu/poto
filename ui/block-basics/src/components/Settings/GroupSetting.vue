@@ -29,6 +29,18 @@ const alignStyle = (dir: string, idx: number) => {
 const isRow = computed(() => {
   return widgetOptions.value && widgetOptions.value.flex.direction.includes('row')
 })
+
+watch(currentItem, (n, o) => {
+  if (!n || !o || n.id !== o.id || designer.ignoreListHis) {
+    if (designer.ignoreListHis)
+      designer.ignoreListHis = false
+    return
+  }
+
+  designer.addHistory()
+}, {
+  deep: true,
+})
 </script>
 
 <template>
