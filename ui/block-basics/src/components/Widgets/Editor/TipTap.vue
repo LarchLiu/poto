@@ -15,6 +15,8 @@ const props = defineProps<{
 
 const emit = defineEmits(['update:content'])
 
+const designer = useDesignerStore()
+const hasChanged = ref(false)
 const editor = useEditor({
   content: props.content,
   extensions: [
@@ -24,6 +26,8 @@ const editor = useEditor({
     Diagram,
   ],
   onUpdate: () => {
+    hasChanged.value = true
+    designer.ignoreListHis = true
     emit('update:content', editor.value?.getHTML())
   },
 })
@@ -82,6 +86,15 @@ watch(() => props.content, (value) => {
 
   editor.value?.commands.setContent(value, false)
 })
+const tiptap = ref<HTMLElement>()
+const { focused } = useFocusWithin(tiptap)
+watch(focused, (value, oldValue) => {
+  // add to history after lost focuse
+  if (!value && oldValue && hasChanged.value) {
+    hasChanged.value = false
+    designer.addHistory()
+  }
+})
 </script>
 
 <template>
@@ -130,7 +143,7 @@ watch(() => props.content, (value) => {
       </button>
     </FloatingMenu>
   </div>
-  <EditorContent :editor="editor" :class="isMarkdown ? 'markdown-body' : ''" />
+  <EditorContent ref="tiptap" :editor="editor" :class="isMarkdown ? 'markdown-body' : ''" />
 </template>
 
 <style scoped lang="scss">
