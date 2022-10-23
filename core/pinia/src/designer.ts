@@ -7,7 +7,7 @@ import { isArray } from 'lodash'
 import { designerOptions, designerTheme } from './constants'
 import { config } from './config'
 
-type TodoType = 'list' | 'options' | 'theme'
+type HistoryType = 'list' | 'options' | 'theme' | 'currentItem'
 
 export const useDesignerStore = () => {
   if (!config.piniaInstance)
@@ -19,39 +19,50 @@ export const useDesignerStore = () => {
     const options = ref<DesignerSettings>(deepClone(designerOptions))
     const theme = ref<DesignerTheme>(deepClone(designerTheme))
     const currentItem = ref<BlockItem | undefined>(undefined)
-    const todo = ref <TodoType[]>([])
+    const histories = ref <HistoryType[]>([])
     const ignoreListHis = ref(false)
     const ignoreOptionsHis = ref(false)
-    let isFirstUndo = true
-    let isFirstRedo = true
+    let firstTimeUndo = true
+    let firstTimeRedo = true
 
     const listHis = useManualRefHistory(list, { clone: true })
     const optionsHis = useManualRefHistory(options, { clone: true })
     const themeHis = useManualRefHistory(theme, { clone: true })
-    const todoHis = useManualRefHistory(todo, { clone: true })
+    const currentItemHis = useManualRefHistory(currentItem, {
+      dump: v => v ? JSON.parse(JSON.stringify(v)) : undefined,
+      parse: v => v ? JSON.parse(JSON.stringify(v)) : undefined,
+    })
+    const historiesHis = useManualRefHistory(histories, { clone: true })
 
     const { height: windowHeight } = useWindowSize()
     const contentPanelHeight = computed(() => windowHeight.value - 48 - 16)
     const blockPlugins = shallowRef<BlockInfo | undefined>(undefined)
 
     const addHistory = async () => {
-      const todos: TodoType[] = ['list', 'options', 'theme']
-      for (let i = 0; i < todos.length; i++) {
-        if (todos[i] === 'list') {
-          ignoreListHis.value = true
-          listHis.commit()
-        }
-        else if (todos[i] === 'options') {
-          ignoreOptionsHis.value = true
-          optionsHis.commit()
-        }
-        else {
-          themeHis.commit()
+      const hisList: HistoryType[] = ['list', 'options', 'theme', 'currentItem']
+      for (let i = 0; i < hisList.length; i++) {
+        switch (hisList[i]) {
+          case 'list':
+            ignoreListHis.value = true
+            listHis.commit()
+            break
+          case 'options':
+            ignoreOptionsHis.value = true
+            optionsHis.commit()
+            break
+          case 'theme':
+            themeHis.commit()
+            break
+          case 'currentItem':
+            currentItemHis.commit()
+            break
+          default:
+            break
         }
       }
-      if (todos.length) {
-        todo.value = todos
-        todoHis.commit()
+      if (hisList.length) {
+        histories.value = hisList
+        historiesHis.commit()
       }
       await nextTick(() => {
         if (ignoreListHis.value)
@@ -272,19 +283,16 @@ export const useDesignerStore = () => {
     }
 
     const undo = async () => {
-      if (currentItem.value)
-        currentItem.value = undefined
-
-      if (isFirstUndo)
-        isFirstUndo = false
+      if (firstTimeUndo)
+        firstTimeUndo = false
       else
-        todoHis.undo()
+        historiesHis.undo()
 
-      if (!isFirstRedo)
-        isFirstRedo = true
+      if (!firstTimeRedo)
+        firstTimeRedo = true
 
-      for (let i = 0, len = todo.value.length; i < len; i++) {
-        const t = todo.value[i]
+      for (let i = 0, len = histories.value.length; i < len; i++) {
+        const t = histories.value[i]
         switch (t) {
           case 'list':
             ignoreListHis.value = true
@@ -300,6 +308,10 @@ export const useDesignerStore = () => {
             themeHis.undo()
             break
 
+          case 'currentItem':
+            currentItemHis.undo()
+            break
+
           default:
             break
         }
@@ -313,21 +325,18 @@ export const useDesignerStore = () => {
     }
 
     const redo = async () => {
-      if (currentItem.value)
-        currentItem.value = undefined
-
-      if (isFirstRedo) {
-        isFirstRedo = false
-        if (todo.value.length === 0)
-          todoHis.redo()
+      if (firstTimeRedo) {
+        firstTimeRedo = false
+        if (histories.value.length === 0)
+          historiesHis.redo()
       }
-      else { todoHis.redo() }
+      else { historiesHis.redo() }
 
-      if (!isFirstUndo)
-        isFirstUndo = true
+      if (!firstTimeUndo)
+        firstTimeUndo = true
 
-      for (let i = 0, len = todo.value.length; i < len; i++) {
-        const t = todo.value[i]
+      for (let i = 0, len = histories.value.length; i < len; i++) {
+        const t = histories.value[i]
         switch (t) {
           case 'list':
             ignoreListHis.value = true
@@ -341,6 +350,10 @@ export const useDesignerStore = () => {
 
           case 'theme':
             themeHis.redo()
+            break
+
+          case 'currentItem':
+            currentItemHis.redo()
             break
 
           default:
