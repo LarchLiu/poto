@@ -61,6 +61,25 @@ const enableTransformer = computed({
   },
 })
 
+const sliderMouseDown = () => {
+  designer.ignoreListHis = true
+  designer.ignoreOptionsHis = true
+
+  const onMouseMove = function () {
+    designer.ignoreListHis = true
+    designer.ignoreOptionsHis = true
+  }
+
+  const onMouseUp = function () {
+    removeEventListener('mousemove', onMouseMove)
+    removeEventListener('mouseup', onMouseUp)
+    designer.addHistory()
+  }
+
+  addEventListener('mousemove', onMouseMove)
+  addEventListener('mouseup', onMouseUp)
+}
+
 watch(widgetOptions, () => {
   // watching options change of designer and add to history
   if (props.isDesigner) {
@@ -85,7 +104,9 @@ watch(widgetOptions, () => {
       <el-form-item label="宽度">
         <!-- <input v-model="widgetOptions.size.width" class="w-4/5" type="range" min="1" max="100" step="0.1">
       <span ml-1>{{ `${widgetOptions.size.width}%` }}</span> -->
-        <el-slider v-model="widgetOptions.size.width" class="mr-3" :min="1" :step="0.1" />
+        <span class="w-full mr-3" @mousedown="sliderMouseDown">
+          <el-slider v-model="widgetOptions.size.width" class="mr-3" :min="1" :step="0.1" />
+        </span>
       </el-form-item>
       <el-form-item label="边框">
         <div class="flex flex-col">

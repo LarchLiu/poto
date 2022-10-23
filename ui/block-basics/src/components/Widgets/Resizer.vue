@@ -6,6 +6,7 @@ const props = defineProps<{
 
 const emit = defineEmits(['update:width', 'isResizing'])
 
+const designer = useDesignerStore()
 const isResizing = ref(false)
 
 const mouseDown = ({ target: resizer, pageX: initialPageX, pageY: initialPageY }: MouseEvent) => {
@@ -13,20 +14,22 @@ const mouseDown = ({ target: resizer, pageX: initialPageX, pageY: initialPageY }
   const curBlock = props.wrapper.parentElement
   const blockWidth = curBlock?.offsetWidth
   const blockContainer = curBlock?.parentElement
-  const blockContainerWidth = blockContainer?.offsetWidth
-  // console.log(parentIsGroup, blockWidth, blockContainerWidth)
+  const paddingOffset = designer.options.padding[1] + designer.options.padding[3]
+  const blockContainerWidth = blockContainer?.offsetWidth ? blockContainer?.offsetWidth - paddingOffset : 0
+  designer.ignoreListHis = true
   isResizing.value = true
   emit('isResizing', isResizing.value)
   const resize = (initialSize: number, offset = 0) => {
-    const paneWidth = initialSize + offset
+    const panelWidth = initialSize + offset
 
-    return paneWidth / blockContainerWidth! * 100
+    return blockContainerWidth ? panelWidth / blockContainerWidth * 100 : 0
   }
   const onMouseMove = function ({ pageX }: MouseEvent) {
     let width = resize(blockWidth!, pageX - initialPageX)
     width = width > 100 ? 100 : width
     width = width < 0 ? 0 : width
 
+    designer.ignoreListHis = true
     emit('update:width', width)
   }
 
@@ -37,6 +40,7 @@ const mouseDown = ({ target: resizer, pageX: initialPageX, pageY: initialPageY }
     removeEventListener('mouseup', onMouseUp)
 
     emit('isResizing', isResizing.value)
+    designer.addHistory()
   }
 
   addEventListener('mousemove', onMouseMove)
