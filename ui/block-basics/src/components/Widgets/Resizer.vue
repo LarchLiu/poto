@@ -12,10 +12,11 @@ const isResizing = ref(false)
 const mouseDown = ({ target: resizer, pageX: initialPageX, pageY: initialPageY }: MouseEvent) => {
   // const parentIsGroup = props.wrapper.parentElement?.id === 'group'
   const curBlock = props.wrapper.parentElement
-  const blockWidth = curBlock?.offsetWidth
+  const blockWidth = curBlock?.offsetWidth ? curBlock?.offsetWidth : 0
   const blockContainer = curBlock?.parentElement
-  const paddingOffset = designer.options.padding[1] + designer.options.padding[3]
-  const blockContainerWidth = blockContainer?.offsetWidth ? blockContainer?.offsetWidth - paddingOffset : 0
+  const containerStyle = getComputedStyle(blockContainer!)
+  const containerOffset = parseFloat(containerStyle.paddingLeft) + parseFloat(containerStyle.paddingRight) + parseFloat(containerStyle.borderLeftWidth) + parseFloat(containerStyle.borderRightWidth)
+  const blockContainerWidth = blockContainer?.offsetWidth ? blockContainer?.offsetWidth - containerOffset : 0
   designer.ignoreListHis = true
   isResizing.value = true
   emit('isResizing', isResizing.value)
