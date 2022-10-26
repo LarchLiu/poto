@@ -1,7 +1,7 @@
 import { defineStore } from 'pinia'
 import { computed, nextTick, ref, shallowRef } from 'vue'
 import { useManualRefHistory, useWindowSize } from '@vueuse/core'
-import type { BlockInfo, BlockItem, DesignerSettings, DesignerTheme, FindedItem, TextSettings } from '@poto/types'
+import type { BlockInfo, BlockItem, DesignerActionItem, DesignerSettings, DesignerTheme, FindedItem, TextSettings } from '@poto/types'
 import { UUID, cloneItem, deepClone } from '@poto/utils'
 import { isArray } from 'lodash'
 import { designerOptions, designerTheme } from './constants'
@@ -15,6 +15,7 @@ export const useDesignerStore = () => {
 
   return defineStore('designer', () => {
     const id = ref(UUID())
+    const actions = ref<DesignerActionItem[]>([])
     const list = ref<BlockItem[]>([])
     const options = ref<DesignerSettings>(deepClone(designerOptions))
     const theme = ref<DesignerTheme>(deepClone(designerTheme))
@@ -28,10 +29,7 @@ export const useDesignerStore = () => {
     const listHis = useManualRefHistory(list, { clone: true })
     const optionsHis = useManualRefHistory(options, { clone: true })
     const themeHis = useManualRefHistory(theme, { clone: true })
-    const currentItemHis = useManualRefHistory(currentItem, {
-      dump: v => v ? JSON.parse(JSON.stringify(v)) : undefined,
-      parse: v => v ? JSON.parse(JSON.stringify(v)) : undefined,
-    })
+    const currentItemHis = useManualRefHistory(currentItem)
     const historiesHis = useManualRefHistory(histories, { clone: true })
 
     const { height: windowHeight } = useWindowSize()
@@ -77,7 +75,8 @@ export const useDesignerStore = () => {
         const json = JSON.parse(str)
         if (typeof json === 'object') {
           id.value = json.id
-          list.value = json.list
+          actions.value = json.actions || []
+          list.value = json.list || []
           options.value = json.options
           theme.value = json.theme
           currentItem.value = undefined
@@ -368,8 +367,17 @@ export const useDesignerStore = () => {
       })
     }
 
+    const addAction = (item: DesignerActionItem) => {
+      actions.value.push(item)
+    }
+
+    const findAction = (id: string) => {
+      return actions.value.find(item => item.id === id)
+    }
+
     return {
       id,
+      actions,
       list,
       options,
       theme,
@@ -394,6 +402,8 @@ export const useDesignerStore = () => {
       undo,
       redo,
       addHistory,
+      addAction,
+      findAction,
     }
   })(config.piniaInstance)
 }

@@ -67,7 +67,11 @@ const fetchSourceData = async (actionId: string) => {
         ElMessage.error(err)
     }
     else {
-      const action = actionsStore.findAction(actionId)
+      let action = options.value.sourceData?.actionItem
+      if (!action)
+        action = designer.findAction(actionId)
+      if (!action)
+        action = actionsStore.findAction(actionId)
       if (action && options.value) {
         if (action?.type === 'restapi') {
           const url = (action.content as RestApiAction<BodyContent>).url

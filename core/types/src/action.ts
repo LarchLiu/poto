@@ -4,12 +4,20 @@ export interface ActionItem {
   id: string
   name: string
   type: ActionType
-  content: ActionContent
+  content?: ActionContent
+}
+
+export interface DesignerActionItem extends ActionItem {
+  /**
+   * from global action's id
+   */
+  fromId?: string
 }
 
 export interface SourceData {
   enable: boolean
   actionId: string
+  actionItem?: DesignerActionItem
   transformer: Transformer
 }
 

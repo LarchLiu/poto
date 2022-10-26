@@ -22,6 +22,7 @@ const props = defineProps({
   },
 })
 
+const designer = useDesignerStore()
 const actionsStore = useActionsStore()
 const options = computed(() => {
   return props.item.options as TextSettings
@@ -74,7 +75,11 @@ const fetchSourceData = async (actionId: string) => {
       else { ElMessage.error(err) }
     }
     else {
-      const action = actionsStore.findAction(actionId)
+      let action = options.value.sourceData?.actionItem
+      if (!action)
+        action = designer.findAction(actionId)
+      if (!action)
+        action = actionsStore.findAction(actionId)
       if (action && options.value) {
         if (action?.type === 'restapi') {
           const url = (action.content as RestApiAction<BodyContent>).url
@@ -92,7 +97,9 @@ const fetchSourceData = async (actionId: string) => {
         }
         else if (action.type === 'transformer') {
           const transformer = action.content as TransformerAction
-          const rawData = runTransformer(transformer, '')
+          let rawData = runTransformer(transformer, '')
+          if (!!rawData && options.value?.sourceData?.transformer)
+            rawData = runTransformer(options.value.sourceData.transformer, rawData)
           if (typeof rawData === 'string')
             options.value.text = rawData
           else

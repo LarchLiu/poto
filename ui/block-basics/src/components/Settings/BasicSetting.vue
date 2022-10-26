@@ -1,5 +1,6 @@
 <script setup lang="ts">
-import type { BasicSettings } from '~/types'
+import { UUID } from '@poto/utils'
+import type { BasicSettings, DesignerActionItem } from '~/types'
 
 const props = defineProps({
   isDesigner: {
@@ -20,11 +21,17 @@ const currentItem = computed(() => {
   return props.isDesigner ? designer : designer.getCurrentItem()
 })
 const widgetOptions = computed(() => props.isDesigner ? designer.options : (currentItem.value ? currentItem.value.options as BasicSettings : undefined))
+const transformer = ref(widgetOptions.value?.sourceData?.transformer.rawData ? widgetOptions.value.sourceData.transformer.rawData : 'return data')
+
+const designerActions = computed(() => {
+  const actions = designer.actions
+  if (widgetOptions.value?.hasParentData)
+    return [{ id: 'byparent', name: 'By Parent', type: 'byparent' }].concat(actions) as DesignerActionItem[]
+
+  return actions
+})
 
 const actionsList = computed(() => {
-  if (widgetOptions.value?.hasParentData)
-    return [{ id: 'byparent', name: 'By Parent', type: 'byparent' }].concat(actionsStore.actions)
-
   return actionsStore.actions
 })
 
@@ -80,6 +87,41 @@ const sliderMouseDown = () => {
   addEventListener('mouseup', onMouseUp)
 }
 
+const onActionChange = (id: string) => {
+  const actions = designer.actions
+  let has = false
+
+  for (let i = 0; i < actions.length; i++) {
+    if (id === actions[i].id || id === actions[i].fromId) {
+      if (widgetOptions.value && widgetOptions.value.sourceData) {
+        widgetOptions.value.sourceData.actionId = actions[i].id
+        widgetOptions.value.sourceData.actionItem = actions[i]
+      }
+      has = true
+      return
+    }
+  }
+
+  if (!has) {
+    for (let i = 0; i < actionsStore.actions.length; i++) {
+      if (id === actionsStore.actions[i].id) {
+        const _id = UUID()
+        if (widgetOptions.value && widgetOptions.value.sourceData) {
+          widgetOptions.value.sourceData.actionId = _id
+          widgetOptions.value.sourceData.actionItem = { ...actionsStore.actions[i], id: _id, fromId: id }
+        }
+        designer.addAction({ ...actionsStore.actions[i], id: _id, fromId: id })
+        break
+      }
+    }
+  }
+}
+
+const onTransformerChange = () => {
+  if (widgetOptions.value && widgetOptions.value.sourceData)
+    widgetOptions.value.sourceData.transformer.rawData = transformer.value
+}
+
 watch(widgetOptions, () => {
   // watching options change of designer and add to history
   if (props.isDesigner) {
@@ -92,6 +134,11 @@ watch(widgetOptions, () => {
   }
 }, {
   deep: true,
+})
+
+watch(() => widgetOptions.value?.sourceData?.transformer.rawData, (value) => {
+  if (value)
+    transformer.value = value
 })
 </script>
 
@@ -153,22 +200,43 @@ watch(widgetOptions, () => {
         <!-- <el-input v-model="widgetOptions.text" type="textarea" :rows="2" /> -->
 
         <el-switch v-model="enableSourceData" class="mr-2" />
-        <el-select v-if="widgetOptions.sourceData?.enable" v-model="widgetOptions.sourceData.actionId" class="mr-2">
-          <el-option
-            v-for="item in actionsList"
-            :key="item.id"
-            :label="item.name"
-            :value="item.id"
-          >
-            <div class="flex items-center">
-              <div class="text-blue-400 text-18px mr-1" :class="item.type === 'restapi' ? 'i-mdi-api' : 'i-mdi-language-javascript'" /> {{ item.name }}
-            </div>
-          </el-option>
+        <el-select
+          v-if="widgetOptions.sourceData?.enable"
+          v-model="widgetOptions.sourceData.actionId" class="mr-2"
+          @change="onActionChange"
+        >
+          <el-option-group label="Designer Actions">
+            <el-option
+              v-for="item in designerActions"
+              :key="item.id"
+              :label="item.name"
+              :value="item.id"
+            >
+              <div class="flex items-center">
+                <div class="text-blue-400 text-18px mr-1" :class="item.type === 'restapi' ? 'i-mdi-api' : 'i-mdi-language-javascript'" /> {{ item.name }}
+              </div>
+            </el-option>
+          </el-option-group>
+          <el-option-group label="Global Actions">
+            <el-option
+              v-for="item in actionsList"
+              :key="item.id"
+              :label="item.name"
+              :value="item.id"
+            >
+              <div class="flex items-center">
+                <div class="text-blue-400 text-18px mr-1" :class="item.type === 'restapi' ? 'i-mdi-api' : 'i-mdi-language-javascript'" /> {{ item.name }}
+              </div>
+            </el-option>
+          </el-option-group>
         </el-select>
       </el-form-item>
       <el-form-item v-if="widgetOptions.sourceData?.enable" label="转换器">
         <el-switch v-model="enableTransformer" />
-        <el-input v-if="widgetOptions.sourceData?.transformer.enable" v-model="widgetOptions.sourceData.transformer.rawData" type="textarea" :rows="2" />
+        <el-input v-if="widgetOptions.sourceData?.transformer.enable" v-model="transformer" type="textarea" :rows="2" />
+        <el-button v-if="widgetOptions.sourceData?.transformer.enable" class="mt-1" @click="onTransformerChange">
+          ok
+        </el-button>
       </el-form-item>
     </el-form>
   </div>

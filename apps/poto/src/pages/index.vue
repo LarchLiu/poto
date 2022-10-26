@@ -33,7 +33,8 @@ const saveList = () => {
 
   potoDesigner.value = JSON.stringify({
     id: designer.id,
-    list: designer.list,
+    actions: designer.actions || [],
+    list: designer.list || [],
     options: designer.options,
     theme: designer.theme,
   })
