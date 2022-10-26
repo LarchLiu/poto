@@ -29,7 +29,10 @@ export const useDesignerStore = () => {
     const listHis = useManualRefHistory(list, { clone: true })
     const optionsHis = useManualRefHistory(options, { clone: true })
     const themeHis = useManualRefHistory(theme, { clone: true })
-    const currentItemHis = useManualRefHistory(currentItem)
+    const currentItemHis = useManualRefHistory(currentItem, {
+      dump: v => v ? JSON.parse(JSON.stringify(v)) : undefined,
+      parse: v => v ? JSON.parse(JSON.stringify(v)) : undefined,
+    })
     const historiesHis = useManualRefHistory(histories, { clone: true })
 
     const { height: windowHeight } = useWindowSize()
