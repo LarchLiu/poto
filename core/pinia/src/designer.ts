@@ -391,6 +391,12 @@ export const useDesignerStore = () => {
       return actions.value.find(item => item.id === id)
     }
 
+    const cloneItemWithTheme = (src: BlockItem) => {
+      const item = cloneItem(src)
+      replaceTheme(theme.value, item)
+      return item
+    }
+
     return {
       id,
       actions,
@@ -420,6 +426,7 @@ export const useDesignerStore = () => {
       addHistory,
       addAction,
       findAction,
+      cloneItemWithTheme,
     }
   })(config.piniaInstance)
 }

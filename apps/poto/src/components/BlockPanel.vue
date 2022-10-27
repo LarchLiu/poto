@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import { BlockPlugins } from '~/poto-auto-imports'
 import type { BlockItem, CustomBlock } from '~/types'
-import { BlockBasics, cloneItem } from '~/utils'
+import { BlockBasics } from '~/utils'
 
 const designer = useDesignerStore()
 const customBlocks = useCustomBlocksStore()
@@ -13,7 +13,7 @@ const pluginsList: BlockItem[] = Object.keys(BlockPlugins).map((type) => {
 })
 
 const cloneCustomComponent = (component: CustomBlock) => {
-  return cloneItem(component.item)
+  return designer.cloneItemWithTheme(component.item)
 }
 const addItem = (item: BlockItem) => {
   designer.addItem(item)
@@ -38,7 +38,7 @@ const dragEnd = async () => {
   <div>
     <draggable
       :list="basicsList" item-key="key" :group="{ name: 'standard', pull: 'clone', put: false }"
-      :clone="cloneItem" ghost-class="ghost" :sort="false"
+      :clone="designer.cloneItemWithTheme" ghost-class="ghost" :sort="false"
       @start="dragStart"
       @end="dragEnd"
     >
@@ -58,7 +58,7 @@ const dragEnd = async () => {
           <el-scrollbar max-height="50vh">
             <draggable
               :list="pluginsList" item-key="id" :group="{ name: 'standard', pull: 'clone', put: false }"
-              :clone="cloneItem" ghost-class="ghost" :sort="false"
+              :clone="designer.cloneItemWithTheme" ghost-class="ghost" :sort="false"
             >
               <template #item="{ element }: { element: BlockItem }">
                 <div class="border rounded p-2 cursor-grab shadow-sm hover:shadow-md m-3" @dblclick="addItem(element)">
