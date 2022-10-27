@@ -7,7 +7,7 @@ import { isArray } from 'lodash'
 import { designerOptions, designerTheme } from './constants'
 import { config } from './config'
 
-type HistoryType = 'list' | 'options' | 'theme' | 'currentItem'
+type HistoryType = 'list' | 'options' | 'theme' | 'currentItemId'
 
 export const useDesignerStore = () => {
   if (!config.piniaInstance)
@@ -20,6 +20,7 @@ export const useDesignerStore = () => {
     const options = ref<DesignerSettings>(deepClone(designerOptions))
     const theme = ref<DesignerTheme>(deepClone(designerTheme))
     const currentItem = ref<BlockItem | undefined>(undefined)
+    const currentItemId = ref<string | undefined>(undefined)
     const histories = ref <HistoryType[]>([])
     const ignoreListHis = ref(false)
     const ignoreOptionsHis = ref(false)
@@ -29,10 +30,7 @@ export const useDesignerStore = () => {
     const listHis = useManualRefHistory(list, { clone: true })
     const optionsHis = useManualRefHistory(options, { clone: true })
     const themeHis = useManualRefHistory(theme, { clone: true })
-    const currentItemHis = useManualRefHistory(currentItem, {
-      dump: v => v ? JSON.parse(JSON.stringify(v)) : undefined,
-      parse: v => v ? JSON.parse(JSON.stringify(v)) : undefined,
-    })
+    const currentItemIdHis = useManualRefHistory(currentItemId)
     const historiesHis = useManualRefHistory(histories, { clone: true })
 
     const { height: windowHeight } = useWindowSize()
@@ -40,7 +38,7 @@ export const useDesignerStore = () => {
     const blockPlugins = shallowRef<BlockInfo | undefined>(undefined)
 
     const addHistory = async () => {
-      const hisList: HistoryType[] = ['list', 'options', 'theme', 'currentItem']
+      const hisList: HistoryType[] = ['list', 'options', 'theme', 'currentItemId']
       for (let i = 0; i < hisList.length; i++) {
         switch (hisList[i]) {
           case 'list':
@@ -54,8 +52,8 @@ export const useDesignerStore = () => {
           case 'theme':
             themeHis.commit()
             break
-          case 'currentItem':
-            currentItemHis.commit()
+          case 'currentItemId':
+            currentItemIdHis.commit()
             break
           default:
             break
@@ -83,6 +81,7 @@ export const useDesignerStore = () => {
           options.value = json.options
           theme.value = json.theme
           currentItem.value = undefined
+          currentItemId.value = undefined
 
           addHistory()
         }
@@ -115,6 +114,7 @@ export const useDesignerStore = () => {
 
     const setSelectedItem = (item: BlockItem) => {
       currentItem.value = item
+      currentItemId.value = item.id
       const scrollTo = document.getElementById(`${item.category}-${item.id}`)
       if (scrollTo) {
         const eleHeight = scrollTo.offsetHeight
@@ -146,8 +146,10 @@ export const useDesignerStore = () => {
           setSelectedItem(item)
         }
         else {
-          if (disabled)
+          if (disabled) {
             currentItem.value = undefined
+            currentItemId.value = undefined
+          }
         }
       }
       else {
@@ -157,6 +159,7 @@ export const useDesignerStore = () => {
 
     const resetSelectedItem = () => {
       currentItem.value = undefined
+      currentItemId.value = undefined
     }
 
     const isBlockItem = (object: any): object is BlockItem => {
@@ -230,8 +233,10 @@ export const useDesignerStore = () => {
     const removeItem = (item: BlockItem) => {
       const { parentList, index } = findItemById(list.value, item.id)
       if (parentList) {
-        if (currentItem.value && item.id === currentItem.value.id)
+        if (currentItem.value && item.id === currentItem.value.id) {
           currentItem.value = undefined
+          currentItemId.value = undefined
+        }
 
         parentList.splice(index, 1)
         addHistory()
@@ -260,6 +265,7 @@ export const useDesignerStore = () => {
       list.value = []
       options.value = deepClone(designerOptions)
       currentItem.value = undefined
+      currentItemId.value = undefined
       addHistory()
     }
 
@@ -310,8 +316,11 @@ export const useDesignerStore = () => {
             themeHis.undo()
             break
 
-          case 'currentItem':
-            currentItemHis.undo()
+          case 'currentItemId':
+            await nextTick(() => {
+              currentItemIdHis.undo()
+              currentItem.value = findItemById(list.value, currentItemId.value).item
+            })
             break
 
           default:
@@ -354,14 +363,18 @@ export const useDesignerStore = () => {
             themeHis.redo()
             break
 
-          case 'currentItem':
-            currentItemHis.redo()
+          case 'currentItemId':
+            await nextTick(() => {
+              currentItemIdHis.redo()
+              currentItem.value = findItemById(list.value, currentItemId.value).item
+            })
             break
 
           default:
             break
         }
       }
+
       await nextTick(() => {
         if (ignoreListHis.value)
           ignoreListHis.value = false

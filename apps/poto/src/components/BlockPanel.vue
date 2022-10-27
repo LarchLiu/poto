@@ -21,10 +21,13 @@ const addItem = (item: BlockItem) => {
 
 const tempList = ref()
 const dragStart = () => {
+  designer.ignoreListHis = true
   tempList.value = JSON.stringify(designer.list)
 }
 const dragEnd = async () => {
   await nextTick(() => {
+    if (designer.ignoreListHis)
+      designer.ignoreListHis = false
     if (tempList.value !== JSON.stringify(designer.list))
       designer.addHistory()
   })
