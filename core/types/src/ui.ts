@@ -1,5 +1,5 @@
 import type { Component } from 'vue'
-import type { SourceData } from './action'
+import type { ActionItem, DesignerActionItem, SourceData } from './action'
 
 export enum BlockType {
   Title = 'TITLE',
@@ -209,5 +209,19 @@ export interface DesignerTheme {
 
 }
 
+export interface DesignerTemplate {
+  id: string
+  actions: DesignerActionItem[]
+  list: BlockItem[]
+  options: DesignerSettings
+  theme: DesignerTheme
+}
+
 export interface DesignerSettings extends BasicSettings {}
+
+export interface PotoTemplate {
+  potoActions: ActionItem[]
+  potoDesigner: DesignerTemplate
+  potoCustomBlocks: CustomBlock[]
+}
 

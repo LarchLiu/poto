@@ -1,4 +1,5 @@
 <script setup lang="ts">
+import type { PotoTemplate } from '~/types'
 import { BlockPlugins } from '~/poto-auto-imports'
 
 const { height: windowHeight } = useWindowSize()
@@ -13,7 +14,16 @@ const page = ref<HTMLElement | null>(null)
 const containerHeight = computed(() => `${windowHeight.value - 48 - 4}px`) // windowHeight - top header - main header - margin * 2
 const contentPanelHeight = computed(() => `${windowHeight.value - 48}px`)
 const showLayout = ref(true)
+const potoTemplate = ref<PotoTemplate>()
 
+const loadJsonFile = (name: string) => {
+  const xhr = new XMLHttpRequest()
+  const okStatus = document.location.protocol === 'file:' ? 0 : 200
+  xhr.open('GET', name, false)
+  xhr.overrideMimeType('application/json;charset=utf-8')// 默认为utf-8
+  xhr.send(null)
+  return xhr.status === okStatus ? xhr.responseText : ''
+}
 const handleScreenShot = () => {
   toPng(page.value!.querySelector('.preview') as HTMLElement) // , { width: 750 })
     .then((dataUrl) => {
@@ -48,13 +58,17 @@ const resetList = () => {
   designer.resetStore()
 }
 
-const apiTest = async () => {
-  ElMessage('test')
+const loadTemplate = async () => {
+  if (potoTemplate.value) {
+    designer.createByTemplate(potoTemplate.value.potoDesigner)
+    customBlocks.createByTemplate(potoTemplate.value.potoCustomBlocks)
+  }
 }
 onMounted(() => {
   actionsStore.createByJsonString(potoActions.value)
   customBlocks.createByJsonString(potoCustomBlocks.value)
   designer.setBlockPlugins(BlockPlugins)
+  potoTemplate.value = JSON.parse(loadJsonFile(`${import.meta.env.BASE_URL}template.json`))
 })
 </script>
 
@@ -78,8 +92,8 @@ onMounted(() => {
           <el-button @click="resetList">
             reset
           </el-button>
-          <el-button @click="apiTest">
-            API
+          <el-button @click="loadTemplate">
+            Template
           </el-button>
           <el-button @click="designer.undo()">
             Undo

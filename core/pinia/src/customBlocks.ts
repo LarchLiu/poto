@@ -10,13 +10,17 @@ export const useCustomBlocksStore = () => {
   return defineStore('customBlocks', () => {
     const components = ref<CustomBlock[]>([])
 
+    const createByTemplate = (arr: CustomBlock[]) => {
+      if (Array.isArray(arr))
+        components.value = arr
+      else
+        components.value = []
+    }
+
     const createByJsonString = (str: string) => {
       try {
         const json = JSON.parse(str)
-        if (Array.isArray(json))
-          components.value = json
-        else
-          components.value = []
+        createByTemplate(json)
       }
       catch (e) {
         components.value = []
@@ -40,6 +44,7 @@ export const useCustomBlocksStore = () => {
 
     return {
       components,
+      createByTemplate,
       createByJsonString,
       addComponent,
       updateComponent,

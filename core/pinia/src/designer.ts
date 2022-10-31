@@ -1,7 +1,7 @@
 import { defineStore } from 'pinia'
 import { computed, nextTick, ref, shallowRef } from 'vue'
 import { useManualRefHistory, useWindowSize } from '@vueuse/core'
-import type { BlockInfo, BlockItem, DesignerActionItem, DesignerSettings, DesignerTheme, FindedItem, TextSettings } from '@poto/types'
+import type { BlockInfo, BlockItem, DesignerActionItem, DesignerSettings, DesignerTemplate, DesignerTheme, FindedItem, TextSettings } from '@poto/types'
 import { UUID, cloneItem, deepClone } from '@poto/utils'
 import { isArray } from 'lodash'
 import { designerOptions, designerTheme } from './constants'
@@ -71,20 +71,23 @@ export const useDesignerStore = () => {
       })
     }
 
+    const createByTemplate = (obj: DesignerTemplate) => {
+      id.value = obj.id
+      actions.value = obj.actions || []
+      list.value = obj.list || []
+      options.value = obj.options
+      theme.value = obj.theme
+      currentItem.value = undefined
+      currentItemId.value = undefined
+
+      addHistory()
+    }
+
     const createByJsonString = (str: string) => {
       try {
         const json = JSON.parse(str)
-        if (typeof json === 'object') {
-          id.value = json.id
-          actions.value = json.actions || []
-          list.value = json.list || []
-          options.value = json.options
-          theme.value = json.theme
-          currentItem.value = undefined
-          currentItemId.value = undefined
-
-          addHistory()
-        }
+        if (typeof json === 'object')
+          createByTemplate(json)
       }
       catch (e) {
 
@@ -407,6 +410,7 @@ export const useDesignerStore = () => {
       ignoreOptionsHis,
       currentItem,
       getCurrentItem,
+      createByTemplate,
       createByJsonString,
       isWidget,
       isSelected,
