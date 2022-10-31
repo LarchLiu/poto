@@ -37,7 +37,7 @@ export function runTransformer(transformer: Transformer | TransformerAction, raw
     const canEvalString = `{{${evaluateTransform}()}}`
     try {
       calcResult = evaluateDynamicString(canEvalString, {
-        index: rawIndex,
+        dataIndex: rawIndex,
         data: rawData,
       })
     }
