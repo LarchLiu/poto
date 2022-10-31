@@ -21,8 +21,7 @@
     "prepublishOnly": "npm run build"
   },
   "devDependencies": {
-    "@antfu/ni": "^0.17.2",
-    "tsup": "^6.2.3",
-    "vue": "^3.2.40"
+    "tsup": "^6.3.0",
+    "vue": "^3.2.41"
   }
 }

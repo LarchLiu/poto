@@ -43,8 +43,7 @@ export default defineConfig({
     // https://github.com/antfu/unplugin-vue-components
     Components({
       resolvers: [ElementPlusResolver()],
-      // allow auto import and register components used in markdown
-      include: [/\.vue$/, /\.vue\?vue/, /\.md$/],
+      include: [/\.vue$/, /\.vue\?vue/],
       dts: 'src/components.d.ts',
     }),
 

@@ -27,6 +27,6 @@
   "devDependencies": {
     "@poto/types": "workspace:*",
     "@types/uuid": "^8.3.4",
-    "tsup": "^6.2.3"
+    "tsup": "^6.3.0"
   }
 }

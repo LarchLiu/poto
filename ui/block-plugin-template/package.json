@@ -14,7 +14,9 @@
   "main": "./dist/poto-block-plugin-template.umd.cjs",
   "module": "./dist/poto-block-plugin-template.js",
   "types": "./dist/index.d.ts",
-  "files": ["dist"],
+  "files": [
+    "dist"
+  ],
   "scripts": {
     "build": "vite build && vue-tsc --declaration --emitDeclarationOnly",
     "lint": "eslint .",
@@ -24,13 +26,13 @@
     "@poto/block-basics": "workspace:*",
     "@poto/pinia": "workspace:*",
     "@poto/utils": "workspace:*",
-    "vue": "^3.2.40"
+    "vue": "^3.2.41"
   },
   "devDependencies": {
     "@poto/gen-block-type": "workspace:*",
     "@poto/types": "workspace:*",
-    "@vitejs/plugin-vue": "^3.0.3",
+    "@vitejs/plugin-vue": "^3.2.0",
     "typescript": "^4.8.4",
-    "vite": "^3.1.6"
+    "vite": "^3.2.1"
   }
 }

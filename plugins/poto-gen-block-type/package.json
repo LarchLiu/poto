@@ -33,7 +33,6 @@
     "@poto/utils": "workspace:*"
   },
   "devDependencies": {
-    "@antfu/ni": "^0.17.2",
-    "tsup": "^6.2.2"
+    "tsup": "^6.3.0"
   }
 }
