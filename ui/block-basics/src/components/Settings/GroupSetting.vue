@@ -1,6 +1,10 @@
 <script setup lang="ts">
 import type { GroupSettings } from '~/types'
+import { i18nMessages } from '~/constants'
 
+const { t } = useI18n({
+  messages: i18nMessages,
+})
 const designer = useDesignerStore()
 const currentItem = computed(() => designer.getCurrentItem())
 const widgetOptions = computed(() => (currentItem.value ? currentItem.value.options as GroupSettings : undefined))
@@ -46,54 +50,54 @@ watch(currentItem, (n, o) => {
 <template>
   <div v-if="widgetOptions">
     <div class="italic font-bold mb-2">
-      基本属性
+      {{ t('basicSettings.title') }}
     </div>
     <basic-setting />
     <el-form size="small">
       <div class="italic font-bold mb-2">
-        组件属性
+        {{ t('componentSettings.title') }}
       </div>
       <el-tabs v-model="widgetOptions.containerType" style="height: 100%; width:100%; overflow: hidden">
         <el-tab-pane label="flex" name="flex">
-          <el-form-item label="元素宽度">
+          <el-form-item :label="t('componentSettings.groupSettings.flexBasis')">
             <!-- <input v-model="widgetOptions.flex.basis" class="w-4/5" type="range" :min="0" :max="100" :step="0.1"> -->
             <el-slider v-model="widgetOptions.flex.basis" class="mr-3" :step="0.1" />
           <!-- <span ml-1>{{ `${widgetOptions.flex.basis}%` }}</span> -->
           </el-form-item>
-          <el-form-item label="排列">
+          <el-form-item :label="t('componentSettings.groupSettings.flexDirection')">
             <div class="flex flex-col">
               <el-radio-group v-model="widgetOptions.flex.direction">
                 <div class="flex flex-col">
                   <div>
                     <el-radio label="row">
-                      行
+                      {{ t('componentSettings.groupSettings.flexRow') }}
                     </el-radio>
                     <el-radio label="row-reverse">
-                      反向行
+                      {{ t('componentSettings.groupSettings.flexRowReverse') }}
                     </el-radio>
                   </div>
                   <div>
                     <el-radio label="column">
-                      列
+                      {{ t('componentSettings.groupSettings.flexCol') }}
                     </el-radio>
                     <el-radio label="column-reverse">
-                      反向列
+                      {{ t('componentSettings.groupSettings.flexColReverse') }}
                     </el-radio>
                   </div>
                 </div>
               </el-radio-group>
             </div>
           </el-form-item>
-          <el-form-item label="堆叠">
+          <el-form-item :label="t('componentSettings.groupSettings.flexWrap')">
             <el-radio-group v-model="widgetOptions.flex.wrap">
               <el-radio-button label="nowrap">
-                {{ isRow ? '单行' : '单列' }}
+                {{ isRow ? t('componentSettings.groupSettings.flexRowNoWrap') : t('componentSettings.groupSettings.flexColNoWrap') }}
               </el-radio-button>
               <el-radio-button label="wrap">
-                {{ isRow ? '多行' : '多列' }}
+                {{ isRow ? t('componentSettings.groupSettings.flexRowWrap') : t('componentSettings.groupSettings.flexColWrap') }}
               </el-radio-button>
               <el-radio-button label="wrap-reverse">
-                {{ isRow ? '反向多行' : '反向多列' }}
+                {{ isRow ? t('componentSettings.groupSettings.flexRowWrapReverse') : t('componentSettings.groupSettings.flexColWrapReverse') }}
               </el-radio-button>
             </el-radio-group>
             <div class="pt-1">
@@ -113,53 +117,47 @@ watch(currentItem, (n, o) => {
                 <div class="border rounded-md border-teal-300" :style="{ flexBasis: `${widgetOptions.flex.basis}%` }">
                   <div class="rounded-md bg-teal-400 w-6 h-6 m-1" />
                 </div>
-                <div class="border rounded-md border-blue-300" :style="{ flexBasis: `${widgetOptions.flex.basis}%` }">
-                  <div class="rounded-md bg-blue-400 w-6 h-6 m-1" />
-                </div>
-                <div class="border rounded-md border-purple-300" :style="{ flexBasis: `${widgetOptions.flex.basis}%` }">
-                  <div class="rounded-md bg-purple-400 w-6 h-6 m-1" />
-                </div>
               </div>
             </div>
           </el-form-item>
           <div class="font-bold mb-2">
-            对齐
+            {{ t('componentSettings.groupSettings.flexJustifyContent') }}
           </div>
-          <el-form-item :label="isRow ? '横向' : '纵向'">
+          <el-form-item :label="isRow ? t('componentSettings.groupSettings.flexHorizontal') : t('componentSettings.groupSettings.flexVertical')">
             <el-radio-group v-model="widgetOptions.flex.justifyContent">
               <el-radio label="flex-start">
-                {{ isRow ? '左对齐' : '上对齐' }}
+                {{ isRow ? t('componentSettings.groupSettings.flexRowStart') : t('componentSettings.groupSettings.flexColStart') }}
               </el-radio>
               <el-radio label="flex-end">
-                {{ isRow ? '右对齐' : '下对齐' }}
+                {{ isRow ? t('componentSettings.groupSettings.flexRowEnd') : t('componentSettings.groupSettings.flexColEnd') }}
               </el-radio>
               <el-radio label="center">
-                居中
+                {{ t('componentSettings.groupSettings.flexCenter') }}
               </el-radio>
               <el-radio label="space-between">
-                两端对齐
+                {{ t('componentSettings.groupSettings.flexSpaceBetween') }}
               </el-radio>
               <el-radio label="space-around">
-                均匀分布
+                {{ t('componentSettings.groupSettings.flexSpaceAround') }}
               </el-radio>
             </el-radio-group>
           </el-form-item>
-          <el-form-item :label="isRow ? '纵向' : '横向'">
+          <el-form-item :label="isRow ? t('componentSettings.groupSettings.flexVertical') : t('componentSettings.groupSettings.flexHorizontal')">
             <el-radio-group v-model="widgetOptions.flex.alignItems">
               <el-radio label="flex-start">
-                {{ isRow ? '上对齐' : '左对齐' }}
+                {{ isRow ? t('componentSettings.groupSettings.flexColStart') : t('componentSettings.groupSettings.flexRowStart') }}
               </el-radio>
               <el-radio label="flex-end">
-                {{ isRow ? '下对齐' : '右对齐' }}
+                {{ isRow ? t('componentSettings.groupSettings.flexColEnd') : t('componentSettings.groupSettings.flexRowEnd') }}
               </el-radio>
               <el-radio label="center">
-                居中
+                {{ t('componentSettings.groupSettings.flexCenter') }}
               </el-radio>
               <el-radio label="baseline">
-                基线
+                {{ t('componentSettings.groupSettings.flexBaseline') }}
               </el-radio>
               <el-radio label="stretch">
-                拉伸
+                {{ t('componentSettings.groupSettings.flexStretch') }}
               </el-radio>
             </el-radio-group>
             <div

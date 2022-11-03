@@ -47,39 +47,39 @@ watch(currentItem, (n, o) => {
         </el-radio-group>
       </el-form-item>
       <div class="font-bold mb-2">
-        字体
+        {{ t('componentSettings.pTextSettings.font') }}
       </div>
-      <el-form-item label="大小">
+      <el-form-item :label="t('componentSettings.pTextSettings.fontSize')">
         <el-input v-model="widgetOptions.font.size" />
       </el-form-item>
-      <el-form-item label="字重">
+      <el-form-item :label="t('componentSettings.pTextSettings.fontWeight')">
         <el-slider v-model="widgetOptions.font.weight" class="mr-3" :min="100" :max="900" :step="100" />
       </el-form-item>
-      <el-form-item label="样式">
+      <el-form-item :label="t('componentSettings.pTextSettings.fontStyle')">
         <el-radio-group v-model="widgetOptions.font.style">
           <el-radio-button label="normal">
-            正常
+            {{ t('componentSettings.pTextSettings.fontNormal') }}
           </el-radio-button>
           <el-radio-button label="italic">
-            <span class="italic">斜体</span>
+            <span class="italic">{{ t('componentSettings.pTextSettings.fontItalic') }}</span>
           </el-radio-button>
         </el-radio-group>
         <el-radio-group v-model="widgetOptions.font.decoration" class="mt-1">
           <el-radio-button label="none">
-            正常
+            {{ t('componentSettings.pTextSettings.fontNormal') }}
           </el-radio-button>
           <el-radio-button label="underline">
-            <span class="underline">下划线</span>
+            <span class="underline">{{ t('componentSettings.pTextSettings.fontUnderline') }}</span>
           </el-radio-button>
           <el-radio-button label="line-through">
-            <span class="line-through">贯穿线</span>
+            <span class="line-through">{{ t('componentSettings.pTextSettings.fontLineThrough') }}</span>
           </el-radio-button>
           <el-radio-button label="overline">
-            <span class="overline">上划线</span>
+            <span class="overline">{{ t('componentSettings.pTextSettings.fontOverline') }}</span>
           </el-radio-button>
         </el-radio-group>
       </el-form-item>
-      <el-form-item label="颜色">
+      <el-form-item :label="t('componentSettings.pTextSettings.fontColor')">
         <color-setting v-model="widgetOptions.font.color" :show-alpha="true" />
       </el-form-item>
     </el-form>

@@ -1,6 +1,36 @@
 {
+  "common": {
+    "ok": "确定",
+    "cancel": "取消",
+    "save": "保存"
+  },
   "basicSettings": {
-    "title": "基本属性"
+    "title": "基本属性",
+    "name": "名称",
+    "width": "宽度",
+    "border": "边框",
+    "borderStyle": "样式",
+    "solid": "实线",
+    "dashed": "虚线",
+    "dotted": "点线",
+    "double": "双线",
+    "radius": "圆角",
+    "color": "颜色",
+    "single": "单色",
+    "colorful": "彩色",
+    "image": "图片",
+    "imageSettings": "设置",
+    "colorSelect": "选择颜色",
+    "colorNumber": "颜色数量",
+    "colorGradient": "是否渐变",
+    "colorDegree": "方向",
+    "margin": "外边距",
+    "padding": "内边距",
+    "background": "背景",
+    "dataSource": "数据源",
+    "transformer": "转换器",
+    "designerActions": "Designer Actions",
+    "globalActions": "Global Actions"
   },
   "componentSettings": {
     "title": "組件屬性",
@@ -8,7 +38,44 @@
       "align": "对齐",
       "left": "居左",
       "right": "居右",
-      "center": "居中"
+      "center": "居中",
+      "font": "字体",
+      "fontSize": "大小",
+      "fontWeight": "字重",
+      "fontStyle": "样式",
+      "fontNormal": "正常",
+      "fontItalic": "斜体",
+      "fontUnderline": "下划线",
+      "fontLineThrough": "贯穿线",
+      "fontOverline": "上划线",
+      "fontColor": "颜色"
+    },
+    "groupSettings": {
+      "flexBasis": "元素宽度",
+      "flexDirection": "排列",
+      "flexRow": "行",
+      "flexCol": "列",
+      "flexHorizontal": "横向",
+      "flexVertical": "纵向",
+      "flexRowReverse": "反向行",
+      "flexColReverse": "反向列",
+      "flexWrap": "堆叠",
+      "flexRowNoWrap": "单行",
+      "flexColNoWrap": "单列",
+      "flexRowWrap": "多行",
+      "flexColWrap": "多列",
+      "flexRowWrapReverse": "反向多行",
+      "flexColWrapReverse": "反向多列",
+      "flexJustifyContent": "对齐",
+      "flexRowStart": "首对齐",
+      "flexColStart": "上对齐",
+      "flexRowEnd": "尾对齐",
+      "flexColEnd": "下对齐",
+      "flexCenter": "居中",
+      "flexSpaceBetween": "两端对齐",
+      "flexSpaceAround": "均匀分布",
+      "flexBaseline": "基线",
+      "flexStretch": "拉伸"
     }
   }
 }

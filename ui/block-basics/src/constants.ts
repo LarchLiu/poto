@@ -183,7 +183,7 @@ export const ListConfig: BlockItem = {
 export const Columns2Config: BlockItem = {
   category: 'group',
   icon: 'i-iconoir-view-columns-2',
-  blockType: BlockType.Group,
+  blockType: BlockType.Columns2,
   options: {
     // basic options
     name: '2 Columns Group',
@@ -235,7 +235,7 @@ export const Columns2Config: BlockItem = {
 export const Columns3Config: BlockItem = {
   category: 'group',
   icon: 'i-iconoir-view-columns-3',
-  blockType: BlockType.Group,
+  blockType: BlockType.Columns3,
   options: {
     // basic options
     name: '3 Columns Group',

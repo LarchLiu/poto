@@ -3,6 +3,7 @@ import type { DesignerTheme } from '@poto/types'
 import contrast from 'get-contrast'
 import { CssColor, cssColorNames } from '~/utils/constants'
 
+const { t } = useI18n()
 const designer = useDesignerStore()
 // const curTheme = designer.options.theme
 const pinnedColor = ref('')
@@ -78,9 +79,9 @@ onMounted(() => {
 <template>
   <basic-settings-view :is-designer="true" />
   <div id="theme">
-    <div>Theme</div>
+    <div>{{ t('settings.designerSetting.theme.title') }}</div>
     <el-form size="small">
-      <el-form-item label="Pinned">
+      <el-form-item :label="t('settings.designerSetting.theme.pinnedColor')">
         <el-switch v-model="usePreset" />
       </el-form-item>
     </el-form>
@@ -110,14 +111,14 @@ onMounted(() => {
       </div>
       <div class="flex justify-between items-center mt-2">
         <div :style="{ color: colors[1], fontWeight: 700 }">
-          Select this theme
+          {{ t('settings.designerSetting.theme.selectTheme') }}
         </div>
         <div
           :style="{ color: colors[1], border: `2px solid ${colors[2]}`, borderRadius: '999px' }"
           class="px-4 transition-colors cursor-pointer"
           @click="setTheme(colors[0], colors[1], colors[2])"
         >
-          OK
+          {{ t('common.ok') }}
         </div>
       </div>
     </div>
@@ -141,14 +142,14 @@ onMounted(() => {
       </div>
       <div class="flex justify-between items-center mt-2">
         <div :style="{ color: colors[0], fontWeight: 700 }">
-          Select this theme
+          {{ t('settings.designerSetting.theme.selectTheme') }}
         </div>
         <div
           :style="{ color: colors[0], border: `2px solid ${colors[3]}`, borderRadius: '999px' }"
           class="px-4 transition-colors cursor-pointer"
           @click="setTheme(colors[1], colors[0], colors[3])"
         >
-          OK
+          {{ t('common.ok') }}
         </div>
       </div>
     </div>
@@ -162,7 +163,7 @@ onMounted(() => {
       class="mt-2 rounded-md"
       @click="getColors"
     >
-      Next Theme
+      {{ t('settings.designerSetting.theme.nextTheme') }}
     </button>
   </div>
 </template>

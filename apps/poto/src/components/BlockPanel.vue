@@ -3,6 +3,7 @@ import { BlockPlugins } from '~/poto-auto-imports'
 import type { BlockItem, CustomBlock } from '~/types'
 import { BlockBasics } from '~/utils'
 
+const { t } = useI18n()
 const designer = useDesignerStore()
 const customBlocks = useCustomBlocksStore()
 const basicsList: BlockItem[] = Object.keys(BlockBasics).map((type) => {
@@ -43,7 +44,7 @@ const dragEnd = async () => {
       @end="dragEnd"
     >
       <template #item="{ element }: { element: BlockItem }">
-        <div class="container-widget-item" :title="element.options.name" @dblclick="addItem(element)">
+        <div class="container-widget-item" :title="t(`blockPanel.${element.blockType}`)" @dblclick="addItem(element)">
           <div class="icon-btn cursor-grab" :class="element.icon" text-2xl mb-2 />
           <!-- {{ element.options.name }} -->
         </div>
@@ -52,7 +53,7 @@ const dragEnd = async () => {
     <div v-if="pluginsList.length > 0">
       <el-popover placement="right" :show-arrow="false" :width="300" :hide-after="100" popper-class="p-0!">
         <template #reference>
-          <div title="Plugins" class="icon-btn i-clarity-plugin-line" text-2xl mb-2 />
+          <div :title="t('blockPanel.plugins')" class="icon-btn i-clarity-plugin-line" text-2xl mb-2 />
         </template>
         <template #default>
           <el-scrollbar max-height="50vh">
@@ -91,7 +92,7 @@ const dragEnd = async () => {
     <div v-if="customBlocks.components.length > 0">
       <el-popover placement="right" :show-arrow="false" :width="300" :hide-after="100" popper-class="p-0!">
         <template #reference>
-          <div title="Custom Blocks" class="icon-btn i-iconoir-view-structure-up" text-2xl mb-2 />
+          <div :title="t('blockPanel.customBlocks')" class="icon-btn i-iconoir-view-structure-up" text-2xl mb-2 />
         </template>
         <template #default>
           <el-scrollbar max-height="50vh">

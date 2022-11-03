@@ -88,25 +88,25 @@ onMounted(() => {
         </div>
         <div flex items-center>
           <el-button @click="saveList">
-            save
+            {{ t('common.save') }}
           </el-button>
           <el-button @click="handleScreenShot">
-            截图
+            {{ t('common.download') }}
           </el-button>
           <el-button @click="reloadList">
-            reload
+            {{ t('common.reload') }}
           </el-button>
           <el-button @click="resetList">
-            reset
+            {{ t('common.reset') }}
           </el-button>
           <el-button @click="loadTemplate">
-            Template
+            {{ t('common.template') }}
           </el-button>
           <el-button @click="designer.undo()">
-            Undo
+            {{ t('common.undo') }}
           </el-button>
           <el-button @click="designer.redo()">
-            Redo
+            {{ t('common.redo') }}
           </el-button>
         </div>
         <div flex items-center>

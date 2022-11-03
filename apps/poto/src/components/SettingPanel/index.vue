@@ -2,6 +2,7 @@
 import { BlockPlugins } from '~/poto-auto-imports'
 import { BlockBasics } from '~/utils'
 
+const { t } = useI18n()
 const blockInfo = { ...BlockBasics, ...BlockPlugins }
 const activeTab = ref('2')
 const { height: windowHeight } = useWindowSize()
@@ -19,17 +20,17 @@ watch(currentItem, () => {
 <template>
   <el-container class="px-2">
     <el-tabs v-model="activeTab" style="height: 100%; width:100%; overflow: hidden">
-      <el-tab-pane label="组件设置" name="1">
+      <el-tab-pane :label="t('settings.blockSetting.title')" name="1">
         <el-scrollbar class="setting-scrollbar" :style="{ height: scrollerHeight }">
           <component :is="blockInfo[currentItem.blockType].settingsView" v-if="currentItem" :key="currentItem.id" />
         </el-scrollbar>
       </el-tab-pane>
-      <el-tab-pane label="页面设置" name="2">
+      <el-tab-pane :label="t('settings.designerSetting.title')" name="2">
         <el-scrollbar class="setting-scrollbar" :style="{ height: scrollerHeight }">
           <designer-setting />
         </el-scrollbar>
       </el-tab-pane>
-      <el-tab-pane label="数据设置" name="3">
+      <el-tab-pane :label="t('settings.actionsSetting.title')" name="3">
         <el-scrollbar class="setting-scrollbar" :style="{ height: scrollerHeight }">
           <action-setting />
         </el-scrollbar>

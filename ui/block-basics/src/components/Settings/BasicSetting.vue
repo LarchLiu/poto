@@ -1,6 +1,7 @@
 <script setup lang="ts">
 import { UUID } from '@poto/utils'
 import type { BasicSettings, DesignerActionItem } from '~/types'
+import { i18nMessages } from '~/constants'
 
 const props = defineProps({
   isDesigner: {
@@ -12,6 +13,10 @@ const props = defineProps({
     type: Boolean,
     default: false,
   },
+})
+
+const { t } = useI18n({
+  messages: i18nMessages,
 })
 
 // const designer = inject('designer') as Designer
@@ -145,58 +150,58 @@ watch(() => widgetOptions.value?.sourceData?.transformer.rawData, (value) => {
 <template>
   <div v-if="currentItem && widgetOptions">
     <el-form size="small">
-      <el-form-item label="名称">
+      <el-form-item :label="t('basicSettings.name')">
         <el-input v-model="widgetOptions.name" />
       </el-form-item>
-      <el-form-item label="宽度">
+      <el-form-item :label="t('basicSettings.width')">
         <!-- <input v-model="widgetOptions.size.width" class="w-4/5" type="range" min="1" max="100" step="0.1">
       <span ml-1>{{ `${widgetOptions.size.width}%` }}</span> -->
         <span class="w-full mr-3" @mousedown="sliderMouseDown">
           <el-slider v-model="widgetOptions.size.width" class="mr-3" :min="1" :step="0.1" />
         </span>
       </el-form-item>
-      <el-form-item label="边框">
+      <el-form-item :label="t('basicSettings.border')">
         <div class="flex flex-col">
           <el-switch v-model="widgetOptions.border.has" />
           <div v-if="widgetOptions.border.has">
-            <el-form-item label="样式">
+            <el-form-item :label="t('basicSettings.borderStyle')">
               <el-radio-group v-model="widgetOptions.border.style">
                 <el-radio-button label="solid">
-                  实线
+                  {{ t('basicSettings.solid') }}
                 </el-radio-button>
                 <el-radio-button label="dashed">
-                  虚线
+                  {{ t('basicSettings.dashed') }}
                 </el-radio-button>
                 <el-radio-button label="dotted">
-                  点线
+                  {{ t('basicSettings.dotted') }}
                 </el-radio-button>
                 <el-radio-button label="double">
-                  双线
+                  {{ t('basicSettings.double') }}
                 </el-radio-button>
               </el-radio-group>
             </el-form-item>
-            <el-form-item label="宽度">
+            <el-form-item :label="t('basicSettings.width')">
               <ring-setting v-model="widgetOptions.border.width" :is-corner="false" />
             </el-form-item>
-            <el-form-item label="圆角">
+            <el-form-item :label="t('basicSettings.radius')">
               <ring-setting v-model="widgetOptions.border.radius" :is-corner="true" />
             </el-form-item>
-            <el-form-item label="颜色">
+            <el-form-item :label="t('basicSettings.color')">
               <color-setting v-model="widgetOptions.border.color" :show-alpha="true" />
             </el-form-item>
           </div>
         </div>
       </el-form-item>
-      <el-form-item label="外边距">
+      <el-form-item :label="t('basicSettings.margin')">
         <ring-setting v-model="widgetOptions.margin" :is-corner="false" />
       </el-form-item>
-      <el-form-item label="内边距">
+      <el-form-item :label="t('basicSettings.padding')">
         <ring-setting v-model="widgetOptions.padding" :is-corner="false" />
       </el-form-item>
-      <el-form-item label="背景色">
+      <el-form-item :label="t('basicSettings.background')">
         <color-setting v-model="widgetOptions.backgroundColor" :show-alpha="true" />
       </el-form-item>
-      <el-form-item label="数据源">
+      <el-form-item :label="t('basicSettings.dataSource')">
         <!-- <el-input v-model="widgetOptions.text" type="textarea" :rows="2" /> -->
 
         <el-switch v-model="enableSourceData" class="mr-2" />
@@ -205,7 +210,7 @@ watch(() => widgetOptions.value?.sourceData?.transformer.rawData, (value) => {
           v-model="widgetOptions.sourceData.actionId" class="mr-2"
           @change="onActionChange"
         >
-          <el-option-group label="Designer Actions">
+          <el-option-group :label="t('basicSettings.designerActions')">
             <el-option
               v-for="item in designerActions"
               :key="item.id"
@@ -217,7 +222,7 @@ watch(() => widgetOptions.value?.sourceData?.transformer.rawData, (value) => {
               </div>
             </el-option>
           </el-option-group>
-          <el-option-group label="Global Actions">
+          <el-option-group :label="t('basicSettings.globalActions')">
             <el-option
               v-for="item in actionsList"
               :key="item.id"
@@ -231,11 +236,11 @@ watch(() => widgetOptions.value?.sourceData?.transformer.rawData, (value) => {
           </el-option-group>
         </el-select>
       </el-form-item>
-      <el-form-item v-if="widgetOptions.sourceData?.enable" label="转换器">
+      <el-form-item v-if="widgetOptions.sourceData?.enable" :label="t('basicSettings.transformer')">
         <el-switch v-model="enableTransformer" />
         <el-input v-if="widgetOptions.sourceData?.transformer.enable" v-model="transformer" type="textarea" :rows="2" />
         <el-button v-if="widgetOptions.sourceData?.transformer.enable" class="mt-1" @click="onTransformerChange">
-          ok
+          {{ t('common.ok') }}
         </el-button>
       </el-form-item>
     </el-form>

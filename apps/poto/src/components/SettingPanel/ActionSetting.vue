@@ -4,7 +4,7 @@ import { BodyContent, RestApiAction, TransformerAction } from '~/types'
 import type { ActionItem, ActionType, Params } from '~/types'
 import { UUID, runTransformer } from '~/utils'
 
-// const designer = inject('designer') as Designer
+const { t } = useI18n()
 const actionsStore = useActionsStore()
 const openModel = ref(false)
 const isAdd = ref(false)
@@ -91,18 +91,18 @@ const editAction = (data: ActionItem) => {
 
 <template>
   <el-button @click="newAction">
-    新增数据源
+    {{ t('common.add') }}
   </el-button>
   <el-drawer v-model="openModel" direction="rtl">
     <template #header>
-      <h4>数据源设置</h4>
+      <h4>{{ t('settings.actionsSetting.title') }}</h4>
     </template>
     <template #default>
       <div>
-        <el-form-item label="名称">
+        <el-form-item :label="t('settings.actionsSetting.name')">
           <el-input v-model="action!.name" />
         </el-form-item>
-        <el-form-item label="类型">
+        <el-form-item :label="t('settings.actionsSetting.type')">
           <el-select v-model="action!.type">
             <el-option
               v-for="item in actionTypes"
@@ -112,10 +112,10 @@ const editAction = (data: ActionItem) => {
             />
           </el-select>
         </el-form-item>
-        <el-form-item v-if="action!.type === 'restapi'" label="URL">
+        <el-form-item v-if="action!.type === 'restapi'" :label="t('settings.actionsSetting.url')">
           <el-input v-model="(action!.content as RestApiAction<BodyContent>).url" />
         </el-form-item>
-        <el-form-item v-else-if="action!.type === 'transformer'" label="code">
+        <el-form-item v-else-if="action!.type === 'transformer'" :label="t('settings.actionsSetting.code')">
           <el-input v-model="(action!.content as TransformerAction).transformerString" type="textarea" :rows="5" />
         </el-form-item>
       </div>
@@ -123,14 +123,14 @@ const editAction = (data: ActionItem) => {
     <template #footer>
       <div flex justify-between>
         <el-button type="primary" @click="testAction">
-          test
+          {{ t('common.test') }}
         </el-button>
         <div>
           <el-button type="primary" @click="openModel = false">
-            cancel
+            {{ t('common.cancel') }}
           </el-button>
           <el-button type="primary" @click="saveAction()">
-            save
+            {{ t('common.save') }}
           </el-button>
         </div>
       </div>

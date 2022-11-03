@@ -1,14 +1,44 @@
-button:
-  about: About
-  back: Back
-  go: GO
-  home: Home
-  toggle_dark: Toggle dark mode
-  toggle_langs: Change languages
-intro:
-  desc: Opinionated Vite Starter Template
-  dynamic-route: Demo of dynamic route
-  hi: Hi, {name}!
-  aka: Also known as
-  whats-your-name: What's your name?
-not-found: Not found
+common:
+  save: Save
+  reload: Reload
+  reset: Reset
+  template: Template
+  undo: Undo
+  redo: Redo
+  download: Download
+  ok: Ok
+  cancel: Cancel
+  add: Add
+  test: Test
+settings:
+  blockSetting:
+    title: Block
+  actionsSetting:
+    title: Actions
+    name: Name
+    type: Type
+    url: URL
+    code: Code
+  designerSetting:
+    title: Designer
+    theme:
+      title: Theme
+      pinnedColor: Pinned Color
+      selectTheme: Select this theme
+      nextTheme: Next Theme
+blockPanel:
+  TITLE: Title
+  MARKDOWN: Markdown
+  TEXT: Text
+  DIV: Div
+  GROUP: Group
+  LIST: List
+  2COLUMNS: 2 Columns Group
+  3COLUMNS: 3 Columns Group
+  plugins: Plugins
+  customBlocks: Custom Blocks
+
+
+
+
+  

@@ -1,6 +1,37 @@
 {
+  "common": {
+    "ok": "OK",
+    "cancel": "Cancel",
+    "save": "Save"
+  },
   "basicSettings": {
-    "title": "Basic Settings"
+    "title": "Basic Settings",
+    "name": "Name",
+    "width": "Width",
+    "border": "Border",
+    "borderStyle": "Style",
+    "solid": "Solid",
+    "dashed": "Dashed",
+    "dotted": "Dotted",
+    "double": "Double",
+    "radius": "Radius",
+    "color": "Color",
+    "single": "Single",
+    "colorful": "Colorful",
+    "image": "Image",
+    "imageSettings": "Setting",
+    "colorSelect": "Select",
+    "colorNumber": "Number",
+    "colorGradient": "Gradient",
+    "colorDegree": "Degree",
+    "margin": "Margin",
+    "padding": "Padding",
+    "background": "Background",
+    "dataSource": "Actions",
+    "transformer": "Transformer",
+    "designerActions": "Designer Actions",
+    "globalActions": "Global Actions"
+
   },
   "componentSettings": {
     "title": "Component Settings",
@@ -8,7 +39,44 @@
       "align": "Align",
       "left": "Left",
       "right": "Right",
-      "center": "Center"
+      "center": "Center",
+      "font": "Font",
+      "fontSize": "Size",
+      "fontWeight": "Weight",
+      "fontStyle": "Style",
+      "fontNormal": "Normal",
+      "fontItalic": "Italic",
+      "fontUnderline": "Abc",
+      "fontLineThrough": "Abc",
+      "fontOverline": "Abc",
+      "fontColor": "Color"
+    },
+    "groupSettings": {
+      "flexBasis": "Basis",
+      "flexDirection": "Direction",
+      "flexRow": "Row",
+      "flexCol": "Column",
+      "flexHorizontal": "Horizontal",
+      "flexVertical": "Vertical",
+      "flexRowReverse": "Row Reverse",
+      "flexColReverse": "Column Reverse",
+      "flexWrap": "Wrap",
+      "flexRowNoWrap": "No Wrap",
+      "flexColNoWrap": "No Wrap",
+      "flexRowWrap": "Wrap",
+      "flexColWrap": "Wrap",
+      "flexRowWrapReverse": "Wrap Reverse",
+      "flexColWrapReverse": "Wrap Reverse",
+      "flexJustifyContent": "Justify Content",
+      "flexRowStart": "Flex Start",
+      "flexColStart": "Flex Start",
+      "flexRowEnd": "Flex End",
+      "flexColEnd": "Flex End",
+      "flexCenter": "Flex Center",
+      "flexSpaceBetween": "Space Between",
+      "flexSpaceAround": "Space Around",
+      "flexBaseline": "Baseline",
+      "flexStretch": "Stretch"
     }
   }
 

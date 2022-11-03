@@ -1,5 +1,6 @@
 <script setup lang="ts">
 import { config } from '~/config'
+import { i18nMessages } from '~/constants'
 
 const props = defineProps<{
   open: boolean
@@ -7,6 +8,10 @@ const props = defineProps<{
 }>()
 
 const emit = defineEmits(['update:open', 'update:url'])
+
+const { t } = useI18n({
+  messages: i18nMessages,
+})
 const selectedPhoto = ref('')
 const photoList = ref<Array<any>>([])
 const openModel = computed({
@@ -39,7 +44,7 @@ onMounted(async () => {
 <template>
   <el-drawer v-model="openModel" direction="rtl">
     <template #header>
-      <h4>图片设置</h4>
+      <h4>{{ t('basicSettings.imageSettings') }}</h4>
     </template>
     <template #default>
       <div>
@@ -55,10 +60,10 @@ onMounted(async () => {
     </template>
     <template #footer>
       <el-button type="primary" @click="openModel = false">
-        cancel
+        {{ t('common.cancel') }}
       </el-button>
       <el-button type="primary" @click="saveUrl(selectedPhoto)">
-        save
+        {{ t('common.save') }}
       </el-button>
     </template>
   </el-drawer>

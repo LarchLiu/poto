@@ -1,14 +1,39 @@
-button:
-  about: 关于
-  back: 返回
-  go: 确定
-  home: 首页
-  toggle_dark: 切换深色模式
-  toggle_langs: 切换语言
-intro:
-  desc: 固执己见的 Vite 项目模板
-  dynamic-route: 动态路由演示
-  hi: 你好，{name}
-  aka: 也叫
-  whats-your-name: 输入你的名字
-not-found: 未找到页面
+common:
+  save: 保存
+  reload: 重载
+  reset: 重置
+  template: 模版
+  undo: 撤销
+  redo: 重做
+  download: 下载
+  ok: 确定
+  cancel: 取消
+  add: 添加
+  test: 测试
+settings:
+  blockSetting:
+    title: 组件设置
+  actionsSetting:
+    title: 数据源设置
+    name: 名称
+    type: 类型
+    url: URL
+    code: 代码
+  designerSetting:
+    title: 页面设置
+    theme:
+      title: 主题
+      pinnedColor: 锁定颜色
+      selectTheme: 选择这个主题
+      nextTheme: 下个主题
+blockPanel:
+  TITLE: 标题
+  MARKDOWN: Markdown
+  TEXT: 文字
+  DIV: 分割线
+  GROUP: 组合
+  LIST: 列表
+  2COLUMNS: 2列组合
+  3COLUMNS: 3列组合
+  plugins: 插件
+  customBlocks: 自定义组件

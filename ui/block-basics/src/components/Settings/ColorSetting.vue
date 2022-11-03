@@ -1,5 +1,6 @@
 <script setup lang="ts">
 import type { EleColor } from '~/types'
+import { i18nMessages } from '~/constants'
 
 const props = defineProps<{
   modelValue: EleColor
@@ -7,6 +8,10 @@ const props = defineProps<{
 }>()
 
 const emit = defineEmits(['update:modelValue'])
+
+const { t } = useI18n({
+  messages: i18nMessages,
+})
 const colorsNum = ref(2)
 const photoModel = ref(false)
 // let color = $ref(props.modelValue)
@@ -40,32 +45,32 @@ const handleColorTypeChange = (cur: string | number | boolean) => {
   <div class="flex flex-col w-full">
     <el-radio-group v-model="color.type" @change="handleColorTypeChange">
       <el-radio-button label="single">
-        单色
+        {{ t('basicSettings.single') }}
       </el-radio-button>
       <el-radio-button label="colorful">
-        彩色
+        {{ t('basicSettings.colorful') }}
       </el-radio-button>
       <el-radio-button label="image">
-        图片
+        {{ t('basicSettings.image') }}
       </el-radio-button>
     </el-radio-group>
     <div v-if="color.type === 'single'" class="mt-1">
-      <el-form-item label="选择颜色">
+      <el-form-item :label="t('basicSettings.colorSelect')">
         <el-color-picker v-model="color.options.colors[0]" :show-alpha="showAlpha" />
       </el-form-item>
     </div>
     <div v-else-if="color.type === 'colorful'" class="mt-1">
-      <el-form-item label="颜色数量">
+      <el-form-item :label="t('basicSettings.colorNumber')">
         <el-input-number v-model="colorsNum" :min="2" :max="10" @change="handleColorsNumChange" />
       </el-form-item>
-      <el-form-item v-for="(_, i) in color.options.colors" :key="i" label="选择颜色">
+      <el-form-item v-for="(_, i) in color.options.colors" :key="i" :label="t('basicSettings.colorSelect')">
         <el-color-picker v-model="color.options.colors[i]" :show-alpha="showAlpha" />
       </el-form-item>
-      <el-form-item label="是否渐变">
+      <el-form-item :label="t('basicSettings.colorGradient')">
         <el-switch v-model="color.options.gradient" />
       </el-form-item>
       <div class="flex flex-row justify-between">
-        <div>方向</div>
+        <div>{{ t('basicSettings.colorDegree') }}</div>
         <div>{{ `${color.options.degree}deg` }}</div>
       </div>
       <!-- <input v-model="color.options.degree" w-full type="range" min="0" max="360" step="1"> -->
@@ -75,7 +80,7 @@ const handleColorTypeChange = (cur: string | number | boolean) => {
     </div>
     <div v-else class="mt-1">
       <el-button @click="photoModel = true">
-        打开设置
+        {{ t('basicSettings.imageSettings') }}
       </el-button>
       <PhotoSetting v-model:open="photoModel" v-model:url="color.options.url" />
     </div>
