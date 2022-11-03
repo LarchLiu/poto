@@ -1,6 +1,10 @@
 <script setup lang="ts">
+import { i18nMessages } from '~/constants'
 import type { TextSettings } from '~/types'
 
+const { t } = useI18n({
+  messages: i18nMessages,
+})
 const designer = useDesignerStore()
 const currentItem = computed(() => designer.getCurrentItem())
 const widgetOptions = computed(() => (currentItem.value ? currentItem.value.options as TextSettings : undefined))
@@ -22,23 +26,23 @@ watch(currentItem, (n, o) => {
 <template>
   <div v-if="widgetOptions">
     <div class="italic font-bold mb-2">
-      基本属性
+      {{ t('basicSettings.title') }}
     </div>
     <basic-setting />
     <el-form v-if="widgetOptions" size="small">
       <div class="italic font-bold mb-2">
-        组件属性
+        {{ t('componentSettings.title') }}
       </div>
-      <el-form-item label="对齐">
+      <el-form-item :label="t('componentSettings.pTextSettings.align')">
         <el-radio-group v-model="widgetOptions.align">
           <el-radio-button label="left">
-            居左
+            {{ t('componentSettings.pTextSettings.left') }}
           </el-radio-button>
           <el-radio-button label="center">
-            居中
+            {{ t('componentSettings.pTextSettings.center') }}
           </el-radio-button>
           <el-radio-button label="right">
-            居右
+            {{ t('componentSettings.pTextSettings.right') }}
           </el-radio-button>
         </el-radio-group>
       </el-form-item>

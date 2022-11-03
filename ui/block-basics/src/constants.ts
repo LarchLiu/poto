@@ -1,3 +1,5 @@
+import en from '~/locales/en.json'
+import zhCN from '~/locales/zh-CN.json'
 import PText from '~/components/Widgets/PText.vue'
 import Group from '~/components/Widgets/Group.vue'
 import List from '~/components/Widgets/List.vue'
@@ -458,3 +460,7 @@ Task in sec      :2014-01-12  , 12d
 another task      : 24d`,
 }
 
+export const i18nMessages = {
+  'en': en,
+  'zh-CN': zhCN,
+}

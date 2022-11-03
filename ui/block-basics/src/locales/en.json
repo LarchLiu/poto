@@ -1,0 +1,15 @@
+{
+  "basicSettings": {
+    "title": "Basic Settings"
+  },
+  "componentSettings": {
+    "title": "Component Settings",
+    "pTextSettings": {
+      "align": "Align",
+      "left": "Left",
+      "right": "Right",
+      "center": "Center"
+    }
+  }
+
+}

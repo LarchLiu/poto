@@ -1,0 +1,14 @@
+{
+  "basicSettings": {
+    "title": "基本属性"
+  },
+  "componentSettings": {
+    "title": "組件屬性",
+    "pTextSettings": {
+      "align": "对齐",
+      "left": "居左",
+      "right": "居右",
+      "center": "居中"
+    }
+  }
+}

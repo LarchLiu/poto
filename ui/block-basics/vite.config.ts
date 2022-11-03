@@ -21,6 +21,7 @@ export default defineConfig({
       imports: [
         'vue',
         '@vueuse/core',
+        'vue-i18n',
         'pinia',
         {
           '@poto/pinia': [
@@ -59,7 +60,7 @@ export default defineConfig({
     lib: {
       // Could also be a dictionary or array of multiple entry points
       entry: path.resolve(__dirname, 'src/index.ts'),
-      name: 'poto-block-basic',
+      name: 'potoBlockBasic',
       // the proper extensions will be added
       fileName: 'poto-block-basic',
     },
@@ -75,6 +76,7 @@ export default defineConfig({
         'mermaid',
         'pinia',
         'vue',
+        'vue-i18n',
       ],
       output: {
         // Provide global variables to use in the UMD build
@@ -88,6 +90,7 @@ export default defineConfig({
           'element-plus': 'element-plus',
           'katex': 'katex',
           'mermaid': 'mermaid',
+          'vue-i18n': 'vue-i18n',
         },
       },
     },
