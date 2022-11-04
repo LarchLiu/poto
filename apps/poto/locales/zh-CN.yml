@@ -10,6 +10,7 @@ common:
   cancel: 取消
   add: 添加
   test: 测试
+  languages: 切换语言
 settings:
   blockSetting:
     title: 组件设置

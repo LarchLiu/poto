@@ -15,12 +15,10 @@ const containerHeight = computed(() => `${windowHeight.value - 48 - 4}px`) // wi
 const contentPanelHeight = computed(() => `${windowHeight.value - 48}px`)
 const showLayout = ref(true)
 const potoTemplate = ref<PotoTemplate>()
-const { t, availableLocales, locale } = useI18n()
+const { t, locale } = useI18n()
 
-const toggleLocales = () => {
-  // change to some real logic
-  const locales = availableLocales
-  locale.value = locales[(locales.indexOf(locale.value) + 1) % locales.length]
+const toggleLocales = (command: string) => {
+  locale.value = command
 }
 
 const loadJsonFile = (name: string) => {
@@ -110,9 +108,21 @@ onMounted(() => {
           </el-button>
         </div>
         <div flex items-center>
-          <a class="cursor-pointer mx-2" :title="t('button.toggle_langs')" @click="toggleLocales()">
-            <div i-fluent-local-language-zi-24-regular class="text-xl" />
-          </a>
+          <el-dropdown @command="toggleLocales">
+            <button type="button" :title="t('common.languages')">
+              <div i-ion-language-outline class="text-xl" />
+            </button>
+            <template #dropdown>
+              <el-dropdown-menu>
+                <el-dropdown-item command="en">
+                  English
+                </el-dropdown-item>
+                <el-dropdown-item command="zh-CN">
+                  中文
+                </el-dropdown-item>
+              </el-dropdown-menu>
+            </template>
+          </el-dropdown>
         </div>
       </el-header>
       <el-container>

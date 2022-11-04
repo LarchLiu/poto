@@ -10,6 +10,7 @@ common:
   cancel: Cancel
   add: Add
   test: Test
+  languages: Change languages
 settings:
   blockSetting:
     title: Block
