@@ -215,6 +215,10 @@ export interface DesignerTemplate {
   list: BlockItem[]
   options: DesignerSettings
   theme: DesignerTheme
+  listRecords?: string
+  optionsRecords?: string
+  themeRecords?: string
+  currentItemIdRecords?: string
 }
 
 export interface DesignerSettings extends BasicSettings {}

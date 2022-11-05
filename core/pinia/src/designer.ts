@@ -8,6 +8,8 @@ import { designerOptions, designerTheme } from './constants'
 import { config } from './config'
 
 type HistoryType = 'list' | 'options' | 'theme' | 'currentItemId'
+type RecordStatus = 'recording' | 'stop' | 'pause'
+type ReplayStatus = 'replaying' | 'stop' | 'pause'
 
 export const useDesignerStore = () => {
   if (!config.piniaInstance)
@@ -24,6 +26,15 @@ export const useDesignerStore = () => {
     const histories = ref <HistoryType[]>([])
     const ignoreListHis = ref(false)
     const ignoreOptionsHis = ref(false)
+    const isRecord = ref(false)
+    const isReplay = ref(false)
+    const recordStatus = ref<RecordStatus>('stop')
+    const replayStatus = ref<ReplayStatus>('stop')
+    const listRecords = ref('')
+    const optionsRecords = ref('')
+    const themeRecords = ref('')
+    const currentItemIdRecords = ref('')
+    const replayTimer = ref()
     let firstTimeUndo = true
     let firstTimeRedo = true
 
@@ -38,6 +49,9 @@ export const useDesignerStore = () => {
     const blockPlugins = shallowRef<BlockInfo | undefined>(undefined)
 
     const addHistory = async () => {
+      if ((isReplay.value) || (isRecord.value && recordStatus.value === 'pause'))
+        return
+
       const hisList: HistoryType[] = ['list', 'options', 'theme', 'currentItemId']
       for (let i = 0; i < hisList.length; i++) {
         switch (hisList[i]) {
@@ -71,6 +85,33 @@ export const useDesignerStore = () => {
       })
     }
 
+    const resetStore = () => {
+      id.value = UUID()
+      actions.value = []
+      list.value = []
+      options.value = deepClone(designerOptions)
+      theme.value = deepClone(designerTheme)
+      currentItem.value = undefined
+      currentItemId.value = undefined
+      listRecords.value = ''
+      optionsRecords.value = ''
+      themeRecords.value = ''
+      currentItemIdRecords.value = ''
+
+      listHis.clear()
+      optionsHis.clear()
+      themeHis.clear()
+      currentItemIdHis.clear()
+      // addHistory()
+    }
+
+    const resetRecords = () => {
+      listRecords.value = ''
+      optionsRecords.value = ''
+      themeRecords.value = ''
+      currentItemIdRecords.value = ''
+    }
+
     const createByTemplate = (obj: DesignerTemplate) => {
       id.value = obj.id
       actions.value = obj.actions || []
@@ -80,14 +121,21 @@ export const useDesignerStore = () => {
       currentItem.value = undefined
       currentItemId.value = undefined
 
-      addHistory()
+      listRecords.value = obj.listRecords || ''
+      optionsRecords.value = obj.optionsRecords || ''
+      themeRecords.value = obj.themeRecords || ''
+      currentItemIdRecords.value = obj.currentItemIdRecords || ''
+
+      // addHistory()
     }
 
     const createByJsonString = (str: string) => {
       try {
         const json = JSON.parse(str)
-        if (typeof json === 'object')
+        if (typeof json === 'object') {
+          resetStore()
           createByTemplate(json)
+        }
       }
       catch (e) {
 
@@ -263,15 +311,6 @@ export const useDesignerStore = () => {
       return item.category === 'widget'
     }
 
-    const resetStore = () => {
-      id.value = UUID()
-      list.value = []
-      options.value = deepClone(designerOptions)
-      currentItem.value = undefined
-      currentItemId.value = undefined
-      addHistory()
-    }
-
     const getBlockPlugins = () => {
       return blockPlugins.value
     }
@@ -400,6 +439,149 @@ export const useDesignerStore = () => {
       return item
     }
 
+    const recordStart = () => {
+      resetStore()
+      isRecord.value = true
+      recordStatus.value = 'recording'
+    }
+
+    const recordPause = () => {
+      if (isRecord.value && recordStatus.value === 'recording')
+        recordStatus.value = 'pause'
+    }
+
+    const recordStop = () => {
+      isRecord.value = false
+      recordStatus.value = 'stop'
+      listRecords.value = JSON.stringify(listHis.history.value.reverse())
+      optionsRecords.value = JSON.stringify(optionsHis.history.value.reverse())
+      themeRecords.value = JSON.stringify(themeHis.history.value.reverse())
+      currentItemIdRecords.value = JSON.stringify(currentItemIdHis.history.value.reverse())
+      // nextTick(() => {
+      //   resetStore()
+      // })
+    }
+
+    const getRecordStatus = () => {
+      return recordStatus.value
+    }
+
+    const getReplayStatus = () => {
+      return replayStatus.value
+    }
+
+    const replay = async () => {
+      let canReplay = true
+      const hisList: HistoryType[] = ['list', 'options', 'theme', 'currentItemId']
+      for (let i = 0, len = hisList.length; i < len; i++) {
+        const t = hisList[i]
+        switch (t) {
+          case 'list':
+            ignoreListHis.value = true
+            if (listHis.canUndo.value) {
+              listHis.undo()
+              canReplay = listHis.canUndo.value
+            }
+            else {
+              canReplay = false
+            }
+            break
+
+          case 'options':
+            ignoreOptionsHis.value = true
+            if (canReplay && optionsHis.canUndo.value)
+              optionsHis.undo()
+            break
+
+          case 'theme':
+            if (optionsHis && themeHis.canUndo.value)
+              themeHis.undo()
+            break
+
+          case 'currentItemId':
+            if (optionsHis && currentItemIdHis.canUndo.value) {
+              await nextTick(() => {
+                currentItemIdHis.undo()
+                currentItem.value = findItemById(list.value, currentItemId.value).item
+              })
+            }
+            break
+
+          default:
+            break
+        }
+      }
+      await nextTick(() => {
+        if (ignoreListHis.value)
+          ignoreListHis.value = false
+        if (ignoreOptionsHis.value)
+          ignoreOptionsHis.value = false
+      })
+
+      return canReplay
+    }
+
+    const recordReplay = async (duration = 1000) => {
+      let canReplay = true
+
+      if (!isReplay.value) {
+        isReplay.value = true
+        replayStatus.value = 'replaying'
+        if (listRecords.value) {
+          listHis.undoStack.value = JSON.parse(listRecords.value)
+          if (listHis.undoStack.value.length > 0)
+            listHis.last.value = listHis.undoStack.value.shift()!
+          else
+            return
+        }
+        else { return }
+
+        if (optionsRecords.value) {
+          optionsHis.undoStack.value = JSON.parse(optionsRecords.value)
+          if (optionsHis.undoStack.value.length > 0)
+            optionsHis.last.value = optionsHis.undoStack.value.shift()!
+          else
+            return
+        }
+        else { return }
+
+        if (themeRecords.value) {
+          themeHis.undoStack.value = JSON.parse(themeRecords.value)
+          if (themeHis.undoStack.value.length > 0)
+            themeHis.last.value = themeHis.undoStack.value.shift()!
+          else
+            return
+        }
+        else { return }
+
+        if (currentItemIdRecords.value) {
+          currentItemIdHis.undoStack.value = JSON.parse(currentItemIdRecords.value)
+          if (currentItemIdHis.undoStack.value.length > 0)
+            currentItemIdHis.last.value = currentItemIdHis.undoStack.value.shift()!
+          else
+            return
+        }
+        else { return }
+      }
+
+      if (canReplay) {
+        if (replayTimer.value)
+          clearInterval(replayTimer.value)
+
+        replayTimer.value = setInterval(async () => {
+          if (canReplay) {
+            canReplay = await replay()
+          }
+          else {
+            isReplay.value = false
+            replayStatus.value = 'stop'
+            clearInterval(replayTimer.value)
+            replayTimer.value = undefined
+          }
+        }, duration)
+      }
+    }
+
     return {
       id,
       actions,
@@ -431,6 +613,17 @@ export const useDesignerStore = () => {
       addAction,
       findAction,
       cloneItemWithTheme,
+      listRecords,
+      optionsRecords,
+      themeRecords,
+      currentItemIdRecords,
+      recordStart,
+      recordPause,
+      recordStop,
+      recordReplay,
+      getRecordStatus,
+      getReplayStatus,
+      resetRecords,
     }
   })(config.piniaInstance)
 }

@@ -11,6 +11,9 @@ common:
   add: Add
   test: Test
   languages: Change languages
+  saveTemplate: Save Template
+  loadTemplate: Load Template
+  replayTemplate: Replay Template
 settings:
   blockSetting:
     title: Block

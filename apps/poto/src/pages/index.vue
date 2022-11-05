@@ -29,6 +29,16 @@ const loadJsonFile = (name: string) => {
   xhr.send(null)
   return xhr.status === okStatus ? xhr.responseText : ''
 }
+
+const saveJsonFile = (data: string) => {
+  const blob = new Blob([data], { type: 'text/plain' })
+  const a = document.createElement('a')
+  a.download = 'template.json'
+  a.href = window.URL.createObjectURL(blob)
+  a.dataset.downloadurl = ['text/json', a.download, a.href].join(':')
+  a.click()
+}
+
 const handleScreenShot = () => {
   toPng(page.value!.querySelector('.preview') as HTMLElement) // , { width: 750 })
     .then((dataUrl) => {
@@ -69,6 +79,50 @@ const loadTemplate = async () => {
     customBlocks.createByTemplate(potoTemplate.value.potoCustomBlocks)
   }
 }
+
+const loadTemplateFromFile = (e: Event) => {
+  const files = (e.target as HTMLInputElement).files
+  if (files && files.length <= 0)
+    return false
+
+  const fr = new FileReader()
+
+  fr.onload = (e) => {
+    if (e.target && e.target.result) {
+      const result = JSON.parse(e.target.result as string)
+      designer.createByTemplate(result.potoDesigner)
+      customBlocks.createByTemplate(result.potoCustomBlocks)
+    }
+  }
+  fr.readAsText(files!.item(0)!)
+}
+
+const record = () => {
+  if (designer.getRecordStatus() === 'stop')
+    designer.recordStart()
+  else
+    designer.recordStop()
+}
+
+const saveTemplate = () => {
+  const template: PotoTemplate = {
+    potoActions: [],
+    potoCustomBlocks: customBlocks.components,
+    potoDesigner: {
+      id: designer.id,
+      actions: designer.actions || [],
+      list: designer.list || [],
+      options: designer.options,
+      theme: designer.theme,
+      listRecords: designer.listRecords,
+      optionsRecords: designer.optionsRecords,
+      themeRecords: designer.themeRecords,
+      currentItemIdRecords: designer.currentItemIdRecords,
+    },
+  }
+  saveJsonFile(JSON.stringify(template))
+}
+
 onMounted(() => {
   actionsStore.createByJsonString(potoActions.value)
   customBlocks.createByJsonString(potoCustomBlocks.value)
@@ -106,6 +160,21 @@ onMounted(() => {
           <el-button @click="designer.redo()">
             {{ t('common.redo') }}
           </el-button>
+          <el-button @click="record()">
+            {{ designer.getRecordStatus() === 'stop' ? 'record' : 'stop' }}
+          </el-button>
+          <div i-material-symbols-download class="cursor-pointer text-2xl ml-1" :title="t('common.saveTemplate')" @click="saveTemplate()" />
+          <label for="json_upload" class="cursor-pointer ml-1" :title="t('common.loadTemplate')">
+            <div i-material-symbols-upload-sharp class="text-2xl" />
+          </label>
+          <input id="json_upload" class="w-0px h-0px" type="file" accept=".json" @change="loadTemplateFromFile">
+          <div
+            v-if="designer.listRecords"
+            i-material-symbols-play-circle-outline
+            class="cursor-pointer text-2xl ml-1"
+            :title="t('common.replayTemplate')"
+            @click="designer.recordReplay()"
+          />
         </div>
         <div flex items-center>
           <el-dropdown @command="toggleLocales">

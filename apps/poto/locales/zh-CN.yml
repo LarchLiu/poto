@@ -11,6 +11,9 @@ common:
   add: 添加
   test: 测试
   languages: 切换语言
+  saveTemplate: 保存模版
+  loadTemplate: 加载模版
+  replayTemplate: 模版重放
 settings:
   blockSetting:
     title: 组件设置
