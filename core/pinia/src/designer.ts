@@ -35,6 +35,9 @@ export const useDesignerStore = () => {
     const themeRecords = ref('')
     const currentItemIdRecords = ref('')
     const replayTimer = ref()
+    const replayDuration = ref(1000)
+    const canReplayUndo = ref(false)
+    const canReplayRedo = ref(false)
     let firstTimeUndo = true
     let firstTimeRedo = true
 
@@ -450,6 +453,11 @@ export const useDesignerStore = () => {
         recordStatus.value = 'pause'
     }
 
+    const recordResume = () => {
+      if (isRecord.value && recordStatus.value === 'pause')
+        recordStatus.value = 'recording'
+    }
+
     const recordStop = () => {
       isRecord.value = false
       recordStatus.value = 'stop'
@@ -470,8 +478,15 @@ export const useDesignerStore = () => {
       return replayStatus.value
     }
 
-    const replay = async () => {
-      let canReplay = true
+    const replayStop = () => {
+      isReplay.value = false
+      replayStatus.value = 'stop'
+      clearInterval(replayTimer.value)
+      replayTimer.value = undefined
+    }
+
+    const replayUndo = async () => {
+      canReplayUndo.value = true
       const hisList: HistoryType[] = ['list', 'options', 'theme', 'currentItemId']
       for (let i = 0, len = hisList.length; i < len; i++) {
         const t = hisList[i]
@@ -480,26 +495,31 @@ export const useDesignerStore = () => {
             ignoreListHis.value = true
             if (listHis.canUndo.value) {
               listHis.undo()
-              canReplay = listHis.canUndo.value
+              canReplayUndo.value = listHis.canUndo.value
+              canReplayRedo.value = listHis.canRedo.value
+
+              if (!canReplayUndo.value)
+                replayStop()
             }
             else {
-              canReplay = false
+              canReplayUndo.value = false
+              canReplayRedo.value = listHis.canRedo.value
             }
             break
 
           case 'options':
             ignoreOptionsHis.value = true
-            if (canReplay && optionsHis.canUndo.value)
+            if (optionsHis.canUndo.value)
               optionsHis.undo()
             break
 
           case 'theme':
-            if (optionsHis && themeHis.canUndo.value)
+            if (themeHis.canUndo.value)
               themeHis.undo()
             break
 
           case 'currentItemId':
-            if (optionsHis && currentItemIdHis.canUndo.value) {
+            if (currentItemIdHis.canUndo.value) {
               await nextTick(() => {
                 currentItemIdHis.undo()
                 currentItem.value = findItemById(list.value, currentItemId.value).item
@@ -517,18 +537,68 @@ export const useDesignerStore = () => {
         if (ignoreOptionsHis.value)
           ignoreOptionsHis.value = false
       })
-
-      return canReplay
     }
 
-    const recordReplay = async (duration = 1000) => {
-      let canReplay = true
+    const replayRedo = async () => {
+      canReplayRedo.value = true
+      const hisList: HistoryType[] = ['list', 'options', 'theme', 'currentItemId']
+      for (let i = 0, len = hisList.length; i < len; i++) {
+        const t = hisList[i]
+        switch (t) {
+          case 'list':
+            ignoreListHis.value = true
+            if (listHis.canRedo.value) {
+              listHis.redo()
+              canReplayRedo.value = listHis.canRedo.value
+              canReplayUndo.value = listHis.canUndo.value
+            }
+            else {
+              canReplayRedo.value = false
+              canReplayUndo.value = listHis.canUndo.value
+            }
+            break
 
+          case 'options':
+            ignoreOptionsHis.value = true
+            if (optionsHis.canRedo.value)
+              optionsHis.redo()
+            break
+
+          case 'theme':
+            if (themeHis.canRedo.value)
+              themeHis.redo()
+            break
+
+          case 'currentItemId':
+            if (currentItemIdHis.canRedo.value) {
+              await nextTick(() => {
+                currentItemIdHis.redo()
+                currentItem.value = findItemById(list.value, currentItemId.value).item
+              })
+            }
+            break
+
+          default:
+            break
+        }
+      }
+      await nextTick(() => {
+        if (ignoreListHis.value)
+          ignoreListHis.value = false
+        if (ignoreOptionsHis.value)
+          ignoreOptionsHis.value = false
+      })
+    }
+
+    const recordReplay = async () => {
       if (!isReplay.value) {
         isReplay.value = true
+        canReplayUndo.value = true
+        canReplayRedo.value = false
         replayStatus.value = 'replaying'
         if (listRecords.value) {
           listHis.undoStack.value = JSON.parse(listRecords.value)
+          listHis.redoStack.value = []
           if (listHis.undoStack.value.length > 0)
             listHis.last.value = listHis.undoStack.value.shift()!
           else
@@ -538,6 +608,7 @@ export const useDesignerStore = () => {
 
         if (optionsRecords.value) {
           optionsHis.undoStack.value = JSON.parse(optionsRecords.value)
+          optionsHis.redoStack.value = []
           if (optionsHis.undoStack.value.length > 0)
             optionsHis.last.value = optionsHis.undoStack.value.shift()!
           else
@@ -547,6 +618,7 @@ export const useDesignerStore = () => {
 
         if (themeRecords.value) {
           themeHis.undoStack.value = JSON.parse(themeRecords.value)
+          themeHis.redoStack.value = []
           if (themeHis.undoStack.value.length > 0)
             themeHis.last.value = themeHis.undoStack.value.shift()!
           else
@@ -556,30 +628,57 @@ export const useDesignerStore = () => {
 
         if (currentItemIdRecords.value) {
           currentItemIdHis.undoStack.value = JSON.parse(currentItemIdRecords.value)
+          currentItemIdHis.redoStack.value = []
           if (currentItemIdHis.undoStack.value.length > 0)
             currentItemIdHis.last.value = currentItemIdHis.undoStack.value.shift()!
           else
             return
         }
         else { return }
+
+        replayUndo()
       }
 
-      if (canReplay) {
+      if (canReplayUndo.value) {
         if (replayTimer.value)
           clearInterval(replayTimer.value)
 
         replayTimer.value = setInterval(async () => {
-          if (canReplay) {
-            canReplay = await replay()
-          }
-          else {
-            isReplay.value = false
-            replayStatus.value = 'stop'
-            clearInterval(replayTimer.value)
-            replayTimer.value = undefined
-          }
-        }, duration)
+          if (canReplayUndo.value)
+            replayUndo()
+          else
+            replayStop()
+        }, replayDuration.value)
       }
+    }
+
+    const replayPause = () => {
+      replayStatus.value = 'pause'
+      if (replayTimer.value)
+        clearInterval(replayTimer.value)
+    }
+
+    const replayResume = () => {
+      replayStatus.value = 'replaying'
+      replayTimer.value = setInterval(async () => {
+        if (canReplayUndo.value)
+          replayUndo()
+        else
+          replayStop()
+      }, replayDuration.value)
+    }
+
+    const replaySpeed = (duration: number) => {
+      replayDuration.value = duration
+      if (replayTimer.value)
+        clearInterval(replayTimer.value)
+
+      replayTimer.value = setInterval(async () => {
+        if (canReplayUndo.value)
+          replayUndo()
+        else
+          replayStop()
+      }, replayDuration.value)
     }
 
     return {
@@ -619,11 +718,21 @@ export const useDesignerStore = () => {
       currentItemIdRecords,
       recordStart,
       recordPause,
+      recordResume,
       recordStop,
       recordReplay,
       getRecordStatus,
       getReplayStatus,
       resetRecords,
+      replayUndo,
+      replayRedo,
+      replayPause,
+      replayStop,
+      replayResume,
+      replaySpeed,
+      replayDuration,
+      canReplayUndo,
+      canReplayRedo,
     }
   })(config.piniaInstance)
 }

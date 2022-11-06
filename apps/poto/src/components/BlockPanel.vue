@@ -37,6 +37,12 @@ const dragEnd = async () => {
 
 <template>
   <div>
+    <div class="flex flex-col">
+      <div :title="t('common.undo')" class="icon-btn i-carbon-undo text-2xl mb-2" @click="designer.undo()" />
+      <div :title="t('common.redo')" class="icon-btn i-carbon-redo text-2xl mb-2" @click="designer.redo()" />
+      <div :title="t('common.reset')" class="icon-btn i-carbon-reset text-2xl" @click="designer.resetStore()" />
+      <el-divider class="my-2" />
+    </div>
     <draggable
       :list="basicsList" item-key="key" :group="{ name: 'standard', pull: 'clone', put: false }"
       :clone="designer.cloneItemWithTheme" ghost-class="ghost" :sort="false"

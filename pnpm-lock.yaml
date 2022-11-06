@@ -31,6 +31,8 @@ importers:
       '@iconify-json/ion': ^1.1.4
       '@iconify-json/material-symbols': ^1.1.22
       '@iconify-json/mdi': ^1.1.34
+      '@iconify-json/pajamas': ^1.1.3
+      '@iconify-json/radix-icons': ^1.1.5
       '@intlify/vite-plugin-vue-i18n': ^6.0.3
       '@poto/auto-import': workspace:*
       '@poto/block-basics': workspace:*
@@ -116,6 +118,8 @@ importers:
       '@iconify-json/ion': 1.1.4
       '@iconify-json/material-symbols': 1.1.22
       '@iconify-json/mdi': 1.1.34
+      '@iconify-json/pajamas': 1.1.3
+      '@iconify-json/radix-icons': 1.1.5
       '@intlify/vite-plugin-vue-i18n': 6.0.3_vite@3.2.1+vue-i18n@9.2.2
       '@poto/auto-import': link:../../plugins/poto-auto-import
       '@poto/types': link:../../core/types
@@ -1924,6 +1928,18 @@ packages:
 
   /@iconify-json/mdi/1.1.34:
     resolution: {integrity: sha512-Jle/BrVmaKMMPVitsO3lbJ8VpXUVCAhfMFAMo0VoxLDX8ZiKiQyVDHXPug9wGaXYb9mrFZE4UWVK63Cjx8L3rQ==}
+    dependencies:
+      '@iconify/types': 2.0.0
+    dev: true
+
+  /@iconify-json/pajamas/1.1.3:
+    resolution: {integrity: sha512-nMCw3d5MinSEX9Ul6T2znMTcNpxAVULHaB+LDx05Ttuu2AmzDwBa87GyrMiYB8YIdHFH9iM7YxoZixVNliJfmQ==}
+    dependencies:
+      '@iconify/types': 2.0.0
+    dev: true
+
+  /@iconify-json/radix-icons/1.1.5:
+    resolution: {integrity: sha512-U3T9e685BNaxa9SLgj1FGDE1IgwEntoaCAohDPPKKYmkE9eshR0MiiNerGbaOvxW1y6iWoVZHKvDRnWBNncs7Q==}
     dependencies:
       '@iconify/types': 2.0.0
     dev: true

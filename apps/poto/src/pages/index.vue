@@ -69,10 +69,6 @@ const reloadList = () => {
   designer.createByJsonString(potoDesigner.value)
 }
 
-const resetList = () => {
-  designer.resetStore()
-}
-
 const loadTemplate = async () => {
   if (potoTemplate.value) {
     designer.createByTemplate(potoTemplate.value.potoDesigner)
@@ -97,11 +93,15 @@ const loadTemplateFromFile = (e: Event) => {
   fr.readAsText(files!.item(0)!)
 }
 
-const record = () => {
+const recordTemplateStart = () => {
   if (designer.getRecordStatus() === 'stop')
     designer.recordStart()
   else
     designer.recordStop()
+}
+
+const recordTemplateStop = () => {
+  designer.recordStop()
 }
 
 const saveTemplate = () => {
@@ -123,63 +123,137 @@ const saveTemplate = () => {
   saveJsonFile(JSON.stringify(template))
 }
 
+const toggleTemplate = (command: string) => {
+  switch (command) {
+    case 'template':
+      loadTemplate()
+      break
+    case 'record':
+      recordTemplateStart()
+      break
+  }
+}
+
 onMounted(() => {
   actionsStore.createByJsonString(potoActions.value)
   customBlocks.createByJsonString(potoCustomBlocks.value)
   designer.setBlockPlugins(BlockPlugins)
   potoTemplate.value = JSON.parse(loadJsonFile(`${import.meta.env.BASE_URL}template.json`))
 })
+
+onUnmounted(() => {
+  if (designer.getReplayStatus() !== 'stop')
+    designer.replayStop()
+})
 </script>
 
 <template>
   <div id="page" ref="page" relative>
     <el-container class="bg-white h-full overflow-y-hidden">
-      <el-header class="h-48px leading-48px min-w-800px border-b-2 border-#EBEEF5" flex items-center justify-between>
+      <el-header class="h-48px leading-48px min-w-800px border-b-2 border-#EBEEF5 flex items-center justify-between">
         <div>
           <span class="text-20px mx-6px font-bold text-#242424">Poto</span>
         </div>
+        <div>
+          <div v-if="designer.getRecordStatus() !== 'stop'" flex items-center>
+            <button
+              v-if="designer.getRecordStatus() === 'recording'"
+              type="button" :title="t('common.pause')"
+              @click="designer.recordPause()"
+            >
+              <div i-material-symbols-pause-circle-outline class="text-2xl ml-1" />
+            </button>
+            <button
+              v-else-if="designer.getRecordStatus() === 'pause'"
+              type="button" :title="t('common.resume')"
+              @click="designer.recordResume()"
+            >
+              <div i-material-symbols-play-circle-outline class="text-2xl ml-1" />
+            </button>
+            <button
+              type="button" :title="t('common.stop')"
+              @click="recordTemplateStop"
+            >
+              <div i-material-symbols-stop-circle-outline class="text-2xl ml-1" />
+            </button>
+          </div>
+          <div v-else-if="designer.listRecords" flex items-center>
+            <button
+              type="button"
+              :title="t('common.preStep')"
+              :class="designer.canReplayRedo ? '' : 'opacity-50'"
+              @click="designer.canReplayRedo ? designer.replayRedo() : {}"
+            >
+              <div i-radix-icons-double-arrow-left class="text-2xl ml-1" />
+            </button>
+            <button
+              v-if="designer.getReplayStatus() === 'replaying'"
+              type="button" :title="t('common.pause')"
+              @click="designer.replayPause()"
+            >
+              <div i-radix-icons-pause class="text-2xl ml-2" />
+            </button>
+            <button
+              v-else-if="designer.getReplayStatus() === 'pause'"
+              type="button" :title="t('common.resume')"
+              @click="designer.replayResume()"
+            >
+              <div i-radix-icons-resume class="text-2xl ml-2" />
+            </button>
+            <button
+              v-if="designer.getReplayStatus() === 'stop'"
+              type="button" :title="t('common.replayTemplate')"
+              @click="designer.recordReplay()"
+            >
+              <div i-radix-icons-play class="text-2xl ml-2" />
+            </button>
+            <button
+              type="button"
+              :title="t('common.nextStep')"
+              :class="designer.canReplayUndo ? '' : 'opacity-50'"
+              @click="designer.canReplayUndo ? designer.replayUndo() : {}"
+            >
+              <div i-radix-icons-double-arrow-right class="text-2xl ml-2" />
+            </button>
+            <div class="flex items-center relative group">
+              <button
+                type="button"
+                :title="t('common.replaySpeed')"
+              >
+                <div i-mdi-play-speed class="text-2xl ml-2" />
+              </button>
+              <div class="absolute left-8 pl-2 w-50 invisible opacity-0 group-hover:visible group-hover:opacity-100">
+                <el-slider v-model="designer.replayDuration" show-stops :min="500" :max="5000" :step="500" />
+              </div>
+            </div>
+          </div>
+        </div>
         <div flex items-center>
-          <el-button @click="saveList">
-            {{ t('common.save') }}
-          </el-button>
-          <el-button @click="handleScreenShot">
-            {{ t('common.download') }}
-          </el-button>
-          <el-button @click="reloadList">
-            {{ t('common.reload') }}
-          </el-button>
-          <el-button @click="resetList">
-            {{ t('common.reset') }}
-          </el-button>
-          <el-button @click="loadTemplate">
-            {{ t('common.template') }}
-          </el-button>
-          <el-button @click="designer.undo()">
-            {{ t('common.undo') }}
-          </el-button>
-          <el-button @click="designer.redo()">
-            {{ t('common.redo') }}
-          </el-button>
-          <el-button @click="record()">
-            {{ designer.getRecordStatus() === 'stop' ? 'record' : 'stop' }}
-          </el-button>
-          <div i-material-symbols-download class="cursor-pointer text-2xl ml-1" :title="t('common.saveTemplate')" @click="saveTemplate()" />
+          <el-dropdown @command="toggleTemplate">
+            <button type="button" :title="t('common.template')">
+              <div i-pajamas-template class="text-xl ml-1" />
+            </button>
+            <template #dropdown>
+              <el-dropdown-menu>
+                <el-dropdown-item command="template">
+                  template
+                </el-dropdown-item>
+                <el-dropdown-item command="record" divided>
+                  {{ t('common.recordTemplate') }}
+                </el-dropdown-item>
+              </el-dropdown-menu>
+            </template>
+          </el-dropdown>
+          <button type="button" :title="t('common.saveTemplate')" @click="saveTemplate()">
+            <div i-material-symbols-download class="text-2xl ml-1" />
+          </button>
           <label for="json_upload" class="cursor-pointer ml-1" :title="t('common.loadTemplate')">
             <div i-material-symbols-upload-sharp class="text-2xl" />
           </label>
           <input id="json_upload" class="w-0px h-0px" type="file" accept=".json" @change="loadTemplateFromFile">
-          <div
-            v-if="designer.listRecords"
-            i-material-symbols-play-circle-outline
-            class="cursor-pointer text-2xl ml-1"
-            :title="t('common.replayTemplate')"
-            @click="designer.recordReplay()"
-          />
-        </div>
-        <div flex items-center>
           <el-dropdown @command="toggleLocales">
             <button type="button" :title="t('common.languages')">
-              <div i-ion-language-outline class="text-xl" />
+              <div i-ion-language class="text-xl ml-1" />
             </button>
             <template #dropdown>
               <el-dropdown-menu>
@@ -196,34 +270,47 @@ onMounted(() => {
       </el-header>
       <el-container>
         <el-aside class="sticky w-50px">
-          <div border-r-2>
-            <div :style="{ height: contentPanelHeight }" flex items-center justify-center>
+          <div class="border-r-2 flex flex-col justify-between" :style="{ height: contentPanelHeight }">
+            <div />
+            <div class="flex items-center justify-center">
               <block-panel />
+            </div>
+            <div flex flex-col items-center justify-center>
+              <div :title="t('common.screenshot')" class="icon-btn i-iconoir-screenshot text-2xl mb-2" @click="handleScreenShot" />
+              <div :title="t('common.save')" class="icon-btn i-carbon-save text-2xl mb-2" @click="saveList" />
+              <div :title="t('common.reload')" class="icon-btn i-material-symbols-sim-card-download-outline text-2xl mb-2" @click="reloadList" />
             </div>
           </div>
         </el-aside>
 
-        <el-aside class="overflow-y-hidden" :class="showLayout ? 'w-780px' : 'w-30px'" flex :style="{ minHeight: contentPanelHeight }">
-          <el-scrollbar v-if="showLayout" w-750px bg-white :style="{ height: contentPanelHeight }">
+        <el-aside
+          class="flex overflow-y-hidden"
+          :class="showLayout ? 'w-780px' : 'w-30px'"
+          :style="{ minHeight: contentPanelHeight }"
+        >
+          <el-scrollbar v-if="showLayout" class="w-750px bg-white" :style="{ height: contentPanelHeight }">
             <layout-panel />
           </el-scrollbar>
 
-          <div :style="{ height: contentPanelHeight }" flex items-center justify-center bg-light-700 w-30px>
-            <div bg-white w-24px h-50px border rounded-lg cursor-pointer flex items-center justify-center @click="showLayout = !showLayout">
-              <div :class="showLayout ? 'i-carbon-page-first' : 'i-carbon-page-last'" text-14px color-gray-500 />
+          <div :style="{ height: contentPanelHeight }" class="flex items-center justify-center bg-light-700 w-30px">
+            <div
+              class="bg-white w-24px h-50px border rounded-lg cursor-pointer flex items-center justify-center"
+              @click="showLayout = !showLayout"
+            >
+              <div :class="showLayout ? 'i-carbon-page-first' : 'i-carbon-page-last'" class="text-14px color-gray-500" />
             </div>
           </div>
         </el-aside>
 
         <el-container class="shrink-0 min-w-680px bg-light-700">
           <el-main class="p-0">
-            <el-scrollbar bg-white w-750px mx-auto scale-100 :style="{ height: containerHeight }">
+            <el-scrollbar class="bg-white w-750px mx-auto scale-100" :style="{ height: containerHeight }">
               <designer-panel />
             </el-scrollbar>
           </el-main>
         </el-container>
 
-        <el-aside border-l-2>
+        <el-aside class="border-l-2">
           <setting-panel />
         </el-aside>
       </el-container>

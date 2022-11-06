@@ -14,6 +14,14 @@ common:
   saveTemplate: Save Template
   loadTemplate: Load Template
   replayTemplate: Replay Template
+  screenshot: Screenshot
+  recordTemplate: Record Template
+  pause: Pause
+  resume: Resume
+  stop: Stop
+  replaySpeed: Replay Speed
+  preStep: Prev
+  nextStep: Next
 settings:
   blockSetting:
     title: Block

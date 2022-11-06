@@ -14,6 +14,14 @@ common:
   saveTemplate: 保存模版
   loadTemplate: 加载模版
   replayTemplate: 模版重放
+  screenshot: 截屏
+  recordTemplate: 录制模版
+  pause: 暂停
+  resume: 恢复
+  stop: 停止
+  replaySpeed: 播放速度
+  preStep: 上一步
+  nextStep: 下一步
 settings:
   blockSetting:
     title: 组件设置
