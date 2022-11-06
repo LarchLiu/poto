@@ -79,7 +79,9 @@ onMounted(() => {
 <template>
   <basic-settings-view :is-designer="true" />
   <div id="theme">
-    <div>{{ t('settings.designerSetting.theme.title') }}</div>
+    <div class="font-bold">
+      {{ t('settings.designerSetting.theme.title') }}
+    </div>
     <el-form size="small">
       <el-form-item :label="t('settings.designerSetting.theme.pinnedColor')">
         <el-switch v-model="usePreset" />

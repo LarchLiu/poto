@@ -175,9 +175,9 @@ watch(() => widgetOptions.value?.sourceData?.transformer.rawData, (value) => {
                 <el-radio-button label="dotted">
                   {{ t('basicSettings.dotted') }}
                 </el-radio-button>
-                <el-radio-button label="double">
+                <!-- <el-radio-button label="double">
                   {{ t('basicSettings.double') }}
-                </el-radio-button>
+                </el-radio-button> -->
               </el-radio-group>
             </el-form-item>
             <el-form-item :label="t('basicSettings.width')">
