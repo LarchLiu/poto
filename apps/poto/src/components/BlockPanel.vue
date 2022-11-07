@@ -135,20 +135,20 @@ onMounted(() => {
                 <div font-bold>
                   template
                 </div>
-                <div flex>
-                  <el-popover placement="right" :show-arrow="false" :width="375" :hide-after="100" popper-class="p-0!">
+                <div>
+                  <el-popover placement="right" :show-arrow="false" :width="383" :hide-after="100" popper-class="p-0!">
                     <template #reference>
                       <div class="i-iconoir-layout-left cursor-pointer hover:text-blue" @click="loadTemplate" />
                     </template>
                     <template #default>
                       <el-scrollbar max-height="50vh">
-                        <div>
+                        <div p-1>
                           <div
                             v-for="element in potoTemplate?.potoDesigner.list"
                             :key="element.id"
                             :style="{ width: `${element.options.size.width}%` }"
                           >
-                            <wrapper v-if="!!blockInfo[element.blockType]" :item="element">
+                            <wrapper v-if="!!blockInfo[element.blockType]" :item="element" ignore-click>
                               <component :is="blockInfo[element.blockType].blockView" :item="element" />
                             </wrapper>
                           </div>
@@ -201,14 +201,14 @@ onMounted(() => {
                         {{ element.options.name }}
                       </div>
                       <div flex>
-                        <el-popover placement="top" :show-arrow="false" :width="375" :hide-after="100" popper-class="p-0!">
+                        <el-popover placement="top" :show-arrow="false" :width="383" :hide-after="100" popper-class="p-0!">
                           <template #reference>
                             <div class="i-clarity-plugin-line cursor-pointer hover:text-blue" @click="addItem(element)" />
                           </template>
                           <template #default>
-                            <div w-750px scale-50 origin-left>
+                            <div p-1>
                               <div :style="{ width: `${element.options.size.width}%` }">
-                                <component :is="BlockPlugins[element.blockType].blockView" :item="element" :real-content="false" />
+                                <component :is="BlockPlugins[element.blockType].blockView" :item="element" />
                               </div>
                             </div>
                           </template>
@@ -240,14 +240,14 @@ onMounted(() => {
                         {{ element.name }}
                       </div>
                       <div flex>
-                        <el-popover placement="top" :show-arrow="false" :width="375" :hide-after="100" popper-class="p-0!">
+                        <el-popover placement="top" :show-arrow="false" :width="383" :hide-after="100" popper-class="p-0!">
                           <template #reference>
                             <div class="i-iconoir-view-structure-up cursor-pointer hover:text-blue ml-2" @click="addItem(element.item)" />
                           </template>
                           <template #default>
-                            <div w-750px scale-50 origin-left>
+                            <div p-1>
                               <div :style="{ width: `${element.item.options.size.width}%` }">
-                                <component :is="BlockBasics[element.item.blockType].blockView" :item="element.item" :real-content="false" />
+                                <component :is="BlockBasics[element.item.blockType].blockView" :item="element.item" />
                               </div>
                             </div>
                           </template>

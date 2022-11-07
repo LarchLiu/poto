@@ -4,6 +4,7 @@ import type { BasicSettings, BlockItem } from '~/types'
 const props = defineProps<{
   item: BlockItem
   isEmpty?: boolean
+  ignoreClick?: boolean
 }>()
 
 const designer = useDesignerStore()
@@ -93,7 +94,7 @@ const borderBackgroundImage = computed(() => {
       :class="[options.border.has ? `border-${options.border.color.type}` : '',
                (options.border.has && !borderIsSingleColor) ? '' : `bg-${options.backgroundColor.type}`]"
       class="ele-padding ele-margin box-border"
-      @click.stop="selectItem"
+      @click.stop="ignoreClick ? {} : selectItem"
     >
       <slot />
     </div>
