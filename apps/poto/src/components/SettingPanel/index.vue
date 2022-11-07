@@ -1,13 +1,14 @@
 <script setup lang="ts">
 import { BlockPlugins } from '~/poto-auto-imports'
-import { BlockBasics } from '~/utils'
+import { BlockBasics, HeaderHeight } from '~/utils'
 
 const { t } = useI18n()
 const blockInfo = { ...BlockBasics, ...BlockPlugins }
 const activeTab = ref('2')
 const { height: windowHeight } = useWindowSize()
 const designer = useDesignerStore()
-const scrollerHeight = computed(() => `${windowHeight.value - 48 - 55}px`)
+const tabHeight = 55
+const scrollerHeight = computed(() => `${windowHeight.value - HeaderHeight - tabHeight}px`)
 const currentItem = computed(() => designer.getCurrentItem())
 watch(currentItem, () => {
   if (currentItem.value)

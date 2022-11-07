@@ -11,8 +11,8 @@ common:
   add: Add
   test: Test
   languages: Change languages
-  saveTemplate: Save Template
-  loadTemplate: Load Template
+  downloadTemplate: Download Template
+  uploadTemplate: Upload Template
   replayTemplate: Replay Template
   screenshot: Screenshot
   recordTemplate: Record Template

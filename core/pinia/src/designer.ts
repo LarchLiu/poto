@@ -47,8 +47,9 @@ export const useDesignerStore = () => {
     const currentItemIdHis = useManualRefHistory(currentItemId)
     const historiesHis = useManualRefHistory(histories, { clone: true })
 
+    const headerHeight = ref(40)
     const { height: windowHeight } = useWindowSize()
-    const contentPanelHeight = computed(() => windowHeight.value - 48 - 16)
+    const contentPanelHeight = computed(() => windowHeight.value - headerHeight.value - options.value.padding[0] - options.value.padding[3])
     const blockPlugins = shallowRef<BlockInfo | undefined>(undefined)
 
     const addHistory = async () => {
@@ -504,6 +505,7 @@ export const useDesignerStore = () => {
             else {
               canReplayUndo.value = false
               canReplayRedo.value = listHis.canRedo.value
+              replayStop()
             }
             break
 
@@ -681,6 +683,11 @@ export const useDesignerStore = () => {
       }, replayDuration.value)
     }
 
+    const replayReset = () => {
+      while (canReplayUndo.value)
+        replayUndo()
+    }
+
     return {
       id,
       actions,
@@ -730,9 +737,11 @@ export const useDesignerStore = () => {
       replayStop,
       replayResume,
       replaySpeed,
+      replayReset,
       replayDuration,
       canReplayUndo,
       canReplayRedo,
+      headerHeight,
     }
   })(config.piniaInstance)
 }

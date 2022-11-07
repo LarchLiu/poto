@@ -162,3 +162,5 @@ export const cssColorNames = {
 }
 
 export type CssColor = keyof typeof cssColorNames
+
+export const HeaderHeight = 40

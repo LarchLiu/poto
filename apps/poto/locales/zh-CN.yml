@@ -11,8 +11,8 @@ common:
   add: 添加
   test: 测试
   languages: 切换语言
-  saveTemplate: 保存模版
-  loadTemplate: 加载模版
+  downloadTemplate: 保存模版
+  uploadTemplate: 加载模版
   replayTemplate: 模版重放
   screenshot: 截屏
   recordTemplate: 录制模版
