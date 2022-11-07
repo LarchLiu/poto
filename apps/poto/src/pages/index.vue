@@ -40,7 +40,7 @@ onMounted(() => {
     <el-container class="bg-white h-full overflow-y-hidden">
       <el-header
         class="min-w-800px border-b-2 border-#EBEEF5 flex items-center justify-between"
-        :class="`h-${HeaderHeight}px leading-${HeaderHeight}px`"
+        :style="{ height: `${HeaderHeight}px` }"
       >
         <header-panel />
       </el-header>

@@ -84,7 +84,7 @@ onUnmounted(() => {
         :class="designer.canReplayRedo ? '' : 'opacity-50'"
         @click="designer.canReplayRedo ? designer.replayRedo() : {}"
       >
-        <div i-radix-icons-double-arrow-left class="text-2xl ml-2" />
+        <div i-radix-icons-double-arrow-left class="text-xl ml-2" />
       </button>
       <button
         v-if="designer.getReplayStatus() === 'replaying'"
@@ -120,7 +120,7 @@ onUnmounted(() => {
         :class="designer.canReplayUndo ? '' : 'opacity-50'"
         @click="designer.canReplayUndo ? designer.replayUndo() : {}"
       >
-        <div i-radix-icons-double-arrow-right class="text-2xl ml-2" />
+        <div i-radix-icons-double-arrow-right class="text-xl ml-2" />
       </button>
       <div class="flex items-center relative group">
         <button
