@@ -14,17 +14,43 @@ const designerHeight = computed(() => `${windowHeight.value - HeaderHeight - 4}p
 const contentPanelHeight = computed(() => `${windowHeight.value - HeaderHeight}px`)
 const showLayout = ref(true)
 
-const handleScreenShot = () => {
-  toPng(page.value!.querySelector('.preview') as HTMLElement) // , { width: 750 })
-    .then((dataUrl) => {
-      const a = document.createElement('a')
-      a.setAttribute('download', 'screenshot')
-      a.href = dataUrl
-      a.click()
-    })
-    .catch((error) => {
-      console.error('oops, something went wrong!', error)
-    })
+const handleScreenShot = (type: string) => {
+  if (type === 'png') {
+    toPng(page.value!.querySelector('.preview') as HTMLElement) // , { width: 750 })
+      .then((dataUrl) => {
+        const a = document.createElement('a')
+        a.setAttribute('download', 'screenshot')
+        a.href = dataUrl
+        a.click()
+      })
+      .catch((error) => {
+        console.error('oops, something went wrong!', error)
+      })
+  }
+  else if (type === 'svg') {
+    toSvg(page.value!.querySelector('.preview') as HTMLElement) // , { width: 750 })
+      .then((dataUrl) => {
+        const a = document.createElement('a')
+        a.setAttribute('download', 'screenshot')
+        a.href = dataUrl
+        a.click()
+      })
+      .catch((error) => {
+        console.error('oops, something went wrong!', error)
+      })
+  }
+  else if (type === 'jpg') {
+    toJpeg(page.value!.querySelector('.preview') as HTMLElement) // , { width: 750 })
+      .then((dataUrl) => {
+        const a = document.createElement('a')
+        a.setAttribute('download', 'screenshot')
+        a.href = dataUrl
+        a.click()
+      })
+      .catch((error) => {
+        console.error('oops, something went wrong!', error)
+      })
+  }
 }
 
 onMounted(() => {
@@ -47,7 +73,7 @@ onMounted(() => {
       <el-container>
         <el-aside class="sticky w-50px">
           <div class="border-r-2">
-            <block-panel :height="contentPanelHeight" @screenshot="handleScreenShot" />
+            <block-panel :height="contentPanelHeight" @export="handleScreenShot" />
           </div>
         </el-aside>
 

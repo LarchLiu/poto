@@ -22,6 +22,10 @@ common:
   replaySpeed: 播放速度
   preStep: 上一步
   nextStep: 下一步
+  png: PNG
+  svg: SVG
+  jpg: JPG
+  exportAs: 导出为
 settings:
   blockSetting:
     title: 组件设置

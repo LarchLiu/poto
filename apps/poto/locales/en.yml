@@ -22,6 +22,10 @@ common:
   replaySpeed: Replay Speed
   preStep: Prev
   nextStep: Next
+  png: PNG
+  svg: SVG
+  jpg: JPG
+  exportAs: Export As
 settings:
   blockSetting:
     title: Block

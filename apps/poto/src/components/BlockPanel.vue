@@ -9,7 +9,7 @@ defineProps({
     required: true,
   },
 })
-const emit = defineEmits(['screenshot'])
+const emit = defineEmits(['export'])
 const { t } = useI18n()
 const designer = useDesignerStore()
 const customBlocks = useCustomBlocksStore()
@@ -19,7 +19,6 @@ const potoCustomBlocks = useLocalStorage('potoCustomBlocks', '')
 const potoDesigner = useLocalStorage('potoDesigner', '')
 const potoTemplate = ref<PotoTemplate>()
 const blockInfo = { ...BlockBasics, ...BlockPlugins }
-const divs = ref()
 const basicsList: BlockItem[] = Object.keys(BlockBasics).map((type) => {
   return BlockBasics[type].config
 })
@@ -48,8 +47,8 @@ const dragEnd = async () => {
   })
 }
 
-const handleScreenShot = () => {
-  emit('screenshot')
+const handleScreenShot = (type: string) => {
+  emit('export', type)
 }
 
 const saveList = () => {
@@ -108,10 +107,6 @@ const loadJsonFile = (name: string) => {
   xhr.send(null)
   return xhr.status === okStatus ? xhr.responseText : ''
 }
-
-onBeforeUpdate(() => {
-  divs.value = {}
-})
 
 onMounted(() => {
   potoTemplate.value = JSON.parse(loadJsonFile(`${import.meta.env.BASE_URL}template.json`))
@@ -276,7 +271,26 @@ onMounted(() => {
       </div>
     </div>
     <div flex flex-col items-center justify-center>
-      <div :title="t('common.screenshot')" class="icon-btn i-iconoir-screenshot text-2xl mb-2" @click="handleScreenShot" />
+      <el-popover placement="right" :show-arrow="false" :hide-after="100" popper-class="p-0!">
+        <template #reference>
+          <div :title="t('common.exportAs')" class="icon-btn i-iconoir-screenshot text-2xl mb-2" />
+        </template>
+        <template #default>
+          <el-scrollbar max-height="50vh">
+            <div class="ml-4 my-2">
+              <div class="cursor-pointer mb-2" @click="handleScreenShot('png')">
+                {{ t('common.png') }}
+              </div>
+              <div class="cursor-pointer mb-2" @click="handleScreenShot('svg')">
+                {{ t('common.svg') }}
+              </div>
+              <div class="cursor-pointer" @click="handleScreenShot('jpg')">
+                {{ t('common.jpg') }}
+              </div>
+            </div>
+          </el-scrollbar>
+        </template>
+      </el-popover>
       <div :title="t('common.save')" class="icon-btn i-carbon-save text-2xl mb-2" @click="saveList" />
       <div :title="t('common.reload')" class="icon-btn i-ant-design-delivered-procedure-outlined text-2xl mb-2" @click="reloadList" />
     </div>
