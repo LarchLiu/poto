@@ -12,6 +12,10 @@ const props = defineProps({
     type: Boolean,
     default: true,
   },
+  isPreview: {
+    type: Boolean,
+    required: false,
+  },
 })
 
 const emit = defineEmits(['update:item'])
@@ -47,7 +51,10 @@ const isSingleColor = computed(() => {
     }"
   >
     <div :class="isSingleColor ? 'single' : ''">
-      <tip-tap v-if="realContent" v-model:content="(_item.options as TextSettings).text" is-markdown />
+      <div v-if="realContent">
+        <div v-if="isPreview" v-html="options.text" />
+        <tip-tap v-if="realContent" v-model:content="(_item.options as TextSettings).text" is-markdown />
+      </div>
       <div v-else v-html="item.options.name" />
     </div>
   </div>

@@ -21,6 +21,10 @@ const props = defineProps({
     type: Number,
     required: false,
   },
+  isPreview: {
+    type: Boolean,
+    required: false,
+  },
 })
 
 const actionsStore = useActionsStore()
@@ -161,9 +165,20 @@ onMounted(() => {
     class="min-h-26px min-w-26px"
     :style="getContainerStyle()"
   >
-    <div v-for="element in options.list" :id="`${element.category}-${element.id}`" :key="`${element.id}-${keyIdx}`" :style="{ flexBasis: flexBasis(element) }">
-      <wrapper v-if="!!blockInfo[element.blockType]" :item="element">
-        <component :is="blockInfo[element.blockType].blockView" :item="setListItemData(element, ownData)" :parent-data="ownData" :list-index="listIndex" :real-content="realContent" />
+    <div
+      v-for="element in options.list"
+      :id="`${element.category}-${element.id}`"
+      :key="`${element.id}-${keyIdx}`"
+      :style="{ flexBasis: flexBasis(element) }"
+    >
+      <wrapper v-if="!!blockInfo[element.blockType]" :item="element" :is-preview="isPreview">
+        <component
+          :is="blockInfo[element.blockType].blockView"
+          :item="setListItemData(element, ownData)"
+          :parent-data="ownData" :list-index="listIndex"
+          :real-content="realContent"
+          :is-preview="isPreview"
+        />
       </wrapper>
     </div>
   </div>
@@ -185,8 +200,8 @@ onMounted(() => {
   >
     <template #item="{ element }: { element: BlockItem }">
       <div :id="`layout-${element.category}-${element.id}`" :style="{ flexBasis: flexBasis(element) }">
-        <layout-wrapper :block-err="!blockInfo[element.blockType]" :item="element" :un-resize="options.flex.basis > 0">
-          <component :is="blockInfo[element.blockType].blockView" :item="element" :real-content="realContent" />
+        <layout-wrapper :block-err="!blockInfo[element.blockType]" :item="element" :un-resize="options.flex.basis > 0" :is-preview="isPreview">
+          <component :is="blockInfo[element.blockType].blockView" :item="element" :real-content="realContent" :is-preview="isPreview" />
         </layout-wrapper>
       </div>
     </template>

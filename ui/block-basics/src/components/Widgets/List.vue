@@ -21,6 +21,10 @@ const props = defineProps({
     type: Number,
     required: false,
   },
+  isPreview: {
+    type: Boolean,
+    required: false,
+  },
 })
 
 const actionsStore = useActionsStore()
@@ -160,11 +164,22 @@ onMounted(() => {
     class="min-h-26px min-w-26px"
     :style="getContainerStyle()"
   >
-    <div v-for="element in item.options.list" :id="`${element.category}-${element.id}`" :key="element.id" :style="{ flexBasis: flexBasis(element) }">
+    <div
+      v-for="element in item.options.list"
+      :id="`${element.category}-${element.id}`"
+      :key="element.id"
+      :style="{ flexBasis: flexBasis(element) }"
+    >
       <div v-if="!!ownData">
         <div v-for="(data, index) in ownData" :key="`${element.id}-${index}-${keyIdx}`">
-          <wrapper v-if="!!blockInfo[element.blockType]" :item="element">
-            <component :is="blockInfo[element.blockType].blockView" :parent-data="data" :list-index="index" :item="setListItemData(element, data, index)" :real-content="realContent" />
+          <wrapper v-if="!!blockInfo[element.blockType]" :item="element" :is-preview="isPreview">
+            <component
+              :is="blockInfo[element.blockType].blockView"
+              :parent-data="data" :list-index="index"
+              :item="setListItemData(element, data, index)"
+              :real-content="realContent"
+              :is-preview="isPreview"
+            />
           </wrapper>
         </div>
       </div>
@@ -188,8 +203,8 @@ onMounted(() => {
   >
     <template #item="{ element }: { element: BlockItem }">
       <div :id="`layout-${element.category}-${element.id}`" :style="{ flexBasis: flexBasis(element) }">
-        <layout-wrapper :block-err="!blockInfo[element.blockType]" :item="element" :un-resize="options.flex.basis > 0">
-          <component :is="blockInfo[element.blockType].blockView" :item="element" :real-content="realContent" />
+        <layout-wrapper :block-err="!blockInfo[element.blockType]" :item="element" :un-resize="options.flex.basis > 0" :is-preview="isPreview">
+          <component :is="blockInfo[element.blockType].blockView" :item="element" :real-content="realContent" :is-preview="isPreview" />
         </layout-wrapper>
       </div>
     </template>

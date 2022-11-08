@@ -19,6 +19,7 @@ const potoCustomBlocks = useLocalStorage('potoCustomBlocks', '')
 const potoDesigner = useLocalStorage('potoDesigner', '')
 const potoTemplate = ref<PotoTemplate>()
 const blockInfo = { ...BlockBasics, ...BlockPlugins }
+const divs = ref()
 const basicsList: BlockItem[] = Object.keys(BlockBasics).map((type) => {
   return BlockBasics[type].config
 })
@@ -108,6 +109,10 @@ const loadJsonFile = (name: string) => {
   return xhr.status === okStatus ? xhr.responseText : ''
 }
 
+onBeforeUpdate(() => {
+  divs.value = {}
+})
+
 onMounted(() => {
   potoTemplate.value = JSON.parse(loadJsonFile(`${import.meta.env.BASE_URL}template.json`))
 })
@@ -136,20 +141,20 @@ onMounted(() => {
                   template
                 </div>
                 <div>
-                  <el-popover placement="right" :show-arrow="false" :width="383" :hide-after="100" popper-class="p-0!">
+                  <el-popover placement="right" :show-arrow="false" :width="377" :hide-after="100" popper-class="p-0!">
                     <template #reference>
                       <div class="i-iconoir-layout-left cursor-pointer hover:text-blue" @click="loadTemplate" />
                     </template>
                     <template #default>
                       <el-scrollbar max-height="50vh">
-                        <div p-1>
+                        <div class="w-750px h-750px scale-50 origin-top-left text-32px">
                           <div
                             v-for="element in potoTemplate?.potoDesigner.list"
                             :key="element.id"
                             :style="{ width: `${element.options.size.width}%` }"
                           >
-                            <wrapper v-if="!!blockInfo[element.blockType]" :item="element" ignore-click>
-                              <component :is="blockInfo[element.blockType].blockView" :item="element" />
+                            <wrapper v-if="!!blockInfo[element.blockType]" :item="element" is-preview>
+                              <component :is="blockInfo[element.blockType].blockView" :item="element" is-preview />
                             </wrapper>
                           </div>
                         </div>
@@ -201,12 +206,12 @@ onMounted(() => {
                         {{ element.options.name }}
                       </div>
                       <div flex>
-                        <el-popover placement="top" :show-arrow="false" :width="383" :hide-after="100" popper-class="p-0!">
+                        <el-popover placement="top" :show-arrow="false" :width="377" :hide-after="100" popper-class="p-0!">
                           <template #reference>
                             <div class="i-clarity-plugin-line cursor-pointer hover:text-blue" @click="addItem(element)" />
                           </template>
                           <template #default>
-                            <div p-1>
+                            <div class="w-750px max-h-200px scale-50 origin-top-left text-32px">
                               <div :style="{ width: `${element.options.size.width}%` }">
                                 <component :is="BlockPlugins[element.blockType].blockView" :item="element" />
                               </div>
@@ -240,16 +245,18 @@ onMounted(() => {
                         {{ element.name }}
                       </div>
                       <div flex>
-                        <el-popover placement="top" :show-arrow="false" :width="383" :hide-after="100" popper-class="p-0!">
+                        <el-popover placement="top" :show-arrow="false" :width="377" :hide-after="100" popper-class="p-0!">
                           <template #reference>
                             <div class="i-iconoir-view-structure-up cursor-pointer hover:text-blue ml-2" @click="addItem(element.item)" />
                           </template>
                           <template #default>
-                            <div p-1>
-                              <div :style="{ width: `${element.item.options.size.width}%` }">
-                                <component :is="BlockBasics[element.item.blockType].blockView" :item="element.item" />
+                            <el-scrollbar max-height="50vh">
+                              <div class="w-750px max-h-200px scale-50 origin-top-left text-32px">
+                                <div :style="{ width: `${element.item.options.size.width}%` }">
+                                  <component :is="BlockBasics[element.item.blockType].blockView" :item="element.item" />
+                                </div>
                               </div>
-                            </div>
+                            </el-scrollbar>
                           </template>
                         </el-popover>
                         <div class="i-carbon-trash-can cursor-pointer hover:text-red ml-1" @click="customBlocks.removeComponent(element)" />

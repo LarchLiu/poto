@@ -5,6 +5,7 @@ import { BlockBasics } from '~/constants'
 
 const props = defineProps<{
   item: BlockItem
+  isPreview?: boolean
 }>()
 const designer = useDesignerStore()
 const customBlocks = useCustomBlocksStore()
@@ -152,7 +153,8 @@ const isWidget = computed(() => {
   return designer.isWidget(props.item)
 })
 const selectItem = () => {
-  designer.selectItem(props.item, true)
+  if (!props.isPreview)
+    designer.selectItem(props.item, true)
 }
 const contextMenuClick = ({ pageX, pageY }: MouseEvent) => {
   showMenu.value = true

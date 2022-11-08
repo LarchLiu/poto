@@ -20,6 +20,10 @@ const props = defineProps({
     type: Number,
     required: false,
   },
+  isPreview: {
+    type: Boolean,
+    required: false,
+  },
 })
 
 const designer = useDesignerStore()
@@ -146,7 +150,10 @@ onMounted(() => {
         <div v-if="parentData" :key="keyIdx">
           {{ options.text }}
         </div>
-        <tip-tap v-else :key="`tiptap-${keyIdx}`" v-model:content="options.text" />
+        <div v-else>
+          <div v-if="isPreview" v-html="options.text" />
+          <tip-tap v-else :key="`tiptap-${keyIdx}`" v-model:content="options.text" />
+        </div>
       </div>
       <div v-else v-html="options.name" />
     </div>

@@ -4,7 +4,7 @@ import type { BasicSettings, BlockItem } from '~/types'
 const props = defineProps<{
   item: BlockItem
   isEmpty?: boolean
-  ignoreClick?: boolean
+  isPreview?: boolean
 }>()
 
 const designer = useDesignerStore()
@@ -19,7 +19,8 @@ const isWidget = computed(() => {
   return designer.isWidget(props.item)
 })
 const selectItem = () => {
-  designer.selectItem(props.item)
+  if (!props.isPreview)
+    designer.selectItem(props.item)
 }
 const borderIsSingleColor = computed(() => {
   return options.value.border.color.type === 'single'
@@ -94,7 +95,7 @@ const borderBackgroundImage = computed(() => {
       :class="[options.border.has ? `border-${options.border.color.type}` : '',
                (options.border.has && !borderIsSingleColor) ? '' : `bg-${options.backgroundColor.type}`]"
       class="ele-padding ele-margin box-border"
-      @click.stop="ignoreClick ? {} : selectItem"
+      @click.stop="selectItem"
     >
       <slot />
     </div>

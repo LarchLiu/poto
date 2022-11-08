@@ -6,6 +6,7 @@ const props = defineProps<{
   item: BlockItem
   unResize?: boolean
   blockErr?: boolean
+  isPreview?: boolean
 }>()
 
 const designer = useDesignerStore()
@@ -94,7 +95,7 @@ const borderBackgroundImage = computed(() => {
 
 <template>
   <div ref="wrapper" class="flex relative" :class="isResizing ? 'cursor-col-resize' : ''">
-    <WidgetHandler :item="item" />
+    <WidgetHandler :item="item" :is-preview="isPreview" />
     <resizer
       v-if="!unResize && selected && !blockErr"
       v-model:width="options.size.width"
