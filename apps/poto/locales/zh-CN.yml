@@ -51,5 +51,6 @@ blockPanel:
   LIST: 列表
   2COLUMNS: 2列组合
   3COLUMNS: 3列组合
+  IMAGE: 图片
   plugins: 插件
   customBlocks: 自定义组件

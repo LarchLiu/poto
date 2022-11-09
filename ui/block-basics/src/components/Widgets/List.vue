@@ -164,7 +164,25 @@ onMounted(() => {
     class="min-h-26px min-w-26px"
     :style="getContainerStyle()"
   >
-    <div
+    <div v-for="(data, index) in ownData" :key="`${index}-${keyIdx}`" :style="{ flexBasis: options.flex.basis ? `${options.flex.basis}%` : '100%' }">
+      <div
+        v-for="element in item.options.list"
+        :id="`${element.category}-${element.id}`"
+        :key="element.id"
+        :style="{ flexBasis: flexBasis(element) }"
+      >
+        <wrapper v-if="!!blockInfo[element.blockType]" :item="element" :is-preview="isPreview">
+          <component
+            :is="blockInfo[element.blockType].blockView"
+            :parent-data="data" :list-index="index"
+            :item="setListItemData(element, data, index)"
+            :real-content="realContent"
+            :is-preview="isPreview"
+          />
+        </wrapper>
+      </div>
+    </div>
+    <!-- <div
       v-for="element in item.options.list"
       :id="`${element.category}-${element.id}`"
       :key="element.id"
@@ -183,7 +201,7 @@ onMounted(() => {
           </wrapper>
         </div>
       </div>
-    </div>
+    </div> -->
   </div>
   <draggable
     v-else

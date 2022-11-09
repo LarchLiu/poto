@@ -10,6 +10,7 @@ export enum BlockType {
   List = 'LIST',
   Columns2 = '2COLUMNS',
   Columns3 = '3COLUMNS',
+  Image = 'IMAGE',
 }
 
 export type BlockPluginType = string
@@ -94,7 +95,7 @@ export interface BlockItem {
   isCustom?: boolean
   blockType: BlockType | BlockPluginType
   category: 'widget' | 'group'
-  options: TextSettings | GroupSettings | BlockPluginSettings
+  options: TextSettings | GroupSettings | ImageSettings | BlockPluginSettings
 }
 
 export interface FindedItem {
@@ -227,5 +228,12 @@ export interface PotoTemplate {
   potoActions: ActionItem[]
   potoDesigner: DesignerTemplate
   potoCustomBlocks: CustomBlock[]
+}
+
+export interface ImageSettings extends BasicSettings {
+  src: string
+  fit: 'fill' | 'contain' | 'cover' | 'none' | 'scale-down'
+  width?: string
+  height?: string
 }
 

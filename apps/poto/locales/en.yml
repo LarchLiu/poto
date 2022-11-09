@@ -51,6 +51,7 @@ blockPanel:
   LIST: List
   2COLUMNS: 2 Columns Group
   3COLUMNS: 3 Columns Group
+  IMAGE: Image
   plugins: Plugins
   customBlocks: Custom Blocks
 

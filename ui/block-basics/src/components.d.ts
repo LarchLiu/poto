@@ -36,6 +36,8 @@ declare module '@vue/runtime-core' {
     List: typeof import('./components/Widgets/List.vue')['default']
     Markdown: typeof import('./components/Widgets/Markdown.vue')['default']
     PhotoSetting: typeof import('./components/Settings/PhotoSetting.vue')['default']
+    PImage: typeof import('./components/Widgets/PImage.vue')['default']
+    PImageSetting: typeof import('./components/Settings/PImageSetting.vue')['default']
     PText: typeof import('./components/Widgets/PText.vue')['default']
     PTextSetting: typeof import('./components/Settings/PTextSetting.vue')['default']
     Resizer: typeof import('./components/Widgets/Resizer.vue')['default']

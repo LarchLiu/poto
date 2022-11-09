@@ -117,7 +117,7 @@ watch(num, () => {
       </div>
       <div class="absolute w-6 h-6 transform -translate-x-1/2 -translate-y-1/2 border-2 border-gray-400 border-opacity-25 rounded button left-1/2 top-1/2" @click="onButtonClick" />
     </div>
-    <div class="ml-2">
+    <div class="ml-1">
       <el-input-number v-model="num" :min="isCorner ? 0 : undefined" :disabled="isEmpty" />
     </div>
   </div>

@@ -76,6 +76,12 @@
       "flexSpaceAround": "均匀分布",
       "flexBaseline": "基线",
       "flexStretch": "拉伸"
+    },
+    "imageSettings": {
+      "url": "地址",
+      "fit": "适应",
+      "imageWidth": "宽度",
+      "imageHeight": "高度"
     }
   }
 }

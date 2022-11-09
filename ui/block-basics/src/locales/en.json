@@ -77,6 +77,12 @@
       "flexSpaceAround": "Space Around",
       "flexBaseline": "Baseline",
       "flexStretch": "Stretch"
+    },
+    "imageSettings": {
+      "url": "Url",
+      "fit": "Fit",
+      "imageWidth": "Width",
+      "imageHeight": "Height"
     }
   }
 

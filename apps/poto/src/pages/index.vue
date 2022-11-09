@@ -105,7 +105,7 @@ onMounted(() => {
           </el-main>
         </el-container>
 
-        <el-aside class="border-l-2">
+        <el-aside class="w-324px border-l-2">
           <setting-panel />
         </el-aside>
       </el-container>

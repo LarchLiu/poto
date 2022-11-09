@@ -4,8 +4,10 @@ import PText from '~/components/Widgets/PText.vue'
 import Group from '~/components/Widgets/Group.vue'
 import List from '~/components/Widgets/List.vue'
 import Markdown from '~/components/Widgets/Markdown.vue'
+import PImage from '~/components/Widgets/PImage.vue'
 import PTextSetting from '~/components/Settings/PTextSetting.vue'
 import GroupSetting from '~/components/Settings/GroupSetting.vue'
+import PImageSetting from '~/components/Settings/PImageSetting.vue'
 import { BlockType } from '~/types'
 import type { BlockInfo, BlockItem, TextSettings } from '~/types'
 
@@ -400,6 +402,56 @@ export const MarkdownConfig: BlockItem = {
   } as TextSettings,
 }
 
+export const PImageConfig: BlockItem = {
+  category: 'widget',
+  icon: 'i-carbon-image',
+  blockType: BlockType.Image,
+  options: {
+    // basic options
+    name: 'Image',
+    padding: [0, 0, 0, 0],
+    margin: [0, 0, 0, 0],
+    border: {
+      has: false,
+      width: [1, 1, 1, 1],
+      style: 'solid',
+      radius: [0, 0, 0, 0],
+      color: {
+        type: 'single',
+        options: {
+          colors: ['#000000'],
+          opacity: 1,
+          degree: 45,
+          gradient: true,
+          url: '',
+        },
+      },
+    },
+    size: { width: 100, height: 100 },
+    backgroundColor: {
+      type: 'single',
+      options: {
+        colors: ['#ffffff'],
+        opacity: 1,
+        degree: 45,
+        gradient: true,
+        url: '',
+      },
+    },
+    sourceData: {
+      enable: true,
+      actionId: '',
+      transformer: {
+        enable: false,
+        rawData: 'return data',
+      },
+    },
+    // component options
+    src: '',
+    fit: 'contain',
+  },
+}
+
 export const BlockBasics: BlockInfo = {
   [BlockType.Text]: { blockView: PText, settingsView: PTextSetting, config: TextConfig },
   [BlockType.Title]: { blockView: PText, settingsView: PTextSetting, config: TitleConfig },
@@ -408,6 +460,7 @@ export const BlockBasics: BlockInfo = {
   [BlockType.Columns2]: { blockView: Group, settingsView: GroupSetting, config: Columns2Config },
   [BlockType.Columns3]: { blockView: Group, settingsView: GroupSetting, config: Columns3Config },
   [BlockType.List]: { blockView: List, settingsView: GroupSetting, config: ListConfig },
+  [BlockType.Image]: { blockView: PImage, settingsView: PImageSetting, config: PImageConfig },
 }
 
 export const MermaidTemplates = {
