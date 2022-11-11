@@ -83,6 +83,13 @@
       "fit": "Fit",
       "imageWidth": "Width",
       "imageHeight": "Height"
+    },
+    "dividerSettings": {
+      "direction": "Direction",
+      "horizontal": "Horizontal",
+      "vertical": "Vertical",
+      "divHeight": "Divider Height",
+      "borderWidth": "Border Width"
     }
   }
 

@@ -82,6 +82,13 @@
       "fit": "适应",
       "imageWidth": "宽度",
       "imageHeight": "高度"
+    },
+    "dividerSettings": {
+      "direction": "方向",
+      "horizontal": "水平",
+      "vertical": "垂直",
+      "divHeight": "高度",
+      "borderWidth": "线宽"
     }
   }
 }

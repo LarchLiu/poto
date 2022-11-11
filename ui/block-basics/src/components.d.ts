@@ -10,6 +10,8 @@ declare module '@vue/runtime-core' {
     BasicSetting: typeof import('./components/Settings/BasicSetting.vue')['default']
     ColorSetting: typeof import('./components/Settings/ColorSetting.vue')['default']
     DiagramView: typeof import('./components/Widgets/Editor/views/DiagramView.vue')['default']
+    Divider: typeof import('./components/Widgets/Divider.vue')['default']
+    DividerSetting: typeof import('./components/Settings/DividerSetting.vue')['default']
     ElButton: typeof import('element-plus/es')['ElButton']
     ElColorPicker: typeof import('element-plus/es')['ElColorPicker']
     ElDrawer: typeof import('element-plus/es')['ElDrawer']
