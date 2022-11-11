@@ -2,6 +2,7 @@
 // import type { Designer } from '~/types'
 import { BlockPlugins } from '~/poto-auto-imports'
 import { BlockBasics } from '~/utils'
+import { BlockType } from '~/types'
 
 const blockInfo = { ...BlockBasics, ...BlockPlugins }
 // const designer = inject('designer') as Designer
@@ -78,10 +79,23 @@ const borderBackgroundImage = computed(() => {
                (designer.options.border.has && !borderIsSingleColor) ? '' : `bg-${designer.options.backgroundColor.type}`]"
       class="ele-padding ele-margin box-border"
     >
-      <div v-for="element in designer.list" :id="`${element.category}-${element.id}`" :key="element.id" :style="{ width: `${element.options.size.width}%` }">
-        <wrapper v-if="!!blockInfo[element.blockType]" :item="element">
-          <component :is="blockInfo[element.blockType].blockView" :item="element" />
-        </wrapper>
+      <div
+        v-for="element in designer.list"
+        :id="`${element.category}-${element.id}`"
+        :key="element.id"
+      >
+        <div v-if="element.blockType === BlockType.Div" class="flex flex-row">
+          <div :style="{ flexBasis: `${element.options.size.width}%` }">
+            <wrapper v-if="!!blockInfo[element.blockType]" :item="element">
+              <component :is="blockInfo[element.blockType].blockView" :item="element" />
+            </wrapper>
+          </div>
+        </div>
+        <div v-else :style="{ width: `${element.options.size.width}%` }">
+          <wrapper v-if="!!blockInfo[element.blockType]" :item="element">
+            <component :is="blockInfo[element.blockType].blockView" :item="element" />
+          </wrapper>
+        </div>
       </div>
     </div>
   </div>

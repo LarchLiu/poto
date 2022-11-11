@@ -1,6 +1,7 @@
 <script setup lang="ts">
 import { BlockPlugins } from '~/poto-auto-imports'
 import type { BlockItem } from '~/types'
+import { BlockType } from '~/types'
 import { BlockBasics } from '~/utils'
 
 const blockInfo = { ...BlockBasics, ...BlockPlugins }
@@ -103,10 +104,21 @@ const dragEnd = async () => {
       @end="dragEnd"
     >
       <template #item="{ element }: { element: BlockItem }">
-        <div :id="`layout-${element.category}-${element.id}`" :style="{ width: `${element.options.size.width}%` }">
-          <layout-wrapper :block-err="!blockInfo[element.blockType]" :item="element">
-            <component :is="blockInfo[element.blockType].blockView" :item="element" :real-content="false" />
-          </layout-wrapper>
+        <div
+          :id="`layout-${element.category}-${element.id}`"
+        >
+          <div v-if="element.blockType === BlockType.Div" class="flex flex-row">
+            <div :style="{ flexBasis: `${element.options.size.width}%` }">
+              <layout-wrapper :block-err="!blockInfo[element.blockType]" :item="element">
+                <component :is="blockInfo[element.blockType].blockView" :item="element" :real-content="false" />
+              </layout-wrapper>
+            </div>
+          </div>
+          <div v-else :style="{ width: `${element.options.size.width}%` }">
+            <layout-wrapper :block-err="!blockInfo[element.blockType]" :item="element">
+              <component :is="blockInfo[element.blockType].blockView" :item="element" :real-content="false" />
+            </layout-wrapper>
+          </div>
 
           <div class="group add-line opacity-0 my-1 hover:opacity-100">
             <button type="button" class="add-button text-[#3c3836] hover:text-red-500 group-hover:opacity-100">
@@ -205,9 +217,9 @@ const dragEnd = async () => {
   .add-line {
     height: 16px;
     display: flex;
-    justify-content: center;
     align-items: center;
     color: rgb(152, 172, 189);
+    padding-left: 20px;
 
     .add-button {
       margin-right: 8px;
