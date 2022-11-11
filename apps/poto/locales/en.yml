@@ -46,7 +46,7 @@ blockPanel:
   TITLE: Title
   MARKDOWN: Markdown
   TEXT: Text
-  DIV: Div
+  DIV: Divider
   GROUP: Group
   LIST: List
   2COLUMNS: 2 Columns Group

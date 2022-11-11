@@ -237,3 +237,8 @@ export interface ImageSettings extends BasicSettings {
   height?: string
 }
 
+export interface DividerSettings extends BasicSettings {
+  direction: 'horizontal' | 'vertical'
+  height: string
+}
+
