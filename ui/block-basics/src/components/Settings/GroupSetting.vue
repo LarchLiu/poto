@@ -45,6 +45,25 @@ watch(currentItem, (n, o) => {
 }, {
   deep: true,
 })
+
+const sliderMouseDown = () => {
+  designer.ignoreListHis = true
+  designer.ignoreOptionsHis = true
+
+  const onMouseMove = function () {
+    designer.ignoreListHis = true
+    designer.ignoreOptionsHis = true
+  }
+
+  const onMouseUp = function () {
+    removeEventListener('mousemove', onMouseMove)
+    removeEventListener('mouseup', onMouseUp)
+    designer.addHistory()
+  }
+
+  addEventListener('mousemove', onMouseMove)
+  addEventListener('mouseup', onMouseUp)
+}
 </script>
 
 <template>
@@ -59,7 +78,7 @@ watch(currentItem, (n, o) => {
       </div>
       <el-tabs v-model="widgetOptions.containerType" style="height: 100%; width:100%; overflow: hidden">
         <el-tab-pane label="flex" name="flex">
-          <el-form-item :label="t('componentSettings.groupSettings.flexBasis')">
+          <el-form-item :label="t('componentSettings.groupSettings.flexBasis')" @mousedown="sliderMouseDown">
             <!-- <input v-model="widgetOptions.flex.basis" class="w-4/5" type="range" :min="0" :max="100" :step="0.1"> -->
             <el-slider v-model="widgetOptions.flex.basis" class="mr-3" :step="0.1" />
           <!-- <span ml-1>{{ `${widgetOptions.flex.basis}%` }}</span> -->

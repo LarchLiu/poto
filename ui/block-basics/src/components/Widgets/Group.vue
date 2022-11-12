@@ -68,8 +68,8 @@ const fetchSourceData = async (actionId: string) => {
         rawData = runTransformer(options.value.sourceData.transformer, rawData, listIndex)
       if (rawData)
         ownData.value = rawData
-
-      else ElMessage.error(err)
+      else if (designer.getReplayStatus() !== 'replaying')
+        ElMessage.error(err)
     }
     else {
       let action = options.value.sourceData?.actionItem
@@ -88,8 +88,8 @@ const fetchSourceData = async (actionId: string) => {
 
             if (rawData)
               ownData.value = rawData
-
-            else ElMessage.error(err)
+            else if (designer.getReplayStatus() !== 'replaying')
+              ElMessage.error(err)
           }
         }
         else if (action.type === 'transformer') {
@@ -97,8 +97,8 @@ const fetchSourceData = async (actionId: string) => {
           const rawData = runTransformer(transformer, '')
           if (rawData)
             ownData.value = rawData
-
-          else ElMessage.error(err)
+          else if (designer.getReplayStatus() !== 'replaying')
+            ElMessage.error(err)
         }
       }
     }

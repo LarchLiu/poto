@@ -67,7 +67,7 @@ const fetchSourceData = async (actionId: string) => {
 
       if (rawData)
         ownData.value = rawData
-      else
+      else if (designer.getReplayStatus() !== 'replaying')
         ElMessage.error(err)
     }
     else {
@@ -88,7 +88,8 @@ const fetchSourceData = async (actionId: string) => {
             if (rawData)
               ownData.value = rawData
 
-            else ElMessage.error(err)
+            else if (designer.getReplayStatus() !== 'replaying')
+              ElMessage.error(err)
           }
         }
         else if (action.type === 'transformer') {
@@ -96,7 +97,7 @@ const fetchSourceData = async (actionId: string) => {
           const rawData = runTransformer(transformer, '')
           if (rawData)
             ownData.value = rawData
-          else
+          else if (designer.getReplayStatus() !== 'replaying')
             ElMessage.error('source data type error')
         }
       }

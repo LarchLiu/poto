@@ -55,7 +55,9 @@ const fetchSourceData = async (actionId: string) => {
         keyIdx.value++
         options.value.src = rawData
       }
-      else { ElMessage.error(err) }
+      else if (designer.getReplayStatus() !== 'replaying') {
+        ElMessage.error(err)
+      }
     }
     else {
       let action = options.value.sourceData?.actionItem
@@ -74,7 +76,7 @@ const fetchSourceData = async (actionId: string) => {
 
             if (typeof rawData === 'string')
               options.value.src = rawData
-            else
+            else if (designer.getReplayStatus() !== 'replaying')
               ElMessage.error(err)
           }
         }
@@ -85,7 +87,7 @@ const fetchSourceData = async (actionId: string) => {
             rawData = runTransformer(options.value.sourceData.transformer, rawData)
           if (typeof rawData === 'string')
             options.value.src = rawData
-          else
+          else if (designer.getReplayStatus() !== 'replaying')
             ElMessage.error(err)
         }
       }
