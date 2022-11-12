@@ -17,7 +17,8 @@ const actionsStore = useActionsStore()
 const potoActions = useLocalStorage('potoActions', '')
 const potoCustomBlocks = useLocalStorage('potoCustomBlocks', '')
 const potoDesigner = useLocalStorage('potoDesigner', '')
-const potoTemplate = ref<PotoTemplate>()
+const basicTemplate = ref<PotoTemplate>()
+const actionListTemplate = ref<PotoTemplate>()
 const blockInfo = { ...BlockBasics, ...BlockPlugins }
 const basicsList: BlockItem[] = Object.keys(BlockBasics).map((type) => {
   return BlockBasics[type].config
@@ -68,10 +69,17 @@ const reloadList = () => {
   designer.createByJsonString(potoDesigner.value)
 }
 
-const loadTemplate = async () => {
-  if (potoTemplate.value) {
-    designer.createByTemplate(potoTemplate.value.potoDesigner)
-    customBlocks.createByTemplate(potoTemplate.value.potoCustomBlocks)
+const loadBasicTemplate = async () => {
+  if (basicTemplate.value) {
+    designer.createByTemplate(basicTemplate.value.potoDesigner)
+    customBlocks.createByTemplate(basicTemplate.value.potoCustomBlocks)
+  }
+}
+
+const loadActionListTemplate = async () => {
+  if (actionListTemplate.value) {
+    designer.createByTemplate(actionListTemplate.value.potoDesigner)
+    customBlocks.createByTemplate(actionListTemplate.value.potoCustomBlocks)
   }
 }
 
@@ -109,7 +117,8 @@ const loadJsonFile = (name: string) => {
 }
 
 onMounted(() => {
-  potoTemplate.value = JSON.parse(loadJsonFile(`${import.meta.env.BASE_URL}template.json`))
+  basicTemplate.value = JSON.parse(loadJsonFile(`${import.meta.env.BASE_URL}basic-use.json`))
+  actionListTemplate.value = JSON.parse(loadJsonFile(`${import.meta.env.BASE_URL}action-list.json`))
 })
 </script>
 
@@ -130,21 +139,50 @@ onMounted(() => {
               </label>
               <input id="json_upload" class="w-0px h-0px" type="file" accept=".json" @change="loadTemplateFromFile">
             </div>
-            <div class="border rounded p-2 cursor-pointer shadow-sm hover:shadow-md m-3" @dblclick="loadTemplate">
+            <div class="border rounded p-2 cursor-pointer shadow-sm hover:shadow-md m-3" @dblclick="loadBasicTemplate">
               <div flex justify-between>
                 <div font-bold>
-                  template
+                  Basic Template
                 </div>
                 <div>
                   <el-popover placement="right" :show-arrow="false" :width="377" :hide-after="100" popper-class="p-0!">
                     <template #reference>
-                      <div class="i-iconoir-layout-left cursor-pointer hover:text-blue" @click="loadTemplate" />
+                      <div class="i-iconoir-layout-left cursor-pointer hover:text-blue" @click="loadBasicTemplate" />
                     </template>
                     <template #default>
                       <el-scrollbar max-height="50vh">
                         <div class="w-750px h-750px scale-50 origin-top-left text-32px">
                           <div
-                            v-for="element in potoTemplate?.potoDesigner.list"
+                            v-for="element in basicTemplate?.potoDesigner.list"
+                            :key="element.id"
+                            :style="{ width: `${element.options.size.width}%` }"
+                          >
+                            <wrapper v-if="!!blockInfo[element.blockType]" :item="element" is-preview>
+                              <component :is="blockInfo[element.blockType].blockView" :item="element" is-preview />
+                            </wrapper>
+                          </div>
+                        </div>
+                      </el-scrollbar>
+                    </template>
+                  </el-popover>
+                </div>
+              </div>
+            </div>
+            <div class="border rounded p-2 cursor-pointer shadow-sm hover:shadow-md m-3" @dblclick="loadActionListTemplate">
+              <div flex justify-between>
+                <div font-bold>
+                  Actions and List
+                </div>
+                <div>
+                  <el-popover placement="right" :show-arrow="false" :width="377" :hide-after="100" popper-class="p-0!">
+                    <template #reference>
+                      <div class="i-iconoir-layout-left cursor-pointer hover:text-blue" @click="loadActionListTemplate" />
+                    </template>
+                    <template #default>
+                      <el-scrollbar max-height="50vh">
+                        <div class="w-750px h-750px scale-50 origin-top-left text-32px">
+                          <div
+                            v-for="element in actionListTemplate?.potoDesigner.list"
                             :key="element.id"
                             :style="{ width: `${element.options.size.width}%` }"
                           >
