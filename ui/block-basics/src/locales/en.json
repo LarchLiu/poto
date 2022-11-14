@@ -2,7 +2,26 @@
   "common": {
     "ok": "OK",
     "cancel": "Cancel",
-    "save": "Save"
+    "save": "Save",
+    "add": "Add",
+    "copy": "Copy",
+    "remove": "Remove",
+    "saveas": "Save As",
+    "clone": "Clone",
+    "confirm": "Confirm",
+    "customBlock": "Save Custom Block",
+    "description": "Description",
+    "TITLE": "Title",
+    "MARKDOWN": "Markdown",
+    "TEXT": "Text",
+    "DIV": "Divider",
+    "GROUP": "Group",
+    "LIST": "List",
+    "2COLUMNS": "2 Columns Group",
+    "3COLUMNS": "3 Columns Group",
+    "IMAGE": "Image",
+    "plugins": "Plugins",
+    "customBlocks": "Custom"
   },
   "basicSettings": {
     "title": "Basic Settings",

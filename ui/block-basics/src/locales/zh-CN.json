@@ -2,7 +2,26 @@
   "common": {
     "ok": "确定",
     "cancel": "取消",
-    "save": "保存"
+    "save": "保存",
+    "add": "添加",
+    "copy": "复制",
+    "remove": "删除",
+    "saveas": "另存为",
+    "clone": "克隆",
+    "confirm": "确认",
+    "customBlock": "自定义保存",
+    "description": "描述",
+    "TITLE": "标题",
+    "MARKDOWN": "Markdown",
+    "TEXT": "文字",
+    "DIV": "分割线",
+    "GROUP": "组合",
+    "LIST": "列表",
+    "2COLUMNS": "2 列组合",
+    "3COLUMNS": "3 列组合",
+    "IMAGE": "图片",
+    "plugins": "插件",
+    "customBlocks": "自定义"
   },
   "basicSettings": {
     "title": "基本属性",

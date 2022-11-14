@@ -1,12 +1,15 @@
 <script setup lang="ts">
 import { UUID } from '@poto/utils'
 import type { BlockItem, CustomBlock, MenuItem } from '~/types'
-import { BlockBasics } from '~/constants'
+import { BlockBasics, i18nMessages } from '~/constants'
 
 const props = defineProps<{
   item: BlockItem
   isPreview?: boolean
 }>()
+const { t } = useI18n({
+  messages: i18nMessages,
+})
 const designer = useDesignerStore()
 const customBlocks = useCustomBlocksStore()
 const widgetMenu = useWidgetMenuStore()
@@ -16,43 +19,49 @@ const showMenu = ref(false)
 const menuId = UUID()
 const handler = ref<HTMLElement | null>(null)
 const menuEle = ref<HTMLElement | null>(null)
+const dialogSaveVisible = ref(false)
+const customBlock = ref<CustomBlock>()
 
 // const menuHeight = computed(() => {
 //   return menuEle.value?.offsetHeight || 0
 // })
 
-const widgetList = Object.keys(BlockBasics).map((type) => {
-  const config = BlockBasics[type].config
-  return {
-    icon: config.icon!,
-    label: config.options.name,
-    callback: () => {
-      designer.addItem(config)
-      showMenu.value = false
-    },
-  }
+const widgetList = computed(() => {
+  return Object.keys(BlockBasics).map((type) => {
+    const config = BlockBasics[type].config
+    return {
+      icon: config.icon!,
+      label: t(`common.${config.blockType}`),
+      callback: () => {
+        designer.addItem(config)
+        showMenu.value = false
+      },
+    }
+  })
 })
 
-const pluginsList = blockPlugins
-  ? [
-      {
-        divider: true,
-      }, {
-        icon: 'i-clarity-plugin-line',
-        label: 'Plugins',
-        subMenu: Object.keys(blockPlugins).map((type) => {
-          const config = blockPlugins[type].config
-          return {
-            label: config.options.name,
-            callback: () => {
-              designer.addItem(config)
-              showMenu.value = false
-            },
-          }
-        }),
-      },
-    ]
-  : []
+const pluginsList = computed(() => {
+  return blockPlugins
+    ? [
+        {
+          divider: true,
+        }, {
+          icon: 'i-clarity-plugin-line',
+          label: t('common.plugins'),
+          subMenu: Object.keys(blockPlugins).map((type) => {
+            const config = blockPlugins[type].config
+            return {
+              label: config.options.name,
+              callback: () => {
+                designer.addItem(config)
+                showMenu.value = false
+              },
+            }
+          }),
+        },
+      ]
+    : []
+})
 
 const customComponentsSubmenu = computed(() => customBlocks.components.map((component) => {
   return {
@@ -82,28 +91,28 @@ const customComponentsList = computed(() => {
     divider: true,
   }, {
     icon: 'i-iconoir-view-structure-up',
-    label: 'Custom',
+    label: t('common.customBlocks'),
     subMenu: customComponentsSubmenu.value,
   }]
 })
 
 const addList = computed(() => {
   if (customBlocks.components.length > 0)
-    return [...widgetList, ...pluginsList, ...customComponentsList.value]
+    return [...widgetList.value, ...pluginsList.value, ...customComponentsList.value]
   else
-    return [...widgetList, ...pluginsList]
+    return [...widgetList.value, ...pluginsList.value]
 })
 
 const blockMenu = computed(() => {
   const menu: MenuItem[] = [
     {
       icon: 'i-carbon-add',
-      label: 'Add',
+      label: t('common.add'),
       subMenu: addList.value,
     },
     {
       icon: 'i-carbon-copy',
-      label: 'Copy',
+      label: t('common.clone'),
       callback: () => {
         designer.copyItem(props.item)
         showMenu.value = false
@@ -111,21 +120,22 @@ const blockMenu = computed(() => {
     },
     {
       icon: 'i-fluent-save-24-regular',
-      label: 'Save',
+      label: t('common.save'),
       callback: () => {
-        const component: CustomBlock = {
+        customBlock.value = {
           id: UUID(),
-          name: 'test', // TODO: edit by user
-          description: 'test',
+          name: '',
+          description: '',
           item: { ...props.item, isCustom: true },
         }
-        customBlocks.addComponent(component)
+        // customBlocks.addComponent(component)
         showMenu.value = false
+        dialogSaveVisible.value = true
       },
     },
     {
       icon: 'i-carbon-trash-can',
-      label: 'Remove',
+      label: t('common.remove'),
       callback: () => {
         designer.removeItem(props.item)
         showMenu.value = false
@@ -135,12 +145,18 @@ const blockMenu = computed(() => {
   if (customBlocks.components.length > 0) {
     menu.push({
       icon: 'i-fluent-save-edit-24-regular',
-      label: 'Save as',
+      label: t('common.saveas'),
       subMenu: saveAsMenu.value,
     })
   }
   return menu
 })
+
+const saveCustomBlock = () => {
+  dialogSaveVisible.value = false
+  customBlocks.addComponent(customBlock.value!)
+}
+
 const menuHeight = computed(() => {
   return blockMenu.value.length * 40 // 40 as menu item height 2.5rem
 })
@@ -193,6 +209,24 @@ watch(() => widgetMenu.id, (value) => {
     >
       ⠿
     </div>
+    <el-dialog v-model="dialogSaveVisible" :title="t('common.customBlock')" width="500px">
+      <el-form :model="customBlock">
+        <el-form-item :label="t('basicSettings.name')">
+          <el-input v-model="customBlock!.name" autocomplete="off" />
+        </el-form-item>
+        <el-form-item :label="t('common.description')">
+          <el-input v-model="customBlock!.description" autocomplete="off" />
+        </el-form-item>
+      </el-form>
+      <template #footer>
+        <span class="dialog-footer">
+          <el-button @click="dialogSaveVisible = false">{{ t('common.cancel') }}</el-button>
+          <el-button type="primary" @click="saveCustomBlock">
+            {{ t('common.confirm') }}
+          </el-button>
+        </span>
+      </template>
+    </el-dialog>
     <Teleport to="#page">
       <div
         v-if="showMenu"
