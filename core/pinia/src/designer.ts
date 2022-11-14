@@ -38,8 +38,8 @@ export const useDesignerStore = () => {
     const replayDuration = ref(1000)
     const canReplayUndo = ref(false)
     const canReplayRedo = ref(false)
-    let firstTimeUndo = true
-    let firstTimeRedo = true
+    // const firstTimeUndo = true
+    // const firstTimeRedo = true
 
     const listHis = useManualRefHistory(list, { clone: true })
     const optionsHis = useManualRefHistory(options, { clone: true })
@@ -89,6 +89,21 @@ export const useDesignerStore = () => {
       })
     }
 
+    const resetRecords = () => {
+      listRecords.value = ''
+      optionsRecords.value = ''
+      themeRecords.value = ''
+      currentItemIdRecords.value = ''
+    }
+
+    const resetHistory = () => {
+      listHis.clear()
+      optionsHis.clear()
+      themeHis.clear()
+      currentItemIdHis.clear()
+      historiesHis.clear()
+    }
+
     const resetStore = () => {
       id.value = UUID()
       actions.value = []
@@ -97,23 +112,11 @@ export const useDesignerStore = () => {
       theme.value = deepClone(designerTheme)
       currentItem.value = undefined
       currentItemId.value = undefined
-      listRecords.value = ''
-      optionsRecords.value = ''
-      themeRecords.value = ''
-      currentItemIdRecords.value = ''
 
-      listHis.clear()
-      optionsHis.clear()
-      themeHis.clear()
-      currentItemIdHis.clear()
-      // addHistory()
-    }
-
-    const resetRecords = () => {
-      listRecords.value = ''
-      optionsRecords.value = ''
-      themeRecords.value = ''
-      currentItemIdRecords.value = ''
+      resetRecords()
+      nextTick(() => {
+        resetHistory()
+      })
     }
 
     const createByTemplate = (obj: DesignerTemplate) => {
@@ -130,16 +133,16 @@ export const useDesignerStore = () => {
       themeRecords.value = obj.themeRecords || ''
       currentItemIdRecords.value = obj.currentItemIdRecords || ''
 
-      // addHistory()
+      nextTick(() => {
+        resetHistory()
+      })
     }
 
     const createByJsonString = (str: string) => {
       try {
         const json = JSON.parse(str)
-        if (typeof json === 'object') {
-          resetStore()
+        if (typeof json === 'object')
           createByTemplate(json)
-        }
       }
       catch (e) {
 
@@ -337,16 +340,19 @@ export const useDesignerStore = () => {
     }
 
     const undo = async () => {
-      if (firstTimeUndo)
-        firstTimeUndo = false
-      else
+      // if (firstTimeUndo)
+      //   firstTimeUndo = false
+      // else
+      //   historiesHis.undo()
+
+      // if (!firstTimeRedo)
+      //   firstTimeRedo = true
+      if (historiesHis.canUndo.value)
         historiesHis.undo()
 
-      if (!firstTimeRedo)
-        firstTimeRedo = true
-
-      for (let i = 0, len = histories.value.length; i < len; i++) {
-        const t = histories.value[i]
+      const hisList: HistoryType[] = ['list', 'options', 'theme', 'currentItemId']
+      for (let i = 0, len = hisList.length; i < len; i++) {
+        const t = hisList[i]
         switch (t) {
           case 'list':
             ignoreListHis.value = true
@@ -382,18 +388,21 @@ export const useDesignerStore = () => {
     }
 
     const redo = async () => {
-      if (firstTimeRedo) {
-        firstTimeRedo = false
-        if (histories.value.length === 0)
-          historiesHis.redo()
-      }
-      else { historiesHis.redo() }
+      // if (firstTimeRedo) {
+      //   firstTimeRedo = false
+      //   if (histories.value.length === 0)
+      //     historiesHis.redo()
+      // }
+      // else { historiesHis.redo() }
 
-      if (!firstTimeUndo)
-        firstTimeUndo = true
+      // if (!firstTimeUndo)
+      //   firstTimeUndo = true
+      if (historiesHis.canRedo.value)
+        historiesHis.redo()
 
-      for (let i = 0, len = histories.value.length; i < len; i++) {
-        const t = histories.value[i]
+      const hisList: HistoryType[] = ['list', 'options', 'theme', 'currentItemId']
+      for (let i = 0, len = hisList.length; i < len; i++) {
+        const t = hisList[i]
         switch (t) {
           case 'list':
             ignoreListHis.value = true
@@ -427,6 +436,14 @@ export const useDesignerStore = () => {
         if (ignoreOptionsHis.value)
           ignoreOptionsHis.value = false
       })
+    }
+
+    const canUndo = () => {
+      return historiesHis.canUndo.value
+    }
+
+    const canRedo = () => {
+      return historiesHis.canRedo.value
     }
 
     const addAction = (item: DesignerActionItem) => {
@@ -608,6 +625,7 @@ export const useDesignerStore = () => {
 
     const recordReplay = async () => {
       if (!isReplay.value) {
+        resetHistory()
         isReplay.value = true
         canReplayUndo.value = true
         canReplayRedo.value = false
@@ -615,44 +633,48 @@ export const useDesignerStore = () => {
         if (listRecords.value) {
           listHis.undoStack.value = JSON.parse(listRecords.value)
           listHis.redoStack.value = []
-          if (listHis.undoStack.value.length > 0)
+          if (listHis.undoStack.value.length > 0) {
             listHis.last.value = listHis.undoStack.value.shift()!
-          else
-            return
+            list.value = listHis.last.value.snapshot
+          }
+          else { return }
         }
         else { return }
 
         if (optionsRecords.value) {
           optionsHis.undoStack.value = JSON.parse(optionsRecords.value)
           optionsHis.redoStack.value = []
-          if (optionsHis.undoStack.value.length > 0)
+          if (optionsHis.undoStack.value.length > 0) {
             optionsHis.last.value = optionsHis.undoStack.value.shift()!
-          else
-            return
+            options.value = optionsHis.last.value.snapshot
+          }
+          else { return }
         }
         else { return }
 
         if (themeRecords.value) {
           themeHis.undoStack.value = JSON.parse(themeRecords.value)
           themeHis.redoStack.value = []
-          if (themeHis.undoStack.value.length > 0)
+          if (themeHis.undoStack.value.length > 0) {
             themeHis.last.value = themeHis.undoStack.value.shift()!
-          else
-            return
+            theme.value = themeHis.last.value.snapshot
+          }
+          else { return }
         }
         else { return }
 
         if (currentItemIdRecords.value) {
           currentItemIdHis.undoStack.value = JSON.parse(currentItemIdRecords.value)
           currentItemIdHis.redoStack.value = []
-          if (currentItemIdHis.undoStack.value.length > 0)
+          if (currentItemIdHis.undoStack.value.length > 0) {
             currentItemIdHis.last.value = currentItemIdHis.undoStack.value.shift()!
-          else
-            return
+            currentItemId.value = currentItemIdHis.last.value.snapshot
+          }
+          else { return }
         }
         else { return }
 
-        replayUndo()
+        // replayUndo()
       }
 
       if (canReplayUndo.value) {
@@ -730,6 +752,8 @@ export const useDesignerStore = () => {
       setTheme,
       undo,
       redo,
+      canUndo,
+      canRedo,
       addHistory,
       addAction,
       findAction,

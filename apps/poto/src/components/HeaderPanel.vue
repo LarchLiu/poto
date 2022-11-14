@@ -81,7 +81,7 @@ onUnmounted(() => {
       <button
         type="button"
         :title="t('common.preStep')"
-        :class="designer.canReplayRedo ? '' : 'opacity-50'"
+        :class="designer.canReplayRedo ? '' : 'opacity-50 cursor-not-allowed'"
         @click="designer.canReplayRedo ? designer.replayRedo() : {}"
       >
         <div i-radix-icons-double-arrow-left class="text-xl ml-2" />
@@ -109,7 +109,7 @@ onUnmounted(() => {
       </button>
       <button
         type="button" :title="t('common.stop')"
-        :class="designer.getReplayStatus() === 'stop' ? 'opacity-50' : 'opacity-100'"
+        :class="designer.getReplayStatus() === 'stop' ? 'opacity-50 cursor-not-allowed' : 'opacity-100'"
         @click="designer.getReplayStatus() === 'stop' ? {} : designer.replayReset()"
       >
         <div i-radix-icons-stop class="text-xl ml-2" />
@@ -117,7 +117,7 @@ onUnmounted(() => {
       <button
         type="button"
         :title="t('common.nextStep')"
-        :class="designer.canReplayUndo ? '' : 'opacity-50'"
+        :class="designer.canReplayUndo ? '' : 'opacity-50 cursor-not-allowed'"
         @click="designer.canReplayUndo ? designer.replayUndo() : {}"
       >
         <div i-radix-icons-double-arrow-right class="text-xl ml-2" />

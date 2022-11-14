@@ -116,6 +116,24 @@ const loadJsonFile = (name: string) => {
   return xhr.status === okStatus ? xhr.responseText : ''
 }
 
+const canUndo = () => {
+  return designer.canUndo() && designer.getReplayStatus() === 'stop'
+}
+
+const canRedo = () => {
+  return designer.canRedo() && designer.getReplayStatus() === 'stop'
+}
+
+const undo = () => {
+  if (canUndo())
+    designer.undo()
+}
+
+const redo = () => {
+  if (canRedo())
+    designer.redo()
+}
+
 onMounted(() => {
   basicTemplate.value = JSON.parse(loadJsonFile(`${import.meta.env.BASE_URL}basic-use.json`))
   actionListTemplate.value = JSON.parse(loadJsonFile(`${import.meta.env.BASE_URL}action-list.json`))
@@ -209,8 +227,18 @@ onMounted(() => {
     </div>
     <div class="flex flex-col items-center justify-center">
       <div class="flex flex-col items-center justify-center">
-        <div :title="t('common.undo')" class="icon-btn i-carbon-undo text-2xl mb-2" @click="designer.undo()" />
-        <div :title="t('common.redo')" class="icon-btn i-carbon-redo text-2xl mb-2" @click="designer.redo()" />
+        <div
+          :title="t('common.undo')"
+          class="i-carbon-undo text-2xl mb-2"
+          :class="canUndo() ? 'icon-btn opacity-100' : 'opacity-40 cursor-not-allowed'"
+          @click="undo()"
+        />
+        <div
+          :title="t('common.redo')"
+          class="i-carbon-redo text-2xl mb-2"
+          :class="canRedo() ? 'icon-btn opacity-100' : 'opacity-40 cursor-not-allowed'"
+          @click="redo()"
+        />
         <div :title="t('common.reset')" class="icon-btn i-carbon-reset text-2xl" @click="designer.resetStore()" />
         <el-divider class="my-2" />
       </div>
