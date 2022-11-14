@@ -41,9 +41,13 @@ settings:
     title: Designer
     theme:
       title: Theme
+      fontSize: Font Size
       pinnedColor: Pinned Color
       selectTheme: Select this theme
       nextTheme: Next Theme
+      fontColor: font
+      primaryColor: primary
+      bgColor: background
 blockPanel:
   TITLE: Title
   MARKDOWN: Markdown

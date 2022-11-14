@@ -6,7 +6,7 @@ export const designerOptions: DesignerSettings = {
   margin: [0, 0, 0, 0],
   border: {
     has: false,
-    width: [1, 1, 1, 1],
+    width: [0, 0, 0, 0],
     style: 'solid',
     radius: [0, 0, 0, 0],
     color: {

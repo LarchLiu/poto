@@ -73,7 +73,7 @@ const borderBackgroundImage = computed(() => {
 </script>
 
 <template>
-  <div class="preview" bg-white style="fontSize: 32px">
+  <div class="preview" bg-white :style="{ fontSize: `${designer.theme.elFontSize}px` }">
     <div
       :class="[designer.options.border.has ? `border-${designer.options.border.color.type}` : '',
                (designer.options.border.has && !borderIsSingleColor) ? '' : `bg-${designer.options.backgroundColor.type}`]"

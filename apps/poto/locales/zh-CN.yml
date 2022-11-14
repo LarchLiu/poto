@@ -41,9 +41,13 @@ settings:
     title: 页面设置
     theme:
       title: 主题
+      fontSize: 字体大小
       pinnedColor: 锁定颜色
       selectTheme: 选择这个主题
       nextTheme: 下个主题
+      fontColor: 字体颜色
+      primaryColor: 主要颜色
+      bgColor: 背景颜色
 blockPanel:
   TITLE: 标题
   MARKDOWN: Markdown

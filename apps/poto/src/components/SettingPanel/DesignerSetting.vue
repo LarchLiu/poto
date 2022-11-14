@@ -38,6 +38,9 @@ const getColorPair = (pinnedColor?: string) => {
   return (scoreB > scoreC) ? [colorA, colorB, colorC, colorD] : [colorA, colorC, colorB, colorD]
 }
 const colors = ref<string[]>([])
+const fontSize = computed(() => {
+  return designer.theme.elFontSize
+})
 const getColors = () => {
   colors.value = getColorPair(usePreset.value ? pinnedColor.value : '')
 }
@@ -51,7 +54,7 @@ const setTheme = (bg: string, font: string, primary: string) => {
     primaryColor: primary,
     fontColor: font,
     fontFamily: '',
-    elFontSize: 32,
+    elFontSize: fontSize.value,
   }
   designer.setTheme(theme)
 }
@@ -83,6 +86,17 @@ onMounted(() => {
       {{ t('settings.designerSetting.theme.title') }}
     </div>
     <el-form size="small">
+      <el-form-item :label="t('settings.designerSetting.theme.fontSize')">
+        <el-input-number
+          v-model="designer.theme.elFontSize"
+          controls-position="right"
+          size="small"
+          class="mr-1"
+          @change="designer.addHistory()"
+        /> PX
+      </el-form-item>
+    </el-form>
+    <el-form size="small">
       <el-form-item :label="t('settings.designerSetting.theme.pinnedColor')">
         <el-switch v-model="usePreset" />
       </el-form-item>
@@ -98,26 +112,29 @@ onMounted(() => {
         :style="{ color: colors[1], border: `2px solid ${colors[2]}` }"
         class="rounded p-2 transition-colors"
       >
-        <div class="flex gap-2 items-center">
-          <div>{{ `font: ${colors[1]}` }}</div>
+        <div :style="{ fontSize: `${fontSize}px` }">
+          {{ t('settings.designerSetting.theme.fontSize') }}
+        </div>
+        <div class="flex gap-2 items-center text-12px">
+          <div>{{ `${t('settings.designerSetting.theme.fontColor')}: ${colors[1]}` }}</div>
           <el-color-picker v-model="colors[1]" size="small" />
         </div>
-        <div class="flex gap-2 items-center">
-          <div>{{ `primary: ${colors[2]}` }}</div>
+        <div class="flex gap-2 items-center text-12px">
+          <div>{{ `${t('settings.designerSetting.theme.primaryColor')}: ${colors[2]}` }}</div>
           <el-color-picker v-model="colors[2]" size="small" />
         </div>
-        <div class="flex gap-2 items-center">
-          <div>{{ `background: ${colors[0]}` }}</div>
+        <div class="flex gap-2 items-center text-12px">
+          <div>{{ `${t('settings.designerSetting.theme.bgColor')}: ${colors[0]}` }}</div>
           <el-color-picker v-model="colors[0]" size="small" />
         </div>
       </div>
-      <div class="flex justify-between items-center mt-2">
+      <div class="flex justify-between items-center mt-2 text-12px">
         <div :style="{ color: colors[1], fontWeight: 700 }">
           {{ t('settings.designerSetting.theme.selectTheme') }}
         </div>
         <div
           :style="{ color: colors[1], border: `2px solid ${colors[2]}`, borderRadius: '999px' }"
-          class="px-4 transition-colors cursor-pointer"
+          class="px-4 transition-colors cursor-pointer text-14px"
           @click="setTheme(colors[0], colors[1], colors[2])"
         >
           {{ t('common.ok') }}
@@ -129,20 +146,23 @@ onMounted(() => {
         :style="{ color: colors[0], border: `2px solid ${colors[3]}` }"
         class="rounded p-2 transition-colors"
       >
-        <div class="flex gap-2 items-center">
-          <div>{{ `font: ${colors[0]}` }}</div>
+        <div :style="{ fontSize: `${fontSize}px` }">
+          {{ t('settings.designerSetting.theme.fontSize') }}
+        </div>
+        <div class="flex gap-2 items-center text-12px">
+          <div>{{ `${t('settings.designerSetting.theme.fontColor')}: ${colors[0]}` }}</div>
           <el-color-picker v-model="colors[0]" size="small" />
         </div>
-        <div class="flex gap-2 items-center">
-          <div>{{ `primary: ${colors[3]}` }}</div>
+        <div class="flex gap-2 items-center text-12px">
+          <div>{{ `${t('settings.designerSetting.theme.primaryColor')}: ${colors[3]}` }}</div>
           <el-color-picker v-model="colors[3]" size="small" />
         </div>
-        <div class="flex gap-2 items-center">
-          <div>{{ `background: ${colors[1]}` }}</div>
+        <div class="flex gap-2 items-center text-12px">
+          <div>{{ `${t('settings.designerSetting.theme.bgColor')}: ${colors[1]}` }}</div>
           <el-color-picker v-model="colors[1]" size="small" />
         </div>
       </div>
-      <div class="flex justify-between items-center mt-2">
+      <div class="flex justify-between items-center mt-2 text-14px">
         <div :style="{ color: colors[0], fontWeight: 700 }">
           {{ t('settings.designerSetting.theme.selectTheme') }}
         </div>
@@ -160,9 +180,9 @@ onMounted(() => {
         color: designer.theme.fontColor,
         background: designer.theme.backgroundColor,
         border: `2px solid ${designer.theme.primaryColor}`,
-        padding: '4px 8px',
+        padding: '2px 8px',
       }"
-      class="mt-2 rounded-md"
+      class="mt-2 rounded-md text-14px"
       @click="getColors"
     >
       {{ t('settings.designerSetting.theme.nextTheme') }}

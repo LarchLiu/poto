@@ -151,7 +151,10 @@ onMounted(() => {
                     </template>
                     <template #default>
                       <el-scrollbar max-height="50vh">
-                        <div class="w-750px h-750px scale-50 origin-top-left text-32px">
+                        <div
+                          class="w-750px h-750px scale-50 origin-top-left"
+                          :style="{ fontSize: `${basicTemplate?.potoDesigner.theme.elFontSize}px` }"
+                        >
                           <div
                             v-for="element in basicTemplate?.potoDesigner.list"
                             :key="element.id"
@@ -180,7 +183,10 @@ onMounted(() => {
                     </template>
                     <template #default>
                       <el-scrollbar max-height="50vh">
-                        <div class="w-750px h-750px scale-50 origin-top-left text-32px">
+                        <div
+                          class="w-750px h-750px scale-50 origin-top-left"
+                          :style="{ fontSize: `${actionListTemplate?.potoDesigner.theme.elFontSize}px` }"
+                        >
                           <div
                             v-for="element in actionListTemplate?.potoDesigner.list"
                             :key="element.id"
@@ -244,7 +250,10 @@ onMounted(() => {
                             <div class="i-clarity-plugin-line cursor-pointer hover:text-blue" @click="addItem(element)" />
                           </template>
                           <template #default>
-                            <div class="w-750px max-h-200px scale-50 origin-top-left text-32px">
+                            <div
+                              class="w-750px max-h-200px scale-50 origin-top-left"
+                              :style="{ fontSize: `${designer.theme.elFontSize}px` }"
+                            >
                               <div :style="{ width: `${element.options.size.width}%` }">
                                 <component :is="BlockPlugins[element.blockType].blockView" :item="element" />
                               </div>
@@ -284,7 +293,10 @@ onMounted(() => {
                           </template>
                           <template #default>
                             <el-scrollbar max-height="50vh">
-                              <div class="w-750px max-h-200px scale-50 origin-top-left text-32px">
+                              <div
+                                class="w-750px max-h-200px scale-50 origin-top-left"
+                                :style="{ fontSize: `${designer.theme.elFontSize}px` }"
+                              >
                                 <div :style="{ width: `${element.item.options.size.width}%` }">
                                   <component :is="BlockBasics[element.item.blockType].blockView" :item="element.item" />
                                 </div>

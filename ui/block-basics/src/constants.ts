@@ -25,7 +25,7 @@ export const TextConfig: BlockItem = {
     margin: [0, 0, 0, 0],
     border: {
       has: false,
-      width: [1, 1, 1, 1],
+      width: [0, 0, 0, 0],
       style: 'solid',
       radius: [0, 0, 0, 0],
       color: {
@@ -83,7 +83,7 @@ export const GroupConfig: BlockItem = {
     margin: [0, 0, 0, 0],
     border: {
       has: false,
-      width: [1, 1, 1, 1],
+      width: [0, 0, 0, 0],
       style: 'solid',
       radius: [0, 0, 0, 0],
       color: {
@@ -135,7 +135,7 @@ export const ListConfig: BlockItem = {
     margin: [0, 0, 0, 0],
     border: {
       has: false,
-      width: [1, 1, 1, 1],
+      width: [0, 0, 0, 0],
       style: 'solid',
       radius: [0, 0, 0, 0],
       color: {
@@ -195,7 +195,7 @@ export const Columns2Config: BlockItem = {
     margin: [0, 0, 0, 0],
     border: {
       has: false,
-      width: [1, 1, 1, 1],
+      width: [0, 0, 0, 0],
       style: 'solid',
       radius: [0, 0, 0, 0],
       color: {
@@ -247,7 +247,7 @@ export const Columns3Config: BlockItem = {
     margin: [0, 0, 0, 0],
     border: {
       has: false,
-      width: [1, 1, 1, 1],
+      width: [0, 0, 0, 0],
       style: 'solid',
       radius: [0, 0, 0, 0],
       color: {
@@ -299,7 +299,7 @@ export const TitleConfig: BlockItem = {
     margin: [0, 0, 0, 0],
     border: {
       has: false,
-      width: [1, 1, 1, 1],
+      width: [0, 0, 0, 0],
       style: 'solid',
       radius: [0, 0, 0, 0],
       color: {
@@ -357,7 +357,7 @@ export const MarkdownConfig: BlockItem = {
     margin: [0, 0, 0, 0],
     border: {
       has: false,
-      width: [1, 1, 1, 1],
+      width: [0, 0, 0, 0],
       style: 'solid',
       radius: [0, 0, 0, 0],
       color: {
@@ -415,7 +415,7 @@ export const PImageConfig: BlockItem = {
     margin: [0, 0, 0, 0],
     border: {
       has: false,
-      width: [1, 1, 1, 1],
+      width: [0, 0, 0, 0],
       style: 'solid',
       radius: [0, 0, 0, 0],
       color: {
