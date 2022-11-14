@@ -31,11 +31,26 @@ export const useActionsStore = () => {
       return actions.value.find(item => item.id === id)
     }
 
+    const deleteAction = (item: ActionItem) => {
+      let idx = 10
+      let tag = false
+      for (let i = 0; i < actions.value.length; i++) {
+        if (item.id === actions.value[i].id) {
+          idx = i
+          tag = true
+          break
+        }
+      }
+      if (tag)
+        actions.value.splice(idx, 1)
+    }
+
     return {
       actions,
       createByJsonString,
       addAction,
       findAction,
+      deleteAction,
     }
   })(config.piniaInstance)
 }

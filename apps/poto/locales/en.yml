@@ -35,6 +35,8 @@ settings:
     type: Type
     url: URL
     code: Code
+    designerActions: Designer Actions
+    globalActions: Global Actions
   designerSetting:
     title: Designer
     theme:

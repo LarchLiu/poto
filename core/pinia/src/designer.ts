@@ -433,6 +433,20 @@ export const useDesignerStore = () => {
       actions.value.push(item)
     }
 
+    const deleteAction = (item: DesignerActionItem) => {
+      let idx = 0
+      let tag = false
+      for (let i = 0; i < actions.value.length; i++) {
+        if (item.id === actions.value[i].id) {
+          idx = i
+          tag = true
+          break
+        }
+      }
+      if (tag)
+        actions.value.splice(idx, 1)
+    }
+
     const findAction = (id: string) => {
       return actions.value.find(item => item.id === id)
     }
@@ -703,6 +717,7 @@ export const useDesignerStore = () => {
       isWidget,
       isSelected,
       addItem,
+      deleteAction,
       copyItem,
       removeItem,
       findItemById,

@@ -35,6 +35,8 @@ settings:
     type: 类型
     url: URL
     code: 代码
+    designerActions: Designer Actions
+    globalActions: Global Actions
   designerSetting:
     title: 页面设置
     theme:
