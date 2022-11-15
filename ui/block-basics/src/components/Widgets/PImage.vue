@@ -119,6 +119,7 @@ onMounted(() => {
   <div>
     <img
       v-if="realContent"
+      loading="lazy"
       :style="{ objectFit: options.fit, borderRadius, width: options.width, height: options.height }"
       :src="options.src"
     >
