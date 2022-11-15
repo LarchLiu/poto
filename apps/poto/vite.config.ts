@@ -115,6 +115,19 @@ export default defineConfig({
     }),
   ],
 
+  build: {
+    rollupOptions: {
+      output: {
+        manualChunks: (id: string) => {
+          if (id.includes('block-basics'))
+            return 'block-basics'
+          else if (id.includes('node_modules'))
+            return 'vendor'
+        },
+      },
+    },
+  },
+
   // https://github.com/vitest-dev/vitest
   test: {
     include: ['test/**/*.test.ts'],
