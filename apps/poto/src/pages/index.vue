@@ -24,6 +24,7 @@ const handleScreenShot = (type: string) => {
         a.click()
       })
       .catch((error) => {
+        ElMessage.error('oops, something went wrong!')
         console.error('oops, something went wrong!', error)
       })
   }
@@ -36,6 +37,7 @@ const handleScreenShot = (type: string) => {
         a.click()
       })
       .catch((error) => {
+        ElMessage.error('oops, something went wrong!')
         console.error('oops, something went wrong!', error)
       })
   }
