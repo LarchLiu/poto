@@ -111,7 +111,7 @@ export default defineConfig({
     Inspect(),
 
     PotoAutoImport({
-      imports: ['@poto/block-plugins-template'],
+      imports: ['@poto/block-plugins-template', '@poto/soccer-formations'],
     }),
   ],
 

@@ -1,0 +1,18 @@
+{
+  "basicSettings": {
+    "title": "基本属性"
+  },
+  "componentSettings": {
+    "title": "組件屬性",
+    "name": "Name",
+    "logo": "队标",
+    "teamRed": "红队",
+    "teamBlue": "蓝队",
+    "coach": "教练",
+    "formation": "阵型",
+    "lineup": "阵容",
+    "sumError": "数字之和应该为10",
+    "regexError": "阵型应该像 4-3-2-1 或 5-3-2",
+    "nullError": "请输入阵型"
+  }
+}

@@ -1,0 +1,19 @@
+{
+  "basicSettings": {
+    "title": "Basic Settings"
+  },
+  "componentSettings": {
+    "title": "Component Settings",
+    "name": "Name",
+    "logo": "Logo",
+    "teamRed": "Team Red",
+    "teamBlue": "Team Blue",
+    "coach": "Coach",
+    "formation": "Formation",
+    "lineup": "Lineup",
+    "sumError": "The sum of numbers should be 10",
+    "regexError": "It should be like 4-3-2-1 or 5-3-2",
+    "nullError": "Please input formation"
+  }
+
+}

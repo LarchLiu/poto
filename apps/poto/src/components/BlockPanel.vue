@@ -278,14 +278,16 @@ onMounted(() => {
                             <div class="i-clarity-plugin-line cursor-pointer hover:text-blue" @click="addItem(element)" />
                           </template>
                           <template #default>
-                            <div
-                              class="w-750px max-h-200px scale-50 origin-top-left"
-                              :style="{ fontSize: `${designer.theme.elFontSize}px` }"
-                            >
-                              <div :style="{ width: `${element.options.size.width}%` }">
-                                <component :is="BlockPlugins[element.blockType].blockView" :item="element" />
+                            <el-scrollbar max-height="50vh">
+                              <div
+                                class="w-750px max-h-200px scale-50 origin-top-left"
+                                :style="{ fontSize: `${designer.theme.elFontSize}px` }"
+                              >
+                                <div :style="{ width: `${element.options.size.width}%` }">
+                                  <component :is="BlockPlugins[element.blockType].blockView" :item="element" is-preview />
+                                </div>
                               </div>
-                            </div>
+                            </el-scrollbar>
                           </template>
                         </el-popover>
                       </div>
@@ -326,7 +328,7 @@ onMounted(() => {
                                 :style="{ fontSize: `${designer.theme.elFontSize}px` }"
                               >
                                 <div :style="{ width: `${element.item.options.size.width}%` }">
-                                  <component :is="BlockBasics[element.item.blockType].blockView" :item="element.item" />
+                                  <component :is="BlockBasics[element.item.blockType].blockView" :item="element.item" is-preview />
                                 </div>
                               </div>
                             </el-scrollbar>

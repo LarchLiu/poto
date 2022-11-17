@@ -1,0 +1,29 @@
+{
+  "compilerOptions": {
+    "outDir": "dist",
+    "baseUrl": ".",
+    "module": "ESNext",
+    "target": "ESNext",
+    "lib": ["esnext", "dom", "dom.iterable", "scripthost"],
+    "strict": true,
+    "esModuleInterop": true,
+    "jsx": "preserve",
+    "skipLibCheck": true,
+    "moduleResolution": "node",
+    "resolveJsonModule": true,
+    "noUnusedLocals": true,
+    "strictNullChecks": true,
+    "allowJs": true,
+    "forceConsistentCasingInFileNames": true,
+    "useDefineForClassFields": true,
+    "isolatedModules": true,
+    "sourceMap": true,
+    "types": [
+      "vite/client"
+    ],
+    "paths": {
+      "~/*": ["src/*"]
+    }
+  },
+  "include": ["src/**/*.ts", "src/**/*.vue"]
+}

@@ -7,6 +7,7 @@ import { ElementPlusResolver } from 'unplugin-vue-components/resolvers'
 import Unocss from 'unocss/vite'
 import Inspect from 'vite-plugin-inspect'
 import PotoAutoImport from '@poto/auto-import/vite'
+import VueI18n from '@intlify/vite-plugin-vue-i18n'
 
 export default defineConfig({
   resolve: {
@@ -52,7 +53,13 @@ export default defineConfig({
     Inspect(),
 
     PotoAutoImport({
-      imports: ['@poto/block-plugins-template'],
+      imports: ['@poto/block-plugins-template', '@poto/soccer-formations'],
+    }),
+
+    VueI18n({
+      runtimeOnly: true,
+      compositionOnly: true,
+      include: [path.resolve(__dirname, 'locales/**')],
     }),
   ],
 })

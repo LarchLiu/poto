@@ -35,14 +35,14 @@ export function createContext(options: Options = {}, root = process.cwd()) {
     const imports = await unimport.getImports()
     imports.forEach((i) => {
       const from = resolvePath(exportPath, i)
-      str += `import ${i.as} from '${from}'\n`
+      str += `import { blockInfo as ${i.as} } from '${from}'\n`
     })
     str += '\n'
 
     let importStr = ''
     imports.sort((a, b) => (a.as ?? a.name).localeCompare((b.as ?? b.name))).forEach((i) => {
       const name = i.as ?? i.name
-      importStr += `  ${name}: { blockView: ${name}.blockView, settingsView: ${name}.settingsView, config: ${name}.config },\n`
+      importStr += `  ${name},\n`
     })
 
     const importObj = `export const BlockPlugins: BlockInfo = {\n${importStr}}\n`

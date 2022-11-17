@@ -1,8 +1,8 @@
 import type { Pinia } from 'pinia'
 import { potoPinia } from '@poto/pinia'
 import type { App } from 'vue'
-import blockView from './components/widget.vue'
 import settingsView from './components/settings.vue'
+import blockView from './components/widget.vue'
 import { config } from './constants'
 
 interface PluginOptions {
@@ -21,3 +21,4 @@ export const blockInfo = {
   settingsView,
   config,
 }
+

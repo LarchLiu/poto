@@ -83,6 +83,7 @@ onMounted(() => {
   designer.addItem(TextConfig)
   designer.addItem(TitleConfig)
   designer.addItem(BlockPlugins.potoBlockPluginsTemplate.config)
+  designer.addItem(BlockPlugins.potoSoccerFormations.config)
   designer.addItem(MarkdownConfig)
   designer.addItem(GroupConfig)
   designer.addItem(Columns2Config)
