@@ -9,6 +9,13 @@ interface Coach {
 
 export interface Player extends Coach {
   num: number
+  goals?: number
+  assists?: number
+  yellowCards?: number
+  redCard?: boolean
+  subOn?: boolean
+  subOff?: boolean
+  score?: number
 }
 
 export interface Lineup {
@@ -26,10 +33,13 @@ interface Team {
 }
 
 export interface Settings {
+  showLineup: boolean
+  showGoals: boolean
   teamRed: Team
   teamBlue: Team
   matchTime?: number
   matchStadium?: string
+  curPlayer?: string
 }
 // @unocss-include
 export const config: BlockItem = {
@@ -71,6 +81,8 @@ export const config: BlockItem = {
     },
     // component options
     matchSettings: {
+      showLineup: true,
+      showGoals: false,
       teamRed: {
         name: 'PSG',
         coach: {
@@ -84,7 +96,14 @@ export const config: BlockItem = {
           1: [{ name: 'Hakimi', num: 2 }, { name: 'Mukiele', num: 26 }, { name: 'Ramos', num: 4 }, { name: 'Mendes', num: 25 }],
           2: [{ name: 'Soler', num: 28 }, { name: 'Pereira', num: 15 }, { name: 'Verratti', num: 6 }],
           3: [{ name: 'Neymar', num: 10 }],
-          4: [{ name: 'Messi', num: 30 }, { name: 'Mbappe', num: 7 }],
+          4: [{
+            name: 'Messi',
+            num: 30,
+            goals: 3,
+            assists: 2,
+            score: 10,
+          },
+          { name: 'Mbappe', num: 7 }],
           substitutes: [],
         },
       },
@@ -97,7 +116,14 @@ export const config: BlockItem = {
         goals: 0,
         formation: '5-3-2',
         lineup: {
-          0: [{ name: 'Messi', num: 10 }, { name: 'Messi', num: 10 }],
+          0: [{
+            name: 'Messi',
+            num: 10,
+            yellowCards: 2,
+            redCard: true,
+            subOff: true,
+            score: 9.9,
+          }, { name: 'Messi', num: 10, score: 8.2, goals: 1 }],
           1: [{ name: 'Messi', num: 10 }, { name: 'Messi', num: 10 }, { name: 'Messi', num: 10 }],
           2: [{ name: 'Messi', num: 10 }, { name: 'Messi', num: 10 }, { name: 'Messi', num: 10 },
             { name: 'Messi', num: 10 }, { name: 'Messi', num: 10 }],
