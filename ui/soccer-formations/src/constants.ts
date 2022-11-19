@@ -27,6 +27,8 @@ interface Team {
   name: string
   coach: Coach
   logo: string
+  teamColor: string
+  textColor: string
   lineup: Lineup
   formation: string
   goals: number
@@ -89,7 +91,9 @@ export const config: BlockItem = {
           name: 'Christophe Galtier',
         },
         logo: 'https://upload.wikimedia.org/wikipedia/en/a/a7/Paris_Saint-Germain_F.C..svg',
-        goals: 0,
+        teamColor: '#ef4444',
+        textColor: '#fff',
+        goals: 3,
         formation: '4-3-1-2',
         lineup: {
           0: [{ name: 'Donnarumma', num: 99 }],
@@ -113,7 +117,9 @@ export const config: BlockItem = {
           name: 'Christophe Pelissier',
         },
         logo: 'https://upload.wikimedia.org/wikipedia/en/5/51/AJAuxerreLogo.svg',
-        goals: 0,
+        teamColor: '#3b82f6',
+        textColor: '#fff',
+        goals: 1,
         formation: '5-3-2',
         lineup: {
           0: [{
@@ -122,8 +128,8 @@ export const config: BlockItem = {
             yellowCards: 2,
             redCard: true,
             subOff: true,
-            score: 9.9,
-          }, { name: 'Messi', num: 10, score: 8.2, goals: 1 }],
+            score: 5.6,
+          }, { name: 'Messi', num: 10, score: 7.2, goals: 1 }],
           1: [{ name: 'Messi', num: 10 }, { name: 'Messi', num: 10 }, { name: 'Messi', num: 10 }],
           2: [{ name: 'Messi', num: 10 }, { name: 'Messi', num: 10 }, { name: 'Messi', num: 10 },
             { name: 'Messi', num: 10 }, { name: 'Messi', num: 10 }],

@@ -3,9 +3,11 @@
     "title": "基本属性"
   },
   "componentSettings": {
-    "title": "組件屬性",
+    "title": "组件属性",
     "name": "名称",
     "logo": "队徽",
+    "teamColor": "球队颜色",
+    "textColor": "号码颜色",
     "stadium": "体育场",
     "matchTime": "比赛时间",
     "showLineup": "显示阵容",
@@ -20,8 +22,8 @@
     "score": "评分",
     "details": "球员详情",
     "substitutes": "替补",
-    "teamRed": "红队",
-    "teamBlue": "蓝队",
+    "teamRed": "甲队",
+    "teamBlue": "乙队",
     "coach": "教练",
     "formation": "阵型",
     "lineup": "阵容",

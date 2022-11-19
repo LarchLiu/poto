@@ -54,6 +54,10 @@ const setCurPlayer = (cur: string) => {
   }
 }
 
+const getScoreBg = (score: number) => {
+  return score >= 8 ? 'bg-green-500' : score >= 6 ? 'bg-orange-400' : 'bg-red-500'
+}
+
 watch(() => matchSettings.value.teamRed.formation, () => {
   formationRedChangeidx.value++
 })
@@ -64,14 +68,14 @@ watch(() => matchSettings.value.teamBlue.formation, () => {
 
 <template>
   <div v-if="realContent">
-    <div class="flex justify-between bg-dark-400 p-2">
+    <div class="flex justify-between items-center bg-dark-400 p-2">
       <div class="flex items-center">
         <img
           :src="matchSettings.teamRed.logo"
-          style="width: 100px; height: 100px"
+          style="width: 100px; height: 100px; object-fit: contain;"
         >
-        <div class="flex flex-col justify-between ml-3 h-100px">
-          <div class="text-red-500 text-3xl">
+        <div class="flex flex-col justify-between ml-3">
+          <div class="text-3xl" :style="{ color: `${matchSettings.teamRed.teamColor}` }">
             {{ matchSettings.teamRed.name }}
           </div>
           <div class="text-light-500 text-base">
@@ -82,25 +86,12 @@ watch(() => matchSettings.value.teamBlue.formation, () => {
           </div>
         </div>
       </div>
-      <div class="flex items-center h-100px">
-        <div class="flex flex-col justify-between items-center ml-3 h-full">
-          <div v-if="matchSettings.showGoals" class="text-light-500 text-3xl">
-            {{ `${matchSettings.teamRed.goals} : ${matchSettings.teamBlue.goals}` }}
-          </div>
-          <div v-if="matchSettings.matchTime" class="text-light-500 text-base">
-            {{ matchSettings.matchTime || '' }}
-          </div>
-          <div v-if="matchSettings.matchStadium" class="flex items-center">
-            <div class="i-game-icons-soccer-field text-light-500 text-2xl" />
-            <div class="text-light-500 text-base ml-1">
-              {{ matchSettings.matchStadium || '' }}
-            </div>
-          </div>
-        </div>
+      <div v-if="matchSettings.showGoals" class="text-light-500 text-3xl">
+        {{ `${matchSettings.teamRed.goals} : ${matchSettings.teamBlue.goals}` }}
       </div>
       <div class="flex items-center">
-        <div class="flex flex-col justify-between items-end mr-3 h-100px">
-          <div class="text-sky-500 text-3xl">
+        <div class="flex flex-col justify-between items-end mr-3">
+          <div class="text-3xl" :style="{ color: `${matchSettings.teamBlue.teamColor}` }">
             {{ matchSettings.teamBlue.name }}
           </div>
           <div class="text-light-500 text-base">
@@ -112,8 +103,25 @@ watch(() => matchSettings.value.teamBlue.formation, () => {
         </div>
         <img
           :src="matchSettings.teamBlue.logo"
-          style="width: 100px; height: 100px"
+          style="width: 100px; height: 100px; object-fit: contain;"
         >
+      </div>
+    </div>
+    <div v-if="matchSettings.matchTime || matchSettings.matchStadium" class="flex flex-col">
+      <div class="border-t border-t-gray-400" />
+      <div class="flex justify-around items-center bg-dark-400 p-2">
+        <div v-if="matchSettings.matchTime" class="flex items-center">
+          <div class="i-mdi-clock-time-nine-outline text-light-500 text-xl" />
+          <div class="text-light-500 text-base ml-1">
+            {{ matchSettings.matchTime || '' }}
+          </div>
+        </div>
+        <div v-if="matchSettings.matchStadium" class="flex items-center">
+          <div class="i-game-icons-soccer-field text-light-500 text-2xl" />
+          <div class="text-light-500 text-base ml-1">
+            {{ matchSettings.matchStadium || '' }}
+          </div>
+        </div>
       </div>
     </div>
     <div v-if="matchSettings.showLineup" class="flex flex-col text-light-50 text-xl" :style="{ height: `${height}px`, background: `url(${src}) no-repeat center center / contain` }">
@@ -124,14 +132,14 @@ watch(() => matchSettings.value.teamBlue.formation, () => {
               <div
                 v-for="g in matchSettings.teamRed.lineup[i][j].goals"
                 :key="`${matchSettings.teamRed.lineup[i][j].num}-goal-${g}`"
-                class="i-mdi-soccer text-lg"
+                class="i-mdi-soccer text-light-50 text-lg"
               />
               <div
                 v-for="g in matchSettings.teamRed.lineup[i][j].assists"
                 :key="`${matchSettings.teamRed.lineup[i][j].num}-assist-${g}`"
                 class="border border-light-50 text-sm rounded-1/2 mr-1px"
               >
-                <div class="i-mdi-format-text-variant" />
+                <div class="i-mdi-format-text-variant text-light-50 " />
               </div>
               <div
                 v-for="g in matchSettings.teamRed.lineup[i][j].yellowCards"
@@ -148,20 +156,21 @@ watch(() => matchSettings.value.teamBlue.formation, () => {
               />
             </div>
             <div class="flex items-end">
-              <div class="w-50px h-50px rounded-1/2 bg-red-500 flex flex-col justify-center items-center">
-                <div class="i-codicon-jersey text-44px" />
+              <div class="w-50px h-50px rounded-1/2 flex flex-col justify-center items-center relative" :style="{ background: `${matchSettings.teamRed.teamColor}` }">
+                <div class="i-codicon-jersey text-44px" :style="{ color: `${matchSettings.teamRed.textColor}` }" />
                 <div class="w-44px h-44px flex justify-center items-center" style="margin-top: -44px;">
-                  <div class="text-16px">
+                  <div class="text-16px" :style="{ color: `${matchSettings.teamRed.textColor}` }">
                     {{ matchSettings.teamRed.lineup[i][j].num }}
                   </div>
                 </div>
-              </div>
-              <div
-                v-if="matchSettings.teamRed.lineup[i][j].score"
-                class="w-7 h-7 rounded-1/2 border border-light-50 flex justify-center items-center bg-green"
-              >
-                <div class="text-light-50 text-14px">
-                  {{ matchSettings.teamRed.lineup[i][j].score }}
+                <div
+                  v-if="matchSettings.teamRed.lineup[i][j].score"
+                  class="w-7 h-7 rounded-1/2 border border-light-50 flex justify-center items-center absolute left-4/5 bottom-0"
+                  :class="getScoreBg(matchSettings.teamRed.lineup[i][j].score!)"
+                >
+                  <div class="text-light-50 text-14px">
+                    {{ matchSettings.teamRed.lineup[i][j].score }}
+                  </div>
                 </div>
               </div>
             </div>
@@ -176,14 +185,14 @@ watch(() => matchSettings.value.teamBlue.formation, () => {
               <div
                 v-for="g in matchSettings.teamBlue.lineup[i][j].goals"
                 :key="`${matchSettings.teamBlue.lineup[i][j].num}-goal-${g}`"
-                class="i-mdi-soccer text-lg"
+                class="i-mdi-soccer text-light-50 text-lg"
               />
               <div
                 v-for="g in matchSettings.teamBlue.lineup[i][j].assists"
                 :key="`${matchSettings.teamBlue.lineup[i][j].num}-assist-${g}`"
                 class="border border-light-50 text-sm rounded-1/2 mr-1px"
               >
-                <div class="i-mdi-format-text-variant" />
+                <div class="i-mdi-format-text-variant text-light-50 " />
               </div>
               <div
                 v-for="g in matchSettings.teamBlue.lineup[i][j].yellowCards"
@@ -200,20 +209,21 @@ watch(() => matchSettings.value.teamBlue.formation, () => {
               />
             </div>
             <div class="flex items-end">
-              <div class="w-50px h-50px rounded-1/2 bg-sky-500 flex flex-col justify-center items-center">
-                <div class="i-codicon-jersey text-44px" />
+              <div class="w-50px h-50px rounded-1/2 flex flex-col justify-center items-center relative" :style="{ background: `${matchSettings.teamBlue.teamColor}` }">
+                <div class="i-codicon-jersey text-44px" :style="{ color: `${matchSettings.teamBlue.textColor}` }" />
                 <div class="w-44px h-44px flex justify-center items-center" style="margin-top: -44px;">
-                  <div class="text-16px">
+                  <div class="text-16px" :style="{ color: `${matchSettings.teamBlue.textColor}` }">
                     {{ matchSettings.teamBlue.lineup[i][j].num }}
                   </div>
                 </div>
-              </div>
-              <div
-                v-if="matchSettings.teamBlue.lineup[i][j].score"
-                class="w-7 h-7 rounded-1/2 border border-light-50 flex justify-center items-center bg-green"
-              >
-                <div class="text-light-50 text-14px">
-                  {{ matchSettings.teamBlue.lineup[i][j].score }}
+                <div
+                  v-if="matchSettings.teamBlue.lineup[i][j].score"
+                  class="w-7 h-7 rounded-1/2 border border-light-50 flex justify-center items-center absolute left-4/5 bottom-0"
+                  :class="getScoreBg(matchSettings.teamBlue.lineup[i][j].score!)"
+                >
+                  <div class="text-light-50 text-14px">
+                    {{ matchSettings.teamBlue.lineup[i][j].score }}
+                  </div>
                 </div>
               </div>
             </div>

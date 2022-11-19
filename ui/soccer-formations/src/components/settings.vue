@@ -148,13 +148,7 @@ onMounted(() => {
         <el-switch v-model="matchSettings.showGoals" />
       </el-form-item>
       <el-form-item :label="t('componentSettings.matchTime')" class="!mb-2">
-        <el-date-picker
-          v-model="matchSettings.matchTime"
-          type="datetime"
-          format="YYYY/MM/DD HH:mm"
-          value-format="YYYY-MM-DD HH:mm"
-          placeholder="Select date and time"
-        />
+        <el-input v-model="matchSettings.matchTime" />
       </el-form-item>
       <el-form-item :label="t('componentSettings.stadium')" class="!mb-2">
         <el-input v-model="matchSettings.matchStadium" />
@@ -177,24 +171,31 @@ onMounted(() => {
       <el-form-item :label="t('componentSettings.coach')" class="!mb-2">
         <el-input v-model="matchSettings.teamRed.coach.name" />
       </el-form-item>
-      <el-form-item :label="t('componentSettings.formation')" prop="formationRed" class="!mb-2">
-        <el-input v-model="formationRed" @change="formationRedChange" />
+      <el-form-item :label="t('componentSettings.teamColor')" class="!mb-2">
+        <el-color-picker v-model="matchSettings.teamRed.teamColor" />
+      </el-form-item>
+      <el-form-item :label="t('componentSettings.textColor')" class="!mb-2">
+        <el-color-picker v-model="matchSettings.teamRed.textColor" />
       </el-form-item>
       <el-form-item :label="t('componentSettings.goals')" class="!mb-2">
         <el-input-number v-model="matchSettings.teamRed.goals" :min="0" />
       </el-form-item>
+      <el-form-item :label="t('componentSettings.formation')" prop="formationRed" class="!mb-2">
+        <el-input v-model="formationRed" @change="formationRedChange" />
+      </el-form-item>
+
       <div v-if="matchSettings.showLineup">
         <div class="font-bold mb-2 text-sm">
           {{ t('componentSettings.lineup') }}
         </div>
         <div v-for="n, i in lineupR" :key="`${n}-${i}`">
-          <div class="text-red-500">
+          <div :style="{ color: `${matchSettings.teamRed.teamColor}` }">
             {{ n }}
           </div>
           <div
             v-for="m, j in n" :id="`red-${n}-${i}-${m}-${j}`"
             :key="`${m}-${j}`" class="mb-2 pt-2 pr-2 border rounded"
-            :class="matchSettings.curPlayer === `red-${n}-${i}-${m}-${j}` ? 'border-red-500' : ''"
+            :style="{ borderColor: matchSettings.curPlayer === `red-${n}-${i}-${m}-${j}` ? `${matchSettings.teamRed.teamColor}` : '' }"
           >
             <el-form-item :label="t('componentSettings.name')" class="!mb-2">
               <el-input v-model="matchSettings.teamRed.lineup[i][j].name" />
@@ -216,7 +217,7 @@ onMounted(() => {
                 <el-switch v-model="matchSettings.teamRed.lineup[i][j].redCard" />
               </el-form-item>
               <el-form-item :label="t('componentSettings.score')" class="!mb-2">
-                <el-input-number v-model="matchSettings.teamRed.lineup[i][j].score" :min="0" :step="0.1" />
+                <el-input-number v-model="matchSettings.teamRed.lineup[i][j].score" :min="0" :step="0.1" :max="10" />
               </el-form-item>
               <el-form-item :label="t('componentSettings.subOff')" class="!mb-2">
                 <el-switch v-model="matchSettings.teamRed.lineup[i][j].subOff" />
@@ -232,29 +233,36 @@ onMounted(() => {
         <el-input v-model="matchSettings.teamBlue.name" />
       </el-form-item>
       <el-form-item :label="t('componentSettings.logo')" class="!mb-2">
-        <el-input v-model="matchSettings.teamRed.logo" />
+        <el-input v-model="matchSettings.teamBlue.logo" />
       </el-form-item>
       <el-form-item :label="t('componentSettings.coach')" class="!mb-2">
         <el-input v-model="matchSettings.teamBlue.coach.name" />
       </el-form-item>
-      <el-form-item :label="t('componentSettings.formation')" prop="formationBlue" class="!mb-2">
-        <el-input v-model="formationBlue" @change="formationBlueChange" />
+      <el-form-item :label="t('componentSettings.teamColor')" class="!mb-2">
+        <el-color-picker v-model="matchSettings.teamBlue.teamColor" />
+      </el-form-item>
+      <el-form-item :label="t('componentSettings.textColor')" class="!mb-2">
+        <el-color-picker v-model="matchSettings.teamBlue.textColor" />
       </el-form-item>
       <el-form-item :label="t('componentSettings.goals')" class="!mb-2">
         <el-input-number v-model="matchSettings.teamBlue.goals" :min="0" />
       </el-form-item>
+      <el-form-item :label="t('componentSettings.formation')" prop="formationBlue" class="!mb-2">
+        <el-input v-model="formationBlue" @change="formationBlueChange" />
+      </el-form-item>
+
       <div v-if="matchSettings.showLineup">
         <div class="font-bold mb-2 text-sm">
           {{ t('componentSettings.lineup') }}
         </div>
         <div v-for="n, i in lineupB" :key="`${n}-${i}`">
-          <div class="text-sky-500">
+          <div :style="{ color: `${matchSettings.teamBlue.teamColor}` }">
             {{ n }}
           </div>
           <div
             v-for="m, j in n" :id="`blue-${n}-${i}-${m}-${j}`"
             :key="`${m}-${j}`" class="mb-2 pt-2 pr-2 border rounded"
-            :class="matchSettings.curPlayer === `blue-${n}-${i}-${m}-${j}` ? 'border-sky-500' : ''"
+            :style="{ borderColor: matchSettings.curPlayer === `blue-${n}-${i}-${m}-${j}` ? `${matchSettings.teamBlue.teamColor}` : '' }"
           >
             <el-form-item :label="t('componentSettings.name')" class="!mb-2">
               <el-input v-model="matchSettings.teamBlue.lineup[i][j].name" />
@@ -276,7 +284,7 @@ onMounted(() => {
                 <el-switch v-model="matchSettings.teamBlue.lineup[i][j].redCard" />
               </el-form-item>
               <el-form-item :label="t('componentSettings.score')" class="!mb-2">
-                <el-input-number v-model="matchSettings.teamBlue.lineup[i][j].score" :min="0" :step="0.1" />
+                <el-input-number v-model="matchSettings.teamBlue.lineup[i][j].score" :min="0" :step="0.1" :max="10" />
               </el-form-item>
               <el-form-item :label="t('componentSettings.subOff')" class="!mb-2">
                 <el-switch v-model="matchSettings.teamBlue.lineup[i][j].subOff" />
