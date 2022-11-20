@@ -38,6 +38,7 @@ export const useDesignerStore = () => {
     const replayDuration = ref(1000)
     const canReplayUndo = ref(false)
     const canReplayRedo = ref(false)
+    const themeReload = ref(false)
     // const firstTimeUndo = true
     // const firstTimeRedo = true
 
@@ -125,6 +126,7 @@ export const useDesignerStore = () => {
       list.value = obj.list || []
       options.value = obj.options
       theme.value = obj.theme
+      themeReload.value = true
       currentItem.value = undefined
       currentItemId.value = undefined
 
@@ -781,6 +783,7 @@ export const useDesignerStore = () => {
       canReplayUndo,
       canReplayRedo,
       headerHeight,
+      themeReload,
     }
   })(config.piniaInstance)
 }

@@ -63,6 +63,20 @@ watch(() => designer.theme, (value) => {
   if (!value)
     designer.resetTheme()
 })
+
+watch(() => designer.themeReload, (value) => {
+  if (value) {
+    const colorA: string = designer.theme.backgroundColor
+    const colorB: string = designer.theme.fontColor
+    const colorC: string = designer.theme.primaryColor
+    let colorD: string = randomHexColor()
+    while (!contrast.isAccessible(colorB, colorD))
+      colorD = randomHexColor()
+    colors.value = [colorA, colorB, colorC, colorD]
+    designer.themeReload = false
+  }
+})
+
 onMounted(() => {
   if (designer.theme) {
     const colorA: string = designer.theme.backgroundColor
