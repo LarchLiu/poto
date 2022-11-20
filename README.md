@@ -8,8 +8,6 @@ An open-source low-code Platform for Designers.
 <br>
 </p>
 
-![Preview](./docs/public/images/poto-preview.png)
-
 ## Features
 
 - 📋 Templates for tutorials
@@ -20,3 +18,12 @@ An open-source low-code Platform for Designers.
 - 🛠 Use data from REST API or JavaScript snippet
 - 🟧 Built-in themes
 
+Design by [Poto](https://poto-vue.vercel.app/)
+
+![screenshot3](./docs/public/images/screenshot3.png)
+
+![screenshot4](./docs/public/images/screenshot4.png)
+
+![screenshot2](./docs/public/images/screenshot2.png)
+
+![screenshot1](./docs/public/images/screenshot1.png)
