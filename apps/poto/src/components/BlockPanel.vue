@@ -193,7 +193,7 @@ onMounted(() => {
             </div>
             <TemplateItem title="Basic Template" :block-info="blockInfo" :template="basicTemplate!" :load-fun="loadBasicTemplate" />
             <TemplateItem title="Actions and List" :block-info="blockInfo" :template="actionListTemplate!" :load-fun="loadActionListTemplate" />
-            <TemplateItem title="World Cup Match" :block-info="blockInfo" :template="worldCupTemplate!" :load-fun="loadWorldCupTemplate" />
+            <TemplateItem title="World Cup Matchs" :block-info="blockInfo" :template="worldCupTemplate!" :load-fun="loadWorldCupTemplate" />
           </el-scrollbar>
         </template>
       </el-popover>
