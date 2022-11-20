@@ -120,37 +120,6 @@ export const useDesignerStore = () => {
       })
     }
 
-    const createByTemplate = (obj: DesignerTemplate) => {
-      id.value = obj.id
-      actions.value = obj.actions || []
-      list.value = obj.list || []
-      options.value = obj.options
-      theme.value = obj.theme
-      themeReload.value = true
-      currentItem.value = undefined
-      currentItemId.value = undefined
-
-      listRecords.value = obj.listRecords || ''
-      optionsRecords.value = obj.optionsRecords || ''
-      themeRecords.value = obj.themeRecords || ''
-      currentItemIdRecords.value = obj.currentItemIdRecords || ''
-
-      nextTick(() => {
-        resetHistory()
-      })
-    }
-
-    const createByJsonString = (str: string) => {
-      try {
-        const json = JSON.parse(str)
-        if (typeof json === 'object')
-          createByTemplate(json)
-      }
-      catch (e) {
-
-      }
-    }
-
     const findItemById = (src: BlockItem[], id?: string): FindedItem => {
       if (id) {
         for (let i = 0; i < src.length; i++) {
@@ -267,6 +236,41 @@ export const useDesignerStore = () => {
       }
     }
 
+    const createByTemplate = (obj: DesignerTemplate) => {
+      id.value = obj.id
+      actions.value = obj.actions || []
+      list.value = obj.list || []
+      options.value = obj.options
+      const oldTheme = { ...theme.value }
+      themeReload.value = true
+      theme.value = obj.theme
+      replaceTheme(obj.theme, list.value, oldTheme)
+      replaceTheme(obj.theme, options.value, oldTheme)
+
+      currentItem.value = undefined
+      currentItemId.value = undefined
+
+      listRecords.value = obj.listRecords || ''
+      optionsRecords.value = obj.optionsRecords || ''
+      themeRecords.value = obj.themeRecords || ''
+      currentItemIdRecords.value = obj.currentItemIdRecords || ''
+
+      nextTick(() => {
+        resetHistory()
+      })
+    }
+
+    const createByJsonString = (str: string) => {
+      try {
+        const json = JSON.parse(str)
+        if (typeof json === 'object')
+          createByTemplate(json)
+      }
+      catch (e) {
+
+      }
+    }
+
     const addItem = (src: BlockItem) => {
       const item = cloneItem(src)
       replaceTheme(theme.value, item)
@@ -306,7 +310,7 @@ export const useDesignerStore = () => {
     const copyItem = (item: BlockItem) => {
       const { parentList, index } = findItemById(list.value, item.id)
       if (parentList) {
-        const _item = { ...item, id: UUID() }
+        const _item = cloneItem(item)
         parentList.splice(index + 1, 0, _item)
         addHistory()
       }
