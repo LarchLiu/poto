@@ -18,7 +18,7 @@ An open-source low-code Platform for Designers.
 - 🛠 Use data from REST API or JavaScript snippet
 - 🟧 Built-in themes
 
-Design by [Poto](https://poto-vue.vercel.app/)
+Designed by [Poto](https://poto-vue.vercel.app/)
 
 ![screenshot3](./docs/public/images/screenshot3.png)
 
