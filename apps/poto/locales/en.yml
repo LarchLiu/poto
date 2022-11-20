@@ -51,6 +51,7 @@ settings:
       fontColor: font
       primaryColor: primary
       bgColor: background
+      affectCustomBlock: Affect Custom Block
 blockPanel:
   TITLE: Title
   MARKDOWN: Markdown

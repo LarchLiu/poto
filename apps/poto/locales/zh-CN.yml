@@ -51,6 +51,7 @@ settings:
       fontColor: 字体颜色
       primaryColor: 主要颜色
       bgColor: 背景颜色
+      affectCustomBlock: 替换自定义组件
 blockPanel:
   TITLE: 标题
   MARKDOWN: Markdown

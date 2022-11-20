@@ -229,7 +229,7 @@ export const useDesignerStore = () => {
         return
       const replace = (item: BlockItem | DesignerSettings) => {
         if (isBlockItem(item)) {
-          if (item.isCustom)
+          if (item.isCustom && !options.value.affectCustomBlock)
             return
 
           if (item.options.backgroundColor.type === 'single' && ((old && item.options.backgroundColor.options.colors[0] === old.backgroundColor) || !old))
@@ -238,9 +238,9 @@ export const useDesignerStore = () => {
           if (item.options.border.color.type === 'single' && ((old && item.options.border.color.options.colors[0] === old.primaryColor) || !old))
             item.options.border.color.options.colors[0] = cur.primaryColor
 
-          const options = item.options as TextSettings
-          if (!!options.font && options.font.color.type === 'single' && ((old && options.font.color.options.colors[0] === old.fontColor) || !old))
-            options.font.color.options.colors[0] = cur.fontColor
+          const _options = item.options as TextSettings
+          if (!!_options.font && _options.font.color.type === 'single' && ((old && _options.font.color.options.colors[0] === old.fontColor) || !old))
+            _options.font.color.options.colors[0] = cur.fontColor
 
           if (item.options.list)
             replaceTheme(cur, item.options.list, old)

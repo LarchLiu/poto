@@ -222,7 +222,9 @@ export interface DesignerTemplate {
   currentItemIdRecords?: string
 }
 
-export interface DesignerSettings extends BasicSettings {}
+export interface DesignerSettings extends BasicSettings {
+  affectCustomBlock?: boolean
+}
 
 export interface PotoTemplate {
   potoActions: ActionItem[]

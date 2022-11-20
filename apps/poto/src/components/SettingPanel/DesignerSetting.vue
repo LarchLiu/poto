@@ -97,6 +97,9 @@ onMounted(() => {
       </el-form-item>
     </el-form>
     <el-form size="small">
+      <el-form-item :label="t('settings.designerSetting.theme.affectCustomBlock')">
+        <el-switch v-model="designer.options.affectCustomBlock" />
+      </el-form-item>
       <el-form-item :label="t('settings.designerSetting.theme.pinnedColor')">
         <el-switch v-model="usePreset" />
       </el-form-item>
