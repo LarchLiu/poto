@@ -1,6 +1,6 @@
 common:
   save: 保存
-  reload: 重载
+  reload: 重载本地存储
   reset: 重置
   template: 模版
   undo: 撤销
@@ -26,6 +26,9 @@ common:
   svg: SVG
   jpg: JPG
   exportAs: 导出为
+  saveAs: 保存为
+  jsonFile: Json 文件
+  localStorage: 本地存储
 settings:
   blockSetting:
     title: 组件设置

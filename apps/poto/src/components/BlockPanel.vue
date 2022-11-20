@@ -134,6 +134,31 @@ const redo = () => {
     designer.redo()
 }
 
+const saveJsonFile = (data: string) => {
+  const blob = new Blob([data], { type: 'text/plain' })
+  const a = document.createElement('a')
+  a.download = 'template.json'
+  a.href = window.URL.createObjectURL(blob)
+  a.dataset.downloadurl = ['text/json', a.download, a.href].join(':')
+  a.click()
+}
+
+const saveTemplate = () => {
+  designer.replayReset()
+  const template: PotoTemplate = {
+    potoActions: [],
+    potoCustomBlocks: customBlocks.components,
+    potoDesigner: {
+      id: designer.id,
+      actions: designer.actions || [],
+      list: designer.list || [],
+      options: designer.options,
+      theme: designer.theme,
+    },
+  }
+  saveJsonFile(JSON.stringify(template))
+}
+
 onMounted(() => {
   basicTemplate.value = JSON.parse(loadJsonFile(`${import.meta.env.BASE_URL}basic-use.json`))
   actionListTemplate.value = JSON.parse(loadJsonFile(`${import.meta.env.BASE_URL}action-list.json`))
@@ -371,7 +396,23 @@ onMounted(() => {
           </el-scrollbar>
         </template>
       </el-popover>
-      <div :title="t('common.save')" class="icon-btn i-carbon-save text-2xl mb-2" @click="saveList" />
+      <el-popover placement="right" :show-arrow="false" :hide-after="100" popper-class="p-0!">
+        <template #reference>
+          <div :title="t('common.saveAs')" class="icon-btn i-carbon-save text-2xl mb-2" />
+        </template>
+        <template #default>
+          <el-scrollbar max-height="50vh">
+            <div class="ml-4 my-2">
+              <div class="cursor-pointer mb-2" @click="saveList">
+                {{ t('common.localStorage') }}
+              </div>
+              <div class="cursor-pointer mb-2" @click="saveTemplate">
+                {{ t('common.jsonFile') }}
+              </div>
+            </div>
+          </el-scrollbar>
+        </template>
+      </el-popover>
       <div :title="t('common.reload')" class="icon-btn i-ant-design-delivered-procedure-outlined text-2xl mb-2" @click="reloadList" />
     </div>
   </div>

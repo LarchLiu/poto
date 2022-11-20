@@ -1,6 +1,6 @@
 common:
   save: Save
-  reload: Reload
+  reload: Reload Local Storage
   reset: Reset
   template: Template
   undo: Undo
@@ -26,6 +26,9 @@ common:
   svg: SVG
   jpg: JPG
   exportAs: Export As
+  saveAs: Save As
+  jsonFile: Json File
+  localStorage: Local Storage
 settings:
   blockSetting:
     title: Block
