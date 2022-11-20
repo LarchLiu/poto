@@ -238,14 +238,11 @@ export const useDesignerStore = () => {
 
     const createByTemplate = (obj: DesignerTemplate) => {
       id.value = obj.id
-      actions.value = obj.actions || []
-      list.value = obj.list || []
-      options.value = obj.options
-      const oldTheme = { ...theme.value }
+      actions.value = deepClone(obj.actions || [])
+      list.value = deepClone(obj.list || [])
+      options.value = deepClone(obj.options)
       themeReload.value = true
       theme.value = obj.theme
-      replaceTheme(obj.theme, list.value, oldTheme)
-      replaceTheme(obj.theme, options.value, oldTheme)
 
       currentItem.value = undefined
       currentItemId.value = undefined
