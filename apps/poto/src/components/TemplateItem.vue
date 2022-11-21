@@ -4,7 +4,7 @@ import type { BlockInfo, PotoTemplate } from '~/types'
 interface Props {
   title: string
   template: PotoTemplate
-  loadFun: () => void
+  loadFun: (t: PotoTemplate) => void
   blockInfo: BlockInfo
 }
 
@@ -12,7 +12,7 @@ defineProps<Props>()
 </script>
 
 <template>
-  <div class="border rounded p-2 cursor-pointer shadow-sm hover:shadow-md m-3" @dblclick="loadFun">
+  <div class="border rounded p-2 cursor-pointer shadow-sm hover:shadow-md m-3" @dblclick="loadFun(template)">
     <div flex justify-between>
       <div font-bold>
         {{ title }}
@@ -20,7 +20,7 @@ defineProps<Props>()
       <div>
         <el-popover placement="right" :show-arrow="false" :width="377" :hide-after="100" popper-class="p-0!">
           <template #reference>
-            <div class="i-iconoir-layout-left cursor-pointer hover:text-blue" @click="loadFun" />
+            <div class="i-iconoir-layout-left cursor-pointer hover:text-blue" @click="loadFun(template)" />
           </template>
           <template #default>
             <el-scrollbar max-height="50vh">

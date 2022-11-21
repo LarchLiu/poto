@@ -212,6 +212,7 @@ export interface DesignerTheme {
 
 export interface DesignerTemplate {
   id: string
+  name?: string
   actions: DesignerActionItem[]
   list: BlockItem[]
   options: DesignerSettings

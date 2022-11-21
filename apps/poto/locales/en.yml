@@ -29,6 +29,8 @@ common:
   saveAs: Save As
   jsonFile: Json File
   localStorage: Local Storage
+  name: Name
+  saveToStorage: Save to Local Storage
 settings:
   blockSetting:
     title: Block

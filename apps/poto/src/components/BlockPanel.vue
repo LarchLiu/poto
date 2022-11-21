@@ -3,6 +3,11 @@ import { BlockPlugins } from '~/poto-auto-imports'
 import type { BlockItem, CustomBlock, PotoTemplate } from '~/types'
 import { BlockBasics } from '~/utils'
 
+interface PTemplate {
+  name?: string
+  potoTempalte: PotoTemplate | undefined
+}
+
 defineProps({
   height: {
     type: String,
@@ -17,9 +22,7 @@ const actionsStore = useActionsStore()
 const potoActions = useLocalStorage('potoActions', '')
 const potoCustomBlocks = useLocalStorage('potoCustomBlocks', '')
 const potoDesigner = useLocalStorage('potoDesigner', '')
-const basicTemplate = ref<PotoTemplate>()
-const actionListTemplate = ref<PotoTemplate>()
-const worldCupTemplate = ref<PotoTemplate>()
+const templateList = ref<PTemplate[]>([])
 const blockInfo = { ...BlockBasics, ...BlockPlugins }
 const basicsList: BlockItem[] = Object.keys(BlockBasics).map((type) => {
   return BlockBasics[type].config
@@ -64,30 +67,20 @@ const saveList = () => {
     options: designer.options,
     theme: designer.theme,
   })
+  ElNotification.success({
+    message: t('common.saveToStorage'),
+    position: 'bottom-left',
+  })
 }
 
 const reloadList = () => {
   designer.createByJsonString(potoDesigner.value)
 }
 
-const loadBasicTemplate = async () => {
-  if (basicTemplate.value) {
-    designer.createByTemplate(basicTemplate.value.potoDesigner)
-    customBlocks.createByTemplate(basicTemplate.value.potoCustomBlocks)
-  }
-}
-
-const loadActionListTemplate = async () => {
-  if (actionListTemplate.value) {
-    designer.createByTemplate(actionListTemplate.value.potoDesigner)
-    customBlocks.createByTemplate(actionListTemplate.value.potoCustomBlocks)
-  }
-}
-
-const loadWorldCupTemplate = () => {
-  if (worldCupTemplate.value) {
-    designer.createByTemplate(worldCupTemplate.value.potoDesigner)
-    customBlocks.createByTemplate(worldCupTemplate.value.potoCustomBlocks)
+const loadTemplate = (t: PotoTemplate | undefined) => {
+  if (t) {
+    designer.createByTemplate(t.potoDesigner)
+    customBlocks.createByTemplate(t.potoCustomBlocks)
   }
 }
 
@@ -115,13 +108,9 @@ const loadTemplateFromFile = (e: Event) => {
   fr.readAsText(files!.item(0)!)
 }
 
-const loadJsonFile = (name: string) => {
-  const xhr = new XMLHttpRequest()
-  const okStatus = document.location.protocol === 'file:' ? 0 : 200
-  xhr.open('GET', name, false)
-  xhr.overrideMimeType('application/json;charset=utf-8')// 默认为utf-8
-  xhr.send(null)
-  return xhr.status === okStatus ? xhr.responseText : ''
+const loadLocalTemplate = async (path: string) => {
+  const { data } = await useFetch(path).get().json()
+  return data.value as PotoTemplate
 }
 
 const canUndo = () => {
@@ -167,10 +156,16 @@ const saveTemplate = () => {
   saveJsonFile(JSON.stringify(template))
 }
 
-onMounted(() => {
-  basicTemplate.value = JSON.parse(loadJsonFile(`${import.meta.env.BASE_URL}basic-use.json`))
-  actionListTemplate.value = JSON.parse(loadJsonFile(`${import.meta.env.BASE_URL}action-list.json`))
-  worldCupTemplate.value = JSON.parse(loadJsonFile(`${import.meta.env.BASE_URL}world-cup.json`))
+onMounted(async () => {
+  templateList.value.push({
+    potoTempalte: (await loadLocalTemplate(`${import.meta.env.BASE_URL}template/basic-use.json`)),
+  })
+  templateList.value.push({
+    potoTempalte: (await loadLocalTemplate(`${import.meta.env.BASE_URL}template/action-list.json`)),
+  })
+  templateList.value.push({
+    potoTempalte: (await loadLocalTemplate(`${import.meta.env.BASE_URL}template/world-cup.json`)),
+  })
 })
 </script>
 
@@ -181,6 +176,7 @@ onMounted(() => {
         <template #reference>
           <div :title="t('common.template')" class="icon-btn i-iconoir-layout-left text-2xl my-2" />
         </template>
+
         <template #default>
           <el-scrollbar max-height="50vh">
             <div class="flex items-center ml-4 mt-2">
@@ -191,9 +187,14 @@ onMounted(() => {
               </label>
               <input id="json_upload" class="w-0px h-0px" type="file" accept=".json" @change="loadTemplateFromFile">
             </div>
-            <TemplateItem title="Basic Template" :block-info="blockInfo" :template="basicTemplate!" :load-fun="loadBasicTemplate" />
-            <TemplateItem title="Actions and List" :block-info="blockInfo" :template="actionListTemplate!" :load-fun="loadActionListTemplate" />
-            <TemplateItem title="World Cup Matchs" :block-info="blockInfo" :template="worldCupTemplate!" :load-fun="loadWorldCupTemplate" />
+            <div v-for="t, i in templateList" :key="`${t.name}-${i}`">
+              <TemplateItem
+                v-if="t.potoTempalte"
+                :title="t.potoTempalte.potoDesigner.name ? t.potoTempalte.potoDesigner.name : t.name ? t.name : `Template ${i + 1}`"
+                :block-info="blockInfo" :template="t.potoTempalte"
+                :load-fun="loadTemplate"
+              />
+            </div>
           </el-scrollbar>
         </template>
       </el-popover>
@@ -215,6 +216,7 @@ onMounted(() => {
         <div :title="t('common.reset')" class="icon-btn i-carbon-reset text-2xl" @click="designer.resetStore()" />
         <el-divider class="my-2" />
       </div>
+
       <draggable
         :list="basicsList" item-key="key" :group="{ name: 'standard', pull: 'clone', put: false }"
         :clone="designer.cloneItemWithTheme" ghost-class="ghost" :sort="false"
@@ -228,6 +230,7 @@ onMounted(() => {
           </div>
         </template>
       </draggable>
+
       <div v-if="pluginsList.length > 0">
         <el-popover placement="right" :show-arrow="false" :width="300" :hide-after="100" popper-class="p-0!">
           <template #reference>
@@ -245,6 +248,7 @@ onMounted(() => {
                       <div font-bold>
                         {{ element.options.name }}
                       </div>
+
                       <div flex>
                         <el-popover placement="top" :show-arrow="false" :width="377" :hide-after="100" popper-class="p-0!">
                           <template #reference>
@@ -289,6 +293,7 @@ onMounted(() => {
                       <div font-bold>
                         {{ element.name }}
                       </div>
+
                       <div flex>
                         <el-popover placement="top" :show-arrow="false" :width="377" :hide-after="100" popper-class="p-0!">
                           <template #reference>
@@ -334,9 +339,11 @@ onMounted(() => {
               <div class="cursor-pointer mb-2" @click="handleScreenShot('png')">
                 {{ t('common.png') }}
               </div>
+
               <div class="cursor-pointer mb-2" @click="handleScreenShot('svg')">
                 {{ t('common.svg') }}
               </div>
+
               <div class="cursor-pointer" @click="handleScreenShot('jpg')">
                 {{ t('common.jpg') }}
               </div>
@@ -361,6 +368,7 @@ onMounted(() => {
           </el-scrollbar>
         </template>
       </el-popover>
+
       <div :title="t('common.reload')" class="icon-btn i-ant-design-delivered-procedure-outlined text-2xl mb-2" @click="reloadList" />
     </div>
   </div>

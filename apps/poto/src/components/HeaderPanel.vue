@@ -3,6 +3,8 @@ import type { PotoTemplate } from '~/types'
 const designer = useDesignerStore()
 const customBlocks = useCustomBlocksStore()
 const { t, locale } = useI18n()
+const dialogSaveVisible = ref(false)
+const templateName = ref('')
 
 const toggleLocales = (command: string) => {
   locale.value = command
@@ -28,6 +30,7 @@ const saveTemplate = () => {
     potoCustomBlocks: customBlocks.components,
     potoDesigner: {
       id: designer.id,
+      name: templateName.value || '',
       actions: designer.actions || [],
       list: designer.list || [],
       options: designer.options,
@@ -39,6 +42,8 @@ const saveTemplate = () => {
     },
   }
   saveJsonFile(JSON.stringify(template))
+  templateName.value = ''
+  dialogSaveVisible.value = false
 }
 
 onUnmounted(() => {
@@ -75,7 +80,7 @@ onUnmounted(() => {
       </button>
     </div>
     <div v-else-if="designer.listRecords" flex items-center>
-      <button type="button" :title="t('common.downloadTemplate')" @click="saveTemplate()">
+      <button type="button" :title="t('common.downloadTemplate')" @click="dialogSaveVisible = true">
         <div i-material-symbols-download class="text-2xl ml-1" />
       </button>
       <button
@@ -152,6 +157,21 @@ onUnmounted(() => {
       </template>
     </el-dropdown>
   </div>
+  <el-dialog v-model="dialogSaveVisible" :title="t('common.template')" width="500px">
+    <el-form>
+      <el-form-item :label="t('common.name')">
+        <el-input v-model="templateName" autocomplete="off" />
+      </el-form-item>
+    </el-form>
+    <template #footer>
+      <span class="dialog-footer">
+        <el-button @click="dialogSaveVisible = false">{{ t('common.cancel') }}</el-button>
+        <el-button type="primary" @click="saveTemplate">
+          {{ t('common.ok') }}
+        </el-button>
+      </span>
+    </template>
+  </el-dialog>
 </template>
 
 <style scoped>

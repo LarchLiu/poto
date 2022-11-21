@@ -29,6 +29,8 @@ common:
   saveAs: 保存为
   jsonFile: Json 文件
   localStorage: 本地存储
+  name: 名称
+  saveToStorage: 已保存到本地存储
 settings:
   blockSetting:
     title: 组件设置
