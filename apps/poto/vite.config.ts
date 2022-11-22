@@ -111,7 +111,7 @@ export default defineConfig({
     Inspect(),
 
     PotoAutoImport({
-      imports: ['@poto/block-plugins-template', '@poto/soccer-formations'],
+      imports: ['@poto/capture-image-from-video', '@poto/soccer-formations'],
     }),
   ],
 

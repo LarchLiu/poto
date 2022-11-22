@@ -15,7 +15,7 @@
   },
   "dependencies": {
     "@poto/block-basics": "workspace:*",
-    "@poto/block-plugins-template": "workspace:*",
+    "@poto/capture-image-from-video": "workspace:*",
     "@poto/pinia": "workspace:*",
     "@poto/soccer-formations": "workspace:*",
     "@poto/utils": "workspace:*",

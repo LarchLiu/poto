@@ -38,7 +38,7 @@ importers:
       '@intlify/vite-plugin-vue-i18n': ^6.0.3
       '@poto/auto-import': workspace:*
       '@poto/block-basics': workspace:*
-      '@poto/block-plugins-template': workspace:*
+      '@poto/capture-image-from-video': workspace:*
       '@poto/pinia': workspace:*
       '@poto/soccer-formations': workspace:*
       '@poto/types': workspace:*
@@ -91,7 +91,7 @@ importers:
       vuedraggable: ^4.1.0
     dependencies:
       '@poto/block-basics': link:../../ui/block-basics
-      '@poto/block-plugins-template': link:../../ui/block-plugin-template
+      '@poto/capture-image-from-video': link:../../ui/capture-image-from-video
       '@poto/pinia': link:../../core/pinia
       '@poto/soccer-formations': link:../../ui/soccer-formations
       '@poto/utils': link:../../core/utils
@@ -353,6 +353,41 @@ importers:
       '@poto/types': link:../../core/types
       '@vitejs/plugin-vue': 3.2.0_vite@3.2.1+vue@3.2.41
       typescript: 4.8.4
+      vite: 3.2.1
+
+  ui/capture-image-from-video:
+    specifiers:
+      '@intlify/vite-plugin-vue-i18n': ^6.0.3
+      '@poto/block-basics': workspace:*
+      '@poto/gen-block-type': workspace:*
+      '@poto/pinia': workspace:*
+      '@poto/types': workspace:*
+      '@poto/utils': workspace:*
+      '@vitejs/plugin-vue': ^3.2.0
+      '@vueuse/core': ^9.4.0
+      typescript: ^4.8.4
+      unocss: ^0.46.1
+      unplugin-auto-import: ^0.11.4
+      unplugin-vue-components: ^0.22.9
+      vite: ^3.2.1
+      vue: ^3.2.41
+      vue-i18n: ^9.2.2
+    dependencies:
+      '@poto/block-basics': link:../block-basics
+      '@poto/pinia': link:../../core/pinia
+      '@poto/utils': link:../../core/utils
+      '@vueuse/core': 9.4.0_vue@3.2.41
+      vue: 3.2.41
+      vue-i18n: 9.2.2_vue@3.2.41
+    devDependencies:
+      '@intlify/vite-plugin-vue-i18n': 6.0.3_vite@3.2.1+vue-i18n@9.2.2
+      '@poto/gen-block-type': link:../../plugins/poto-gen-block-type
+      '@poto/types': link:../../core/types
+      '@vitejs/plugin-vue': 3.2.0_vite@3.2.1+vue@3.2.41
+      typescript: 4.8.4
+      unocss: 0.46.1_vite@3.2.1
+      unplugin-auto-import: 0.11.4_@vueuse+core@9.4.0
+      unplugin-vue-components: 0.22.9_vue@3.2.41
       vite: 3.2.1
 
   ui/playground:
@@ -2032,8 +2067,8 @@ packages:
       vue-i18n:
         optional: true
     dependencies:
-      '@intlify/message-compiler': 9.3.0-beta.7
-      '@intlify/shared': 9.3.0-beta.7
+      '@intlify/message-compiler': 9.3.0-beta.10
+      '@intlify/shared': 9.3.0-beta.10
       jsonc-eslint-parser: 1.4.1
       source-map: 0.6.1
       vue-i18n: 9.2.2_vue@3.2.41
@@ -2062,11 +2097,11 @@ packages:
       '@intlify/shared': 9.2.2
       source-map: 0.6.1
 
-  /@intlify/message-compiler/9.3.0-beta.7:
-    resolution: {integrity: sha512-70r2UNp6DyKtIM4FgYCwdSuBK7xqCx2rVSXLMFiDRQi8pwooBklmOuzA0j7Q8ffbwKlFUJEEr2xPHZz2TJ6NAw==}
+  /@intlify/message-compiler/9.3.0-beta.10:
+    resolution: {integrity: sha512-RoOC6yceOykLRhN0NlbkNOBUx1el6iphx3W8NfOx3jHVNtfT1FYokx14/5sU3F1F0uxeG4sp6q+ppKvaF8o+ww==}
     engines: {node: '>= 14'}
     dependencies:
-      '@intlify/shared': 9.3.0-beta.7
+      '@intlify/shared': 9.3.0-beta.10
       source-map: 0.6.1
     dev: true
 
@@ -2074,8 +2109,8 @@ packages:
     resolution: {integrity: sha512-wRwTpsslgZS5HNyM7uDQYZtxnbI12aGiBZURX3BTR9RFIKKRWpllTsgzHWvj3HKm3Y2Sh5LPC1r0PDCKEhVn9Q==}
     engines: {node: '>= 14'}
 
-  /@intlify/shared/9.3.0-beta.7:
-    resolution: {integrity: sha512-weWqKXyv94rdPXbSFYvA4yIwLYDhzgIWfgrVQ6UYARobPFE3BN+woWmjlGmASTyXMzZtTsq21b0LCN9SHN8pxQ==}
+  /@intlify/shared/9.3.0-beta.10:
+    resolution: {integrity: sha512-h93uAanbAt/XgjDHclrVB7xix6r7Uz11wx0iGNOCdHP7aA2LCJjUT3uNbekJjjbo+Fl5jzTSJZdm2SexzoqhRA==}
     engines: {node: '>= 14'}
     dev: true
 
@@ -2095,7 +2130,7 @@ packages:
         optional: true
     dependencies:
       '@intlify/bundle-utils': 3.2.1_vue-i18n@9.2.2
-      '@intlify/shared': 9.3.0-beta.7
+      '@intlify/shared': 9.3.0-beta.10
       '@rollup/pluginutils': 4.2.1
       debug: 4.3.4
       fast-glob: 3.2.12

@@ -1,0 +1,13 @@
+{
+  "basicSettings": {
+    "title": "Basic Settings"
+  },
+  "componentSettings": {
+    "title": "Component Settings",
+    "url": "Url",
+    "seek": "Seek(s)",
+    "capture": "Capture",
+    "pluginName": "Captures Image From Video"
+  }
+
+}
