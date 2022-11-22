@@ -1,4 +1,4 @@
-import { dirname, isAbsolute, relative, resolve } from 'path'
+import { dirname, isAbsolute, parse as parsePath, relative, resolve } from 'path'
 import { promises as fs } from 'fs'
 import { slash, throttle, toArray } from '@antfu/utils'
 import type { Import } from 'unimport'
@@ -68,8 +68,20 @@ export function createContext(options: Options = {}, root = process.cwd()) {
   async function scanDirs() {
     if (dirs?.length) {
       await unimport.modifyDynamicImports(async (imports) => {
-        const exports = (await scanDirExports(dirs, { fileFilter: options.fileFilter ? options.fileFilter : () => true }) as ImportExtended[]).filter(i => i.name === 'default')
-        exports.forEach(i => i.__source = 'dir')
+        const exports = (await scanDirExports(dirs, { fileFilter: options.fileFilter ? options.fileFilter : () => true }) as ImportExtended[])
+          .filter(i => i.name === 'blockInfo')
+
+        exports.forEach((i) => {
+          const filepath = i.from
+          let name = parsePath(filepath).name
+          if (name === 'index')
+            name = parsePath(filepath.split('/').slice(0, -1).join('/')).name
+
+          i.as = camelCaseWithoutAt(name)
+
+          i.__source = 'dir'
+        })
+
         return [
           ...imports.filter((i: ImportExtended) => i.__source !== 'dir'),
           ...exports,

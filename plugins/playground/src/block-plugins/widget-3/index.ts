@@ -3,7 +3,7 @@ const settings = {
   type: 'widgetPlugin33',
 }
 
-export default {
+export const blockInfo = {
   blockView: 'widgetView3',
   settingsView: 'widgetSettingsView3',
   config: settings,

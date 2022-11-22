@@ -1,9 +1,9 @@
-export const settings = {
+const settings = {
   name: 'widget1',
   type: 'widgetPlugin1',
 }
 
-export default {
+export const blockInfo = {
   blockView: 'widgetView1',
   settingsView: 'widgetSettingsView1',
   config: settings,
