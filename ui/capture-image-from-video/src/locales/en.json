@@ -7,7 +7,8 @@
     "url": "Url",
     "seek": "Seek(s)",
     "capture": "Capture",
-    "pluginName": "Captures Image From Video"
+    "pluginName": "Captures Image From Video",
+    "resetSize": "Reset Resizer"
   }
 
 }

@@ -3,7 +3,7 @@ import en from '~/locales/en.json'
 import zhCN from '~/locales/zh-CN.json'
 
 export interface Settings {
-  imagesEl?: HTMLElement
+  imagesElId: string
 }
 // @unocss-include
 export const config: BlockItem = {
@@ -45,7 +45,7 @@ export const config: BlockItem = {
     },
     // component options
     captures: {
-
+      imagesElId: '',
     } as Settings,
 
   } as BlockPluginSettings,

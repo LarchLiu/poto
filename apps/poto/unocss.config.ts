@@ -16,6 +16,8 @@ export default defineConfig({
   ],
   rules: [
     ['shadow-block', { 'box-shadow': 'rgb(0 0 0 / 20%) 2px 2px 10px 2px' }],
+    ['cursor-col-resize', { cursor: 'col-resize' }],
+    ['cursor-row-resize', { cursor: 'row-resize' }],
   ],
   presets: [
     presetUno(),

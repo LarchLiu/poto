@@ -7,6 +7,7 @@
     "url": "地址",
     "seek": "定位(秒)",
     "capture": "截图",
-    "pluginName": "视频截图"
+    "pluginName": "视频截图",
+    "resetSize": "重置尺寸"
   }
 }

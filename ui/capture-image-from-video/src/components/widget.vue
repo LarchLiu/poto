@@ -1,8 +1,9 @@
 <script setup lang="ts">
 import type { PropType } from 'vue'
-import type { BlockItem, BlockPluginSettings } from '@poto/types'
-import type { Settings } from '~/constants'
-import { i18nMessages } from '~/constants'
+import { BlockPluginSettings } from '@poto/types'
+import type { BlockItem } from '@poto/types'
+import { UUID } from '@poto/utils'
+import { Settings, i18nMessages } from '~/constants'
 
 const props = defineProps({
   item: {
@@ -23,15 +24,14 @@ const { t } = useI18n({
   messages: i18nMessages,
 })
 
-const imagesEl = ref<HTMLElement>()
-
 onMounted(() => {
-  ((props.item.options as BlockPluginSettings).captures as Settings).imagesEl = imagesEl.value
+  if (!((props.item.options as BlockPluginSettings).captures as Settings).imagesElId)
+    ((props.item.options as BlockPluginSettings).captures as Settings).imagesElId = UUID()
 })
 </script>
 
 <template>
-  <div v-if="realContent && !isPreview" id="capture-image-from-video" ref="imagesEl" />
+  <div v-if="realContent && !isPreview" :id="((item.options as BlockPluginSettings).captures as Settings).imagesElId" />
   <div v-else>
     <div class="flex justify-center items-center p-y">
       <div class="i-iconoir-screenshot text-2xl mr-2" />
