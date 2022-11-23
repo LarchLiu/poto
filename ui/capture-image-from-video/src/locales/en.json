@@ -7,7 +7,7 @@
     "url": "MP4 Url",
     "seek": "Seek(sec)",
     "capture": "Capture",
-    "pluginName": "Captures Image From Video",
+    "pluginName": "Capture Image From Video",
     "crossorigin": "crossorigin",
     "resetSize": "Reset Resizer"
   }
