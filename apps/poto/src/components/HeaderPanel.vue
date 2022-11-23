@@ -5,9 +5,11 @@ const customBlocks = useCustomBlocksStore()
 const { t, locale } = useI18n()
 const dialogSaveVisible = ref(false)
 const templateName = ref('')
+const potoLocal = useLocalStorage('potoLocal', 'en')
 
 const toggleLocales = (command: string) => {
   locale.value = command
+  potoLocal.value = command
 }
 
 const recordTemplateStop = () => {
@@ -45,6 +47,10 @@ const saveTemplate = () => {
   templateName.value = ''
   dialogSaveVisible.value = false
 }
+
+onMounted(() => {
+  locale.value = potoLocal.value
+})
 
 onUnmounted(() => {
   if (designer.getReplayStatus() !== 'stop')
