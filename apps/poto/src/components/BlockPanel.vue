@@ -1,4 +1,5 @@
 <script setup lang="ts">
+import MarkdownIt from 'markdown-it'
 import { BlockPlugins } from '~/poto-auto-imports'
 import type { BlockItem, CustomBlock, PotoTemplate } from '~/types'
 import { BlockBasics } from '~/utils'
@@ -22,6 +23,7 @@ const actionsStore = useActionsStore()
 const potoActions = useLocalStorage('potoActions', '')
 const potoCustomBlocks = useLocalStorage('potoCustomBlocks', '')
 const potoDesigner = useLocalStorage('potoDesigner', '')
+const md = new MarkdownIt()
 const templateList = ref<PTemplate[]>([])
 const blockInfo = { ...BlockBasics, ...BlockPlugins }
 const basicsList: BlockItem[] = Object.keys(BlockBasics).map((type) => {
@@ -245,8 +247,11 @@ onMounted(async () => {
                 <template #item="{ element }: { element: BlockItem }">
                   <div class="border rounded p-2 cursor-grab shadow-sm hover:shadow-md m-3" @dblclick="addItem(element)">
                     <div flex justify-between>
-                      <div font-bold>
-                        {{ element.options.name }}
+                      <div class="flex items-center">
+                        <div v-if="element.icon" :class="element.icon" text-2xl mr-2 />
+                        <div font-bold>
+                          {{ element.options.name }}
+                        </div>
                       </div>
 
                       <div flex>
@@ -268,6 +273,12 @@ onMounted(async () => {
                           </template>
                         </el-popover>
                       </div>
+                    </div>
+                    <div v-if="element.author" flex justify-end mt-1>
+                      <div text-gray mr-1 text-sm>
+                        Created by
+                      </div>
+                      <div underline v-html="md.render(element.author)" />
                     </div>
                   </div>
                 </template>

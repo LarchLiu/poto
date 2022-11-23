@@ -2,7 +2,7 @@ import type { BlockItem, TextSettings } from '@poto/types'
 
 // @unocss-include
 export const config: BlockItem = {
-  author: '[alex](github.com/larchliu)',
+  author: '[Alex](https://github.com/larchliu)',
   category: 'widget',
   icon: 'i-fluent-text-case-title-16-regular',
   blockType: __BLOCK_TYPE__,

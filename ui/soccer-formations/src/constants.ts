@@ -45,7 +45,7 @@ export interface Settings {
 }
 // @unocss-include
 export const config: BlockItem = {
-  author: '[alex](github.com/larchliu)',
+  author: '[Alex](https://github.com/larchliu)',
   category: 'widget',
   icon: 'i-mdi-soccer-field',
   blockType: __BLOCK_TYPE__,

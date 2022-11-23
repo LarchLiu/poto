@@ -34,7 +34,7 @@ onMounted(() => {
   <div v-if="realContent && !isPreview" :id="((item.options as BlockPluginSettings).captures as Settings).imagesElId" />
   <div v-else>
     <div class="flex justify-center items-center p-y">
-      <div class="i-iconoir-screenshot text-2xl mr-2" />
+      <div class="i-carbon-cut-out text-2xl mr-2" />
       {{ t('componentSettings.pluginName') }}
     </div>
   </div>
