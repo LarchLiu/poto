@@ -15,8 +15,10 @@ const captures = computed(() => {
 
 const videoE = ref<HTMLVideoElement>()
 const videoWrap = ref<HTMLElement>()
-const url = ref('https://static.smartisanos.cn/common/video/smartisant1.mp4')
+const url = ref('https://static.smartisanos.cn/common/video/smartisan-tnt-jianguo.mp4')
 const seek = ref(0)
+const crossorigin = ref(true)
+const keyIdx = ref(0)
 const duration = ref(0)
 const offsetT = ref(0)
 const offsetB = ref(0)
@@ -40,19 +42,27 @@ const captureVideo = () => {
     const videoHeight = videoE.value.videoHeight
     const useVideoSize = videoWidth > (imagesEl?.offsetWidth || 0)
 
-    canvasEl.width = useVideoSize ? videoWidth : (imagesEl?.offsetWidth || 0) + 4 // selected item padding 1*2 px, border 1*2 px
-    canvasEl.height = (useVideoSize ? videoHeight : canvasEl.width * videoHeight / videoWidth) * scaleH / scaleW
+    canvasEl.width = useVideoSize && crossorigin.value ? videoWidth : (imagesEl?.offsetWidth || 0) + 4 // selected item padding 1*2 px, border 1*2 px
+    canvasEl.height = (useVideoSize && crossorigin.value ? videoHeight : canvasEl.width * videoHeight / videoWidth) * scaleH / scaleW
     canvasEl.getContext('2d')?.drawImage(videoE.value,
       videoWidth * offsetL.value / 100, videoHeight * offsetT.value / 100, videoWidth * scaleW, videoHeight * scaleH,
       0, 0, canvasEl.width, canvasEl.height)
 
-    imgEl.id = UUID()
-    imgEl.src = canvasEl.toDataURL()
-    imgEl.ondblclick = () => {
-      imgEl.remove()
-    }
+    if (crossorigin.value) {
+      imgEl.id = UUID()
+      imgEl.src = canvasEl.toDataURL()
+      imgEl.ondblclick = () => {
+        imgEl.remove()
+      }
 
-    imagesEl?.appendChild(imgEl)
+      imagesEl?.appendChild(imgEl)
+    }
+    else {
+      canvasEl.ondblclick = () => {
+        canvasEl.remove()
+      }
+      imagesEl?.appendChild(canvasEl)
+    }
   }
 }
 
@@ -132,6 +142,10 @@ const resetSize = () => {
   offsetR.value = 0
 }
 
+watch(url, () => {
+  keyIdx.value++
+})
+
 watch(currentItem, (n, o) => {
   // watching options change of item and add to history
   if (!n || !o || n.id !== o.id || designer.ignoreListHis) {
@@ -165,6 +179,17 @@ onMounted(() => {
       <el-form-item :label="t('componentSettings.url')" class="!mb-2">
         <el-input v-model="url" />
       </el-form-item>
+      <el-form-item :label="t('componentSettings.crossorigin')" class="!mb-2">
+        <el-switch v-model="crossorigin" />
+        <el-tooltip placement="top">
+          <template #content>
+            If loading video fails, try to turn off crossorigin.<br>If you turn off crossorigin, you have to save the design yourself!!!
+          </template>
+          <el-button type="warning" plain circle class="ml-2">
+            !
+          </el-button>
+        </el-tooltip>
+      </el-form-item>
       <el-form-item :label="t('componentSettings.seek')" class="!mb-2">
         <div class="flex">
           <div>
@@ -178,7 +203,12 @@ onMounted(() => {
         </div>
       </el-form-item>
       <div ref="videoWrap" class="mb-2 relative">
-        <video ref="videoE" controls crossorigin="anonymous" :src="url" type="video/mp4" @loadeddata="videoLoaded" />
+        <video v-if="crossorigin" ref="videoE" :key="`cors-${keyIdx}`" controls crossorigin="anonymous" @loadeddata="videoLoaded">
+          <source :src="url" type="video/mp4">
+        </video>
+        <video v-else ref="videoE" :key="`no-cors-${keyIdx}`" controls @loadeddata="videoLoaded">
+          <source :src="url" type="video/mp4">
+        </video>
         <div
           class="absolute border-l-2 cursor-col-resize border-l-sky-500"
           :style="{ height: `${offsetH * 0.9}%`, left: `${offsetL}%`, top: `${offsetT + offsetH * 0.05}%` }"

@@ -4,10 +4,11 @@
   },
   "componentSettings": {
     "title": "组件属性",
-    "url": "地址",
+    "url": "MP4 地址",
     "seek": "定位(秒)",
     "capture": "截图",
     "pluginName": "视频截图",
+    "crossorigin": "跨域",
     "resetSize": "重置尺寸"
   }
 }
