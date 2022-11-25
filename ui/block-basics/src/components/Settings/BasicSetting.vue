@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import { UUID } from '@poto/utils'
 import type { BasicSettings, DesignerActionItem } from '~/types'
-import { i18nMessages } from '~/constants'
+import { i18nMessages, shadowBoxElevation, shadowBoxMargin } from '~/constants'
 
 const props = defineProps({
   isDesigner: {
@@ -72,6 +72,35 @@ const enableTransformer = computed({
       widgetOptions.value.sourceData.transformer.enable = value
   },
 })
+
+const enableShadowBox = computed({
+  get() {
+    return !!widgetOptions.value?.shadowBox && widgetOptions.value?.shadowBox.has
+  },
+  set(value) {
+    if (widgetOptions.value) {
+      if (!widgetOptions.value?.shadowBox) {
+        widgetOptions.value.shadowBox = {
+          has: value,
+          elevation: 'medium',
+          margin: shadowBoxMargin.medium,
+          shadows: shadowBoxElevation.medium,
+        }
+      }
+      else {
+        widgetOptions.value.shadowBox.has = value
+      }
+    }
+  },
+})
+
+const setShadowBox = (elevation: 'low' | 'medium' | 'high') => {
+  if (widgetOptions.value?.shadowBox) {
+    widgetOptions.value.shadowBox.elevation = elevation
+    widgetOptions.value.shadowBox.margin = shadowBoxMargin[elevation]
+    widgetOptions.value.shadowBox.shadows = shadowBoxElevation[elevation]
+  }
+}
 
 const sliderMouseDown = () => {
   designer.ignoreListHis = true
@@ -191,6 +220,20 @@ watch(() => widgetOptions.value?.sourceData?.transformer.rawData, (value) => {
             </el-form-item>
           </div>
         </div>
+      </el-form-item>
+      <el-form-item :label="t('basicSettings.shadowBox')">
+        <el-switch v-model="enableShadowBox" class="mr-2" />
+        <el-radio-group v-if="widgetOptions.shadowBox?.has" v-model="widgetOptions.shadowBox.elevation" @change="setShadowBox">
+          <el-radio-button label="low">
+            {{ t('basicSettings.low') }}
+          </el-radio-button>
+          <el-radio-button label="medium">
+            {{ t('basicSettings.medium') }}
+          </el-radio-button>
+          <el-radio-button label="high">
+            {{ t('basicSettings.high') }}
+          </el-radio-button>
+        </el-radio-group>
       </el-form-item>
       <el-form-item :label="t('basicSettings.margin')">
         <ring-setting v-model="widgetOptions.margin" :is-corner="false" />

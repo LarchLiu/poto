@@ -23,6 +23,21 @@ export interface Border {
   color: EleColor
 }
 
+export interface Shadow {
+  hOffset: number
+  vOffset: number
+  blur: number
+  spead: number
+  color: string
+}
+
+export interface ShadowBox {
+  has: boolean
+  elevation: 'low' | 'medium' | 'high'
+  margin: number
+  shadows: Shadow[]
+}
+
 export interface ColorOptions {
   colors: string[]
   opacity: number
@@ -60,6 +75,7 @@ export interface BasicSettings {
   margin: number[]
   sourceData?: SourceData
   hasParentData?: Boolean
+  shadowBox?: ShadowBox
 }
 
 export interface TextSettings extends BasicSettings {

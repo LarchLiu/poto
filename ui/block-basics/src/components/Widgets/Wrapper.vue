@@ -76,13 +76,27 @@ const elePadding = computed(() => {
   return `${options.value.padding.join('px ')}px`
 })
 const eleMargin = computed(() => {
-  return `${options.value.margin.join('px ')}px`
+  let margins = options.value.margin
+  if (options.value.shadowBox?.has) {
+    const shadowMargin = options.value.shadowBox.margin
+    margins = margins.map((m) => {
+      return m > shadowMargin ? m : shadowMargin
+    })
+  }
+  return `${margins.join('px ')}px`
 })
 const backgroundImage = computed(() => {
   return `url('${props.item.options.backgroundColor.options.url}')`
 })
 const borderBackgroundImage = computed(() => {
   return `url('${props.item.options.border.color.options.url}')`
+})
+const shadowBlock = computed(() => {
+  const shadows = options.value.shadowBox?.has ? options.value.shadowBox.shadows : []
+  const shadowBoxs = shadows.map((s) => {
+    return `${s.hOffset}px ${s.vOffset}px ${s.blur}px ${s.spead}px ${s.color}`
+  })
+  return shadowBoxs.join(', ')
 })
 </script>
 
@@ -93,6 +107,7 @@ const borderBackgroundImage = computed(() => {
   >
     <div
       :class="[options.border.has ? `border-${options.border.color.type}` : '',
+               options.shadowBox?.has ? 'shadow-block' : '',
                (options.border.has && !borderIsSingleColor) ? '' : `bg-${options.backgroundColor.type}`]"
       class="ele-padding ele-margin box-border"
       @click.stop="selectItem"
@@ -156,5 +171,8 @@ const borderBackgroundImage = computed(() => {
   }
   .ele-margin {
     margin: v-bind(eleMargin) !important;
+  }
+  .shadow-block {
+    box-shadow: v-bind(shadowBlock);
   }
 </style>

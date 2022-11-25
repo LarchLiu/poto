@@ -11,7 +11,7 @@ import GroupSetting from '~/components/Settings/GroupSetting.vue'
 import PImageSetting from '~/components/Settings/PImageSetting.vue'
 import DividerSetting from '~/components/Settings/DividerSetting.vue'
 import { BlockType } from '~/types'
-import type { BlockInfo, BlockItem, DividerSettings, TextSettings } from '~/types'
+import type { BlockInfo, BlockItem, DividerSettings, Shadow, TextSettings } from '~/types'
 
 // @unocss-include
 export const TextConfig: BlockItem = {
@@ -561,4 +561,60 @@ another task      : 24d`,
 export const i18nMessages = {
   'en': en,
   'zh-CN': zhCN,
+}
+
+export const shadowBoxLow: Shadow[] = [
+  {
+    hOffset: 2,
+    vOffset: 2,
+    blur: 8,
+    spead: 1,
+    color: 'hsl(0deg 0% 63% / 0.2)',
+  },
+]
+
+export const shadowBoxMedium: Shadow[] = [
+  {
+    hOffset: 4,
+    vOffset: 4,
+    blur: 10,
+    spead: 2,
+    color: 'hsl(0deg 0% 63% / 0.2)',
+  },
+  {
+    hOffset: -1,
+    vOffset: 2,
+    blur: 8,
+    spead: 2,
+    color: 'hsl(0deg 0% 63% / 0.1)',
+  },
+]
+
+export const shadowBoxHigh: Shadow[] = [
+  {
+    hOffset: 8,
+    vOffset: 8,
+    blur: 16,
+    spead: 4,
+    color: 'hsl(0deg 0% 63% / 0.2)',
+  },
+  {
+    hOffset: -2,
+    vOffset: 2,
+    blur: 8,
+    spead: 4,
+    color: 'hsl(0deg 0% 63% / 0.1)',
+  },
+]
+
+export const shadowBoxElevation = {
+  low: shadowBoxLow,
+  medium: shadowBoxMedium,
+  high: shadowBoxHigh,
+}
+
+export const shadowBoxMargin = {
+  low: 10,
+  medium: 14,
+  high: 24,
 }
