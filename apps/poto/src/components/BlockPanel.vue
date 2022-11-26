@@ -189,11 +189,11 @@ onMounted(async () => {
               </label>
               <input id="json_upload" class="w-0px h-0px" type="file" accept=".json" @change="loadTemplateFromFile">
             </div>
-            <div v-for="t, i in templateList" :key="`${t.name}-${i}`">
+            <div v-for="temp, i in templateList" :key="`${temp.name}-${i}`">
               <TemplateItem
-                v-if="t.potoTempalte"
-                :title="t.potoTempalte.potoDesigner.name ? t.potoTempalte.potoDesigner.name : t.name ? t.name : `Template ${i + 1}`"
-                :block-info="blockInfo" :template="t.potoTempalte"
+                v-if="temp.potoTempalte"
+                :title="temp.potoTempalte.potoDesigner.name ? temp.potoTempalte.potoDesigner.name : temp.name ? temp.name : `Template ${i + 1}`"
+                :block-info="blockInfo" :template="temp.potoTempalte"
                 :load-fun="loadTemplate"
               />
             </div>
