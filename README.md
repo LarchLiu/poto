@@ -27,3 +27,11 @@ Designed by [Poto](https://poto-vue.vercel.app/)
 ![screenshot2](./docs/public/images/screenshot2.png)
 
 ![screenshot1](./docs/public/images/screenshot1.png)
+
+## Development
+
+```
+pnpm i
+pnpm build
+pnpm dev:poto
+```
