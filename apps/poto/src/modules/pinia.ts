@@ -8,6 +8,10 @@ import { type UserModule } from '~/types'
 export const install: UserModule = ({ app }) => {
   const pinia = createPinia()
   app.use(pinia)
-  app.use(potoBlockBasics, { piniaInstance: pinia, pixabayApiKey: import.meta.env.VITE_PIXABAY_API_KEY })
+  app.use(potoBlockBasics, {
+    piniaInstance: pinia,
+    pixabayApiKey: import.meta.env.VITE_PIXABAY_API_KEY,
+    googleFontsApiKey: import.meta.env.VITE_GOOGLE_FONTS_API_KEY,
+  })
   app.use(potoPinia, { piniaInstance: pinia })
 }

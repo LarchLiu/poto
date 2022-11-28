@@ -31,6 +31,7 @@ declare module '@vue/runtime-core' {
     ElTabPane: typeof import('element-plus/es')['ElTabPane']
     ElTabs: typeof import('element-plus/es')['ElTabs']
     FloatMenu: typeof import('./components/Widgets/FloatMenu.vue')['default']
+    FontPicker: typeof import('./components/Widgets/FontPicker.vue')['default']
     Group: typeof import('./components/Widgets/Group.vue')['default']
     GroupSetting: typeof import('./components/Settings/GroupSetting.vue')['default']
     KatexView: typeof import('./components/Widgets/Editor/views/KatexView.vue')['default']

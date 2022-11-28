@@ -1,7 +1,9 @@
 <script setup lang="ts">
+import type { Font, Options } from '@samuelmeuli/font-manager'
 import { UUID } from '@poto/utils'
 import type { BasicSettings, DesignerActionItem } from '~/types'
 import { i18nMessages, shadowBoxElevation, shadowBoxMargin } from '~/constants'
+import { config } from '~/config'
 
 const props = defineProps({
   isDesigner: {
@@ -19,6 +21,16 @@ const { t } = useI18n({
   messages: i18nMessages,
 })
 
+const OPTIONS_DEFAULTS: Options = {
+  pickerId: '',
+  families: [],
+  categories: [],
+  scripts: ['latin'],
+  variants: ['regular'],
+  filter() { return true },
+  limit: 80,
+  sort: 'alphabet',
+}
 // const designer = inject('designer') as Designer
 const designer = useDesignerStore()
 const actionsStore = useActionsStore()
@@ -174,6 +186,11 @@ watch(() => widgetOptions.value?.sourceData?.transformer.rawData, (value) => {
   if (value)
     transformer.value = value
 })
+
+const onFontChange = (font: Font) => {
+  if (widgetOptions.value)
+    widgetOptions.value.fontFamily = font.family || 'default'
+}
 </script>
 
 <template>
@@ -285,6 +302,15 @@ watch(() => widgetOptions.value?.sourceData?.transformer.rawData, (value) => {
         <el-button v-if="widgetOptions.sourceData?.transformer.enable" class="mt-1" @click="onTransformerChange">
           {{ t('common.ok') }}
         </el-button>
+      </el-form-item>
+      <el-form-item v-if="config.googleFontsApiKey" :label="t('basicSettings.fonts')">
+        <FontPicker
+          :api-key="config.googleFontsApiKey"
+          :active-font="widgetOptions.fontFamily ? widgetOptions.fontFamily : 'Default'"
+          :options="OPTIONS_DEFAULTS"
+          :is-designer="isDesigner"
+          @change="onFontChange"
+        />
       </el-form-item>
     </el-form>
   </div>

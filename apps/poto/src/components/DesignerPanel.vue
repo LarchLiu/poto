@@ -75,6 +75,7 @@ const borderBackgroundImage = computed(() => {
 <template>
   <div class="preview" bg-white :style="{ fontSize: `${designer.theme.elFontSize}px` }">
     <div
+      :style="designer.options.fontFamily && designer.options.fontFamily !== 'Default' ? { fontFamily: designer.options.fontFamily } : {}"
       :class="[designer.options.border.has ? `border-${designer.options.border.color.type}` : '',
                (designer.options.border.has && !borderIsSingleColor) ? '' : `bg-${designer.options.backgroundColor.type}`]"
       class="ele-padding ele-margin box-border"

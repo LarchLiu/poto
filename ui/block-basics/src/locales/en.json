@@ -53,8 +53,8 @@
     "dataSource": "Actions",
     "transformer": "Transformer",
     "designerActions": "Designer Actions",
-    "globalActions": "Global Actions"
-
+    "globalActions": "Global Actions",
+    "fonts": "Fonts"
   },
   "componentSettings": {
     "title": "Component Settings",

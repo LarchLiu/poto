@@ -4,6 +4,7 @@ import * as components from './components'
 import type { PluginOptions } from './config'
 import { config } from './config'
 import BasicSettingsView from './components/Settings/BasicSetting.vue'
+import './main.css'
 
 export { TextConfig, TitleConfig, MarkdownConfig, GroupConfig, Columns2Config, Columns3Config, ListConfig, BlockBasics } from './constants'
 export { BasicSettingsView }
@@ -11,6 +12,7 @@ export { BasicSettingsView }
 export const potoBlockBasics = {
   install(app: App, options: PluginOptions) {
     config.pixabayApiKey = options.pixabayApiKey
+    config.googleFontsApiKey = options.googleFontsApiKey
 
     if (!app.config.globalProperties.$pinia) {
       if (!options.piniaInstance)

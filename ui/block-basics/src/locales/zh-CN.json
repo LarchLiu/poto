@@ -53,7 +53,8 @@
     "dataSource": "数据源",
     "transformer": "转换器",
     "designerActions": "Designer Actions",
-    "globalActions": "Global Actions"
+    "globalActions": "Global Actions",
+    "fonts": "选择字体"
   },
   "componentSettings": {
     "title": "组件属性",

@@ -76,6 +76,7 @@ export interface BasicSettings {
   sourceData?: SourceData
   hasParentData?: Boolean
   shadowBox?: ShadowBox
+  fontFamily?: string
 }
 
 export interface TextSettings extends BasicSettings {

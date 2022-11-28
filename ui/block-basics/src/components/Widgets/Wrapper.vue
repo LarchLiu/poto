@@ -110,6 +110,7 @@ const shadowBlock = computed(() => {
                options.shadowBox?.has ? 'shadow-block' : '',
                (options.border.has && !borderIsSingleColor) ? '' : `bg-${options.backgroundColor.type}`]"
       class="ele-padding ele-margin box-border"
+      :style="options.fontFamily && options.fontFamily !== 'Default' ? { fontFamily: options.fontFamily } : {}"
       @click.stop="selectItem"
     >
       <slot />

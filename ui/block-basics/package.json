@@ -31,6 +31,7 @@
     "@poto/pinia": "workspace:*",
     "@poto/types": "workspace:*",
     "@poto/utils": "workspace:*",
+    "@samuelmeuli/font-manager": "^1.4.0",
     "@tiptap/core": "2.0.0-beta.199",
     "@tiptap/starter-kit": "2.0.0-beta.199",
     "@tiptap/vue-3": "2.0.0-beta.199",
