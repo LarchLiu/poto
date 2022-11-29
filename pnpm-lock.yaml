@@ -271,6 +271,7 @@ importers:
       '@vitejs/plugin-vue': ^3.2.0
       '@vue/test-utils': ^2.2.1
       '@vueuse/core': ^9.4.0
+      '@vueuse/head': ^0.9.8
       codemirror: ^6.0.1
       critters: ^0.0.16
       cross-env: ^7.0.3
@@ -313,6 +314,7 @@ importers:
       '@tiptap/starter-kit': 2.0.0-beta.199
       '@tiptap/vue-3': 2.0.0-beta.199_5vywnszafehn6atjlp6g6o3jse
       '@vueuse/core': 9.4.0_vue@3.2.41
+      '@vueuse/head': 0.9.8_vue@3.2.41
       codemirror: 6.0.1
       element-plus: 2.2.19_vue@3.2.41
       katex: 0.16.3
