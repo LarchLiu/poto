@@ -154,7 +154,8 @@ onMounted(() => {
         </div>
         <div v-else>
           <div v-if="isPreview" v-html="options.text" />
-          <tip-tap v-else :key="`tiptap-${keyIdx}`" v-model:content="options.text" />
+          <!-- <tip-tap v-else :key="`tiptap-${keyIdx}`" v-model:content="options.text" /> -->
+          <milkdown v-else :key="`tiptap-${keyIdx}`" v-model:content="options.text" />
         </div>
       </div>
       <div v-else v-html="options.name" />
