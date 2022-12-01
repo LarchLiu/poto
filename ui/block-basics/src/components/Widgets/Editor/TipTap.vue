@@ -195,5 +195,8 @@ watch(focused, (value, oldValue) => {
     }
   }
 }
+:deep(.ProseMirror>*:last-child) {
+  margin-bottom: 0 !important;
+}
 </style>
 
