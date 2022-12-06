@@ -106,11 +106,12 @@ const enableShadowBox = computed({
   },
 })
 
-const setShadowBox = (elevation: 'low' | 'medium' | 'high') => {
+const setShadowBox = (elevation: 'low' | 'medium' | 'high' | string | number | boolean) => {
+  const ele = elevation as 'low' | 'medium' | 'high'
   if (widgetOptions.value?.shadowBox) {
-    widgetOptions.value.shadowBox.elevation = elevation
-    widgetOptions.value.shadowBox.margin = shadowBoxMargin[elevation]
-    widgetOptions.value.shadowBox.shadows = shadowBoxElevation[elevation]
+    widgetOptions.value.shadowBox.elevation = ele
+    widgetOptions.value.shadowBox.margin = shadowBoxMargin[ele]
+    widgetOptions.value.shadowBox.shadows = shadowBoxElevation[ele]
   }
 }
 

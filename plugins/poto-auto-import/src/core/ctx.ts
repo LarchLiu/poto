@@ -49,7 +49,7 @@ export function createContext(options: Options = {}, root = process.cwd()) {
     return str + importObj
   }
 
-  const writeConfigFilesThrottled = throttle(500, false, writeConfigFiles)
+  const writeConfigFilesThrottled = throttle(500, writeConfigFiles, { noLeading: false })
 
   let lastImport: string | undefined
 

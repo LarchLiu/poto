@@ -13,18 +13,20 @@
   "main": "./dist/index.cjs",
   "module": "./dist/index.js",
   "types": "./dist/index.d.ts",
-  "files": ["dist"],
+  "files": [
+    "dist"
+  ],
   "scripts": {
     "build": "vite build && vue-tsc --declaration --emitDeclarationOnly"
   },
   "dependencies": {
-    "@vueuse/core": "^9.1.1",
-    "pinia": "^2.0.23",
-    "vue": "^3.2.41"
+    "@vueuse/core": "^9.6.0",
+    "pinia": "^2.0.27",
+    "vue": "^3.2.45"
   },
   "devDependencies": {
     "@poto/types": "workspace:*",
     "@poto/utils": "workspace:*",
-    "vite": "^3.2.1"
+    "vite": "^3.2.5"
   }
 }

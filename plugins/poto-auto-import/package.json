@@ -71,14 +71,14 @@
     }
   },
   "dependencies": {
-    "@antfu/utils": "^0.6.0",
+    "@antfu/utils": "^0.7.2",
     "@poto/utils": "workspace:*",
-    "magic-string": "^0.26.7",
-    "unimport": "^0.7.0",
-    "unplugin": "^0.10.2"
+    "magic-string": "^0.27.0",
+    "unimport": "^1.0.1",
+    "unplugin": "^1.0.0"
   },
   "devDependencies": {
     "bumpp": "^8.2.1",
-    "tsup": "^6.3.0"
+    "tsup": "^6.5.0"
   }
 }

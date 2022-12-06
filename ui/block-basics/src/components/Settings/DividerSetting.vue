@@ -32,7 +32,7 @@ const sliderMouseDown = () => {
   addEventListener('mouseup', onMouseUp)
 }
 
-const directionChange = (value: string) => {
+const directionChange = (value: string | number | boolean) => {
   if (value === 'horizontal') {
     widgetOptions.value!.size.width = 100
     widgetOptions.value!.border.width[3] = 0
