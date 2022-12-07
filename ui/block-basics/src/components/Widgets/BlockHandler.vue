@@ -162,9 +162,9 @@ const menuHeight = computed(() => {
 })
 const menuContainer = ref<HTMLDivElement | null>(null)
 const active = ref(0)
-const selected = computed(() => {
-  return designer.isSelected(props.item)
-})
+// const selected = computed(() => {
+//   return designer.isSelected(props.item)
+// })
 const isWidget = computed(() => {
   return designer.isWidget(props.item)
 })
@@ -202,8 +202,8 @@ watch(() => widgetMenu.id, (value) => {
   <div ref="menuContainer" as="div">
     <div
       ref="handler"
-      class="handle px-1 rounded-l cursor-grab max-h-24px opacity-60 hover:bg-gray-100 hover:opacity-100"
-      :class="selected ? (isWidget ? 'bg-blue-200' : 'bg-green-200') : ''"
+      class="handle px-2px rounded-l cursor-grab max-h-24px opacity-60 hover:opacity-100"
+      :class="isWidget ? 'bg-blue-200' : 'bg-green-200'"
       @click.stop="selectItem"
       @contextmenu.prevent="contextMenuClick"
     >

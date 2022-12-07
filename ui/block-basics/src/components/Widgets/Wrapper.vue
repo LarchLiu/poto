@@ -104,6 +104,7 @@ const shadowBlock = computed(() => {
   <div
     :class="isSelected ? `p-1px border ${isWidget ? 'border-blue-400' : 'border-green-400'}` : `${isEmpty ? 'border border-dashed! border-red-400' : hoverStyle}`"
     class="w-full box-border"
+    @click.stop="selectItem"
   >
     <div
       :class="[options.border.has ? `border-${options.border.color.type}` : '',
@@ -111,7 +112,6 @@ const shadowBlock = computed(() => {
                (options.border.has && !borderIsSingleColor) ? '' : `bg-${options.backgroundColor.type}`]"
       class="ele-padding ele-margin box-border"
       :style="options.fontFamily && options.fontFamily !== 'Default' ? { fontFamily: options.fontFamily } : {}"
-      @click.stop="selectItem"
     >
       <slot />
     </div>

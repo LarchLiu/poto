@@ -123,8 +123,8 @@ onMounted(() => {
       :style="{ objectFit: options.fit, borderRadius, width: options.width, height: options.height }"
       :src="options.src"
     >
-    <div v-else class="flex flex-col items-center justify-center p-2">
-      <div class="i-carbon-image text-4xl" />
+    <div v-else class="flex flex-col items-center justify-center">
+      <div class="i-carbon-image text-2xl" />
     </div>
   </div>
 </template>

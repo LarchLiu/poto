@@ -19,10 +19,29 @@ const options = computed(() => {
 const isEmpty = computed(() => {
   return props.item.blockType === BlockType.Group ? (options.value.list ? options.value.list.length === 0 : true) : false
 })
-
+const selectItem = () => {
+  if (!props.isPreview)
+    designer.selectItem(props.item, true)
+}
 const selected = computed(() => {
   return designer.isSelected(props.item)
 })
+const hovered = ref(false)
+const timer = ref()
+const hoverItem = (is: boolean) => {
+  if (!props.isPreview) {
+    if (timer.value)
+      clearTimeout(timer.value)
+    if (is) {
+      timer.value = setTimeout(() => {
+        hovered.value = is
+      }, 100)
+    }
+    else {
+      hovered.value = is
+    }
+  }
+}
 const isWidget = computed(() => {
   return designer.isWidget(props.item)
 })
@@ -94,8 +113,15 @@ const borderBackgroundImage = computed(() => {
 </script>
 
 <template>
-  <div ref="wrapper" class="flex relative" :class="isResizing ? 'cursor-col-resize' : ''">
-    <WidgetHandler :item="item" :is-preview="isPreview" />
+  <div
+    ref="wrapper"
+    class="flex relative"
+    :class="isResizing ? 'cursor-col-resize' : ''"
+    @click.stop="selectItem"
+    @mouseover.stop="hoverItem(true)"
+    @mouseleave.stop="hoverItem(false)"
+  >
+    <BlockHandler v-if="(selected || hovered)" :item="item" :is-preview="isPreview" />
     <resizer
       v-if="!unResize && selected && !blockErr"
       v-model:width="options.size.width"
@@ -109,7 +135,7 @@ const borderBackgroundImage = computed(() => {
 
     <div
       v-else
-      :class="selected ? `border ${isWidget ? 'border-blue-400' : 'border-green-400'}`
+      :class="selected || hovered ? `border ${isWidget ? 'border-blue-400' : 'border-green-400'}`
         : (isEmpty ? 'border border-dashed! border-orange-400'
           : `border border-dashed! ${isWidget ? 'border-blue-300!' : 'border-green-300!'}`)"
       class="p-1 w-full box-border"

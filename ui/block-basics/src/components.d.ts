@@ -8,6 +8,7 @@ export {}
 declare module '@vue/runtime-core' {
   export interface GlobalComponents {
     BasicSetting: typeof import('./components/Settings/BasicSetting.vue')['default']
+    BlockHandler: typeof import('./components/Widgets/BlockHandler.vue')['default']
     ColorSetting: typeof import('./components/Settings/ColorSetting.vue')['default']
     DiagramView: typeof import('./components/Widgets/Editor/views/DiagramView.vue')['default']
     Divider: typeof import('./components/Widgets/Divider.vue')['default']
@@ -49,7 +50,6 @@ declare module '@vue/runtime-core' {
     RouterLink: typeof import('vue-router')['RouterLink']
     RouterView: typeof import('vue-router')['RouterView']
     TipTap: typeof import('./components/Widgets/Editor/TipTap.vue')['default']
-    WidgetHandler: typeof import('./components/Widgets/WidgetHandler.vue')['default']
     Wrapper: typeof import('./components/Widgets/Wrapper.vue')['default']
   }
 }

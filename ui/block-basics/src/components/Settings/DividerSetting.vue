@@ -37,13 +37,13 @@ const directionChange = (value: string | number | boolean) => {
     widgetOptions.value!.size.width = 100
     widgetOptions.value!.border.width[3] = 0
     widgetOptions.value!.height = ''
-    widgetOptions.value!.margin = [8, 0, 8, 0]
+    widgetOptions.value!.margin = [2, 0, 2, 0]
   }
   else {
     widgetOptions.value!.size.width = 0
     widgetOptions.value!.border.width[0] = 0
     widgetOptions.value!.height = defaultHeight
-    widgetOptions.value!.margin = [0, 8, 0, 8]
+    widgetOptions.value!.margin = [0, 2, 0, 2]
   }
 }
 </script>
