@@ -24,6 +24,7 @@
     "customColor": "自定义",
     "random": "随机",
     "customRotation": "自定义",
+    "fontRotation": "文字旋转",
     "run": "运行"
   }
 }

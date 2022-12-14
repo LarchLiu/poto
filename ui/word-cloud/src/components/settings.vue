@@ -381,7 +381,7 @@ onMounted(() => {
           </div>
         </div>
       </ElFormItem>
-      <ElFormItem :label="t('componentSettings.showMask')">
+      <ElFormItem :label="t('componentSettings.fontRotation')">
         <el-radio-group v-model="settings.randomRotation">
           <el-radio-button :label="true">
             {{ t('componentSettings.random') }}
