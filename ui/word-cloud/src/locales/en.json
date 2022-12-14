@@ -1,0 +1,30 @@
+{
+  "componentSettings": {
+    "title": "Component Settings",
+    "wordsList": "Words List",
+    "add": "Add",
+    "delete": "Delete",
+    "word": "Word",
+    "size": "Size",
+    "color": "Color",
+    "rotate": "Rotate",
+    "repeat": "Repeat",
+    "height": "Height",
+    "mask": "Mask Image",
+    "showMask": "Show Mask",
+    "maskOpacity": "Opacity",
+    "selectFile": "Select File",
+    "clearFile": "Clear",
+    "backgroundColor": "Background Color",
+    "fontColor": "Font Color",
+    "single": "Single",
+    "colorful": "Multiple",
+    "colorSelect": "Select Color",
+    "colorNumber": "Colors",
+    "customColor": "Custom",
+    "random": "Random",
+    "customRotation": "Custom",
+    "run": "Run"
+  }
+
+}

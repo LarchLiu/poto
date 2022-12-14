@@ -70,7 +70,9 @@ const apiTest = async () => {
 }
 
 const testAction = () => {
-  if (action.value?.type === 'restapi') { apiTest() }
+  if (action.value?.type === 'restapi') {
+    apiTest()
+  }
 
   else if (action.value?.type === 'transformer') {
     const data = runTransformer(action.value.content as TransformerAction, '')
@@ -134,7 +136,9 @@ const designerApiTest = async () => {
 }
 
 const designerTestAction = () => {
-  if (designerAction.value?.type === 'restapi') { designerApiTest() }
+  if (designerAction.value?.type === 'restapi') {
+    designerApiTest()
+  }
 
   else if (designerAction.value?.type === 'transformer') {
     const data = runTransformer(designerAction.value.content as TransformerAction, '')

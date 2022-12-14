@@ -41,4 +41,9 @@ html.dark {
 
 :root {
   --el-color-primary: rgb(38, 22, 47);
+  --el-color-primary-light-3: rgb(98, 93, 100);
+  --el-color-primary-light-5: rgb(128, 123, 131);
+  --el-color-primary-light-7: rgb(195, 193, 196);
+  --el-color-primary-light-9: rgb(244, 240, 247);
+  --el-color-primary-dark-2: rgb(42, 32, 48);;
 }

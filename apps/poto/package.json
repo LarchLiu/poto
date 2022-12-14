@@ -19,6 +19,7 @@
     "@poto/pinia": "workspace:*",
     "@poto/soccer-formations": "workspace:*",
     "@poto/utils": "workspace:*",
+    "@poto/word-cloud": "workspace:*",
     "@vueuse/core": "^9.6.0",
     "@vueuse/head": "^1.0.20",
     "element-plus": "^2.2.26",

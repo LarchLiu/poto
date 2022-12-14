@@ -1,0 +1,29 @@
+{
+  "componentSettings": {
+    "title": "组件属性",
+    "wordsList": "词表",
+    "add": "添加",
+    "delete": "删除",
+    "word": "单词",
+    "size": "大小",
+    "color": "颜色",
+    "rotate": "旋转",
+    "repeat": "词频",
+    "height": "高度",
+    "mask": "形状",
+    "showMask": "显示形状",
+    "maskOpacity": "透明度",
+    "selectFile": "选择文件",
+    "clearFile": "清除",
+    "backgroundColor": "背景颜色",
+    "fontColor": "字体颜色",
+    "single": "单色",
+    "colorful": "多色",
+    "colorSelect": "选择颜色",
+    "colorNumber": "颜色数量",
+    "customColor": "自定义",
+    "random": "随机",
+    "customRotation": "自定义",
+    "run": "运行"
+  }
+}

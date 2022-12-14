@@ -111,7 +111,7 @@ export default defineConfig({
     Inspect(),
 
     PotoAutoImport({
-      imports: ['@poto/capture-image-from-video', '@poto/soccer-formations'],
+      imports: ['@poto/capture-image-from-video', '@poto/soccer-formations', '@poto/word-cloud'],
     }),
   ],
 

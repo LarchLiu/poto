@@ -2,8 +2,10 @@
 import type { BlockInfo } from '@poto/types'
 import { blockInfo as potoCaptureImageFromVideo } from '@poto/capture-image-from-video'
 import { blockInfo as potoSoccerFormations } from '@poto/soccer-formations'
+import { blockInfo as potoWordCloud } from '@poto/word-cloud'
 
 export const BlockPlugins: BlockInfo = {
   potoCaptureImageFromVideo,
   potoSoccerFormations,
+  potoWordCloud,
 }

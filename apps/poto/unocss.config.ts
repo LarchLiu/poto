@@ -51,5 +51,11 @@ export default defineConfig({
     },
   ],
   safelist: 'prose prose-sm m-auto text-left'.split(' '),
-  include: [/.*\/poto-block-basic\.js(.*)?$/, /.*\/soccer-formations\.js(.*)?$/, /.*\/capture-image-from-video\.js(.*)?$/, './**/*.vue', './**/*.md'],
+  include: [
+    /.*\/poto-block-basic\.js(.*)?$/,
+    /.*\/soccer-formations\.js(.*)?$/,
+    /.*\/capture-image-from-video\.js(.*)?$/,
+    /.*\/word-cloud\.js(.*)?$/,
+    './**/*.vue', './**/*.md',
+  ],
 })
