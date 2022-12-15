@@ -190,7 +190,7 @@ watch(() => widgetOptions.value?.sourceData?.transformer.rawData, (value) => {
 
 const onFontChange = (font: Font) => {
   if (widgetOptions.value)
-    widgetOptions.value.fontFamily = font.family || 'default'
+    widgetOptions.value.fontFamily = font.family || 'Default'
 }
 </script>
 
@@ -304,21 +304,19 @@ const onFontChange = (font: Font) => {
           {{ t('common.ok') }}
         </el-button>
       </el-form-item>
-      <el-form-item v-if="config.googleFontsApiKey" :label="t('basicSettings.fonts')">
-        <FontPicker
-          :api-key="config.googleFontsApiKey"
-          :active-font="widgetOptions.fontFamily ? widgetOptions.fontFamily : 'Default'"
-          :options="OPTIONS_DEFAULTS"
-          :is-designer="isDesigner"
-          @change="onFontChange"
-        />
-      </el-form-item>
+      <FontPicker
+        :api-key="config.googleFontsApiKey"
+        :active-font="widgetOptions.fontFamily ? widgetOptions.fontFamily : 'Default'"
+        :options="OPTIONS_DEFAULTS"
+        :suffix="`${isDesigner ? '-designer' : ''}`"
+        @change="onFontChange"
+      />
     </el-form>
   </div>
 </template>
 
 <style scoped>
   :deep(.el-form-item--small) {
-      margin-bottom: 8px;
-    }
+    margin-bottom: 8px;
+  }
 </style>

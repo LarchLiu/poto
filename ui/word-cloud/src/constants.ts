@@ -81,7 +81,7 @@ export const config: BlockItem = {
     settings: {
       height: 65,
       gridSize: 4,
-      fontFamily: 'Times, serif',
+      fontFamily: 'Trebuchet MS',
       weightFactor: 1,
       color: '',
       backgroundColor: '#fff',

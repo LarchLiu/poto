@@ -7,7 +7,7 @@
     "word": "Word",
     "size": "Size",
     "color": "Color",
-    "rotate": "Rotate",
+    "rotate": "Rotation",
     "repeat": "Repeat",
     "height": "Height",
     "mask": "Mask Image",
@@ -25,6 +25,7 @@
     "random": "Random",
     "customRotation": "Custom",
     "fontRotation": "Rotation",
+    "rotateRatio": "Rotate Ratio",
     "run": "Run"
   }
 

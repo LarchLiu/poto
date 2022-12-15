@@ -4,9 +4,10 @@ import * as components from './components'
 import type { PluginOptions } from './config'
 import { config } from './config'
 import BasicSettingsView from './components/Settings/BasicSetting.vue'
+import FontPicker from './components/Widgets/FontPicker.vue'
 
 export { TextConfig, TitleConfig, MarkdownConfig, GroupConfig, Columns2Config, Columns3Config, ListConfig, BlockBasics } from './constants'
-export { BasicSettingsView }
+export { BasicSettingsView, FontPicker }
 
 export const potoBlockBasics = {
   install(app: App, options: PluginOptions) {

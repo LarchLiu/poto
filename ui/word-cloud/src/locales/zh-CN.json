@@ -10,7 +10,7 @@
     "rotate": "旋转",
     "repeat": "词频",
     "height": "高度",
-    "mask": "形状",
+    "mask": "遮罩图片",
     "showMask": "显示形状",
     "maskOpacity": "透明度",
     "selectFile": "选择文件",
@@ -25,6 +25,7 @@
     "random": "随机",
     "customRotation": "自定义",
     "fontRotation": "文字旋转",
+    "rotateRatio": "旋转概率",
     "run": "运行"
   }
 }

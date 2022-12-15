@@ -109,7 +109,7 @@ class WordCloud {
     /* Default values to be overwritten by options object */
     const settings = {
       list: [],
-      fontFamily: '"Trebuchet MS", "Heiti TC", "微軟正黑體", '
+      fontFamily: '"Times", "Trebuchet MS", "Heiti TC", "微軟正黑體", '
                   + '"Arial Unicode MS", "Droid Fallback Sans", sans-serif',
       fontWeight: 'normal',
       color: 'random-dark',

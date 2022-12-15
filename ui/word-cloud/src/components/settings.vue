@@ -1,9 +1,8 @@
 <script setup lang="ts">
 import type { BlockPluginSettings } from '@poto/types'
-// import WordCloud from './WordCloud'
+import { FontPicker } from '@poto/block-basics'
 import type { Settings, Word } from '~/constants'
 import { i18nMessages } from '~/constants'
-// import { useGlobalState } from '~/store/wordCloud'
 
 const { t } = useI18n({
   messages: i18nMessages,
@@ -20,6 +19,16 @@ const colorPreset = [
   ['#ef476f', '#ffd166', '#06d6a0', '#118ab2', '#073b4c'],
   ['#5f0f40', '#9a031e', '#fb8b24', '#e36414', '#0f4c5c'],
 ]
+const OPTIONS_DEFAULTS: Options = {
+  pickerId: '',
+  families: [],
+  categories: [],
+  scripts: ['latin'],
+  variants: ['regular'],
+  filter() { return true },
+  limit: 80,
+  sort: 'alphabet',
+}
 const presetIdx = ref(0)
 // const { maskCanvas, run, ratio } = useGlobalState()
 
@@ -178,6 +187,11 @@ const addCustomRotation = () => {
   settings.value?.customRotations.push(customRotation.value)
 }
 
+const onFontChange = (font: Font) => {
+  if (settings.value)
+    settings.value.fontFamily = (font.family === 'Default' ? 'Trebuchet MS' : font.family)
+}
+
 watch(customColor, (value) => {
   settings.value!.fontColor.options.colors = [...colorPreset[presetIdx.value]]
   if (value)
@@ -227,10 +241,10 @@ onMounted(() => {
           <th class="w-40px">
             {{ t("componentSettings.color") }}
           </th>
-          <th class="w-50px">
+          <th class="w-60px">
             {{ t("componentSettings.rotate") }}
           </th>
-          <th class="w-45px">
+          <th class="w-50px">
             {{ t("componentSettings.repeat") }}
           </th>
         </tr>
@@ -259,30 +273,30 @@ onMounted(() => {
                 <td class="text-13px w-auto">
                   <input
                     v-model="element.word"
-                    class="p-1px border border-transparent ml-3px outline-0 bg-transparent rounded-2px w-full focus:border-gray-300 hover:border-gray-300"
+                    class="p-1px border border-transparent ml-1px outline-0 bg-transparent rounded-2px w-full focus:border-gray-300 hover:border-gray-300"
                   >
                 </td>
                 <td class="text-12px w-45px">
                   <input
                     v-model="element.weight"
-                    class="p-1px border border-transparent ml-3px outline-0 bg-transparent rounded-2px w-full focus:border-gray-300 hover:border-gray-300"
+                    class="p-1px border border-transparent ml-1px outline-0 bg-transparent rounded-2px w-full focus:border-gray-300 hover:border-gray-300"
                     type="number" min="1" max="500"
                   >
                 </td>
                 <td class="text-12px w-40px">
                   <ElColorPicker v-model="element.color" size="small" />
                 </td>
-                <td class="text-12px w-50px">
+                <td class="text-12px w-60px">
                   <input
                     v-model="element.rotate"
-                    class="p-1px border border-transparent ml-3px outline-0 bg-transparent rounded-2px w-full focus:border-gray-300 hover:border-gray-300"
+                    class="p-1px border border-transparent ml-1px outline-0 bg-transparent rounded-2px w-full focus:border-gray-300 hover:border-gray-300"
                     type="number" placeholder="auto" min="0" max="360"
                   >
                 </td>
-                <td class="text-12px w-45px">
+                <td class="text-12px w-50px">
                   <input
                     v-model="element.repeat"
-                    class="p-1px border border-transparent ml-3px outline-0 bg-transparent rounded-2px w-full focus:border-gray-300 hover:border-gray-300"
+                    class="p-1px border border-transparent ml-1px outline-0 bg-transparent rounded-2px w-full focus:border-gray-300 hover:border-gray-300"
                     type="number" min="1" max="500"
                   >
                 </td>
@@ -296,15 +310,22 @@ onMounted(() => {
       <div class="italic font-bold mb-2">
         {{ t('componentSettings.title') }}
       </div>
-      <ElFormItem :label="t('componentSettings.height')">
+      <ElFormItem :label="t('componentSettings.height')" class="!mb-2">
         <span class="w-full mr-3">
           <el-slider v-model="settings.height" class="mr-3" :min="1" :max="200" :step="0.1" />
         </span>
       </ElFormItem>
-      <ElFormItem :label="t('componentSettings.backgroundColor')">
+      <FontPicker
+        class="!mb-2"
+        :active-font="settings?.fontFamily ? settings?.fontFamily : 'Default'"
+        :options="OPTIONS_DEFAULTS"
+        suffix="word-cloud"
+        @change="onFontChange"
+      />
+      <ElFormItem :label="t('componentSettings.backgroundColor')" class="!mb-2">
         <el-color-picker v-model="settings.backgroundColor" />
       </ElFormItem>
-      <ElFormItem :label="t('componentSettings.fontColor')">
+      <ElFormItem :label="t('componentSettings.fontColor')" class="!mb-2">
         <div class="flex flex-col w-full">
           <el-radio-group v-model="settings.fontColor.type" @change="handleColorTypeChange">
             <el-radio-button label="single">
@@ -356,7 +377,7 @@ onMounted(() => {
           </div>
         </div>
       </ElFormItem>
-      <ElFormItem :label="t('componentSettings.mask')">
+      <ElFormItem :label="t('componentSettings.mask')" class="!mb-2">
         <input
           id="config-mask" ref="mask" type="file" accept="image/png"
           style="display:none;" @change="maskChange"
@@ -368,7 +389,7 @@ onMounted(() => {
           {{ t('componentSettings.clearFile') }}
         </el-button>
       </ElFormItem>
-      <ElFormItem v-if="maskCanvas" :label="t('componentSettings.showMask')">
+      <ElFormItem v-if="maskCanvas" :label="t('componentSettings.showMask')" class="!mb-2">
         <div class="flex flex-col w-full">
           <el-switch v-model="settings.showMaskShape" />
           <div class="flex flex-row justify-between mr-3">
@@ -381,26 +402,33 @@ onMounted(() => {
           </div>
         </div>
       </ElFormItem>
-      <ElFormItem :label="t('componentSettings.fontRotation')">
-        <el-radio-group v-model="settings.randomRotation">
-          <el-radio-button :label="true">
-            {{ t('componentSettings.random') }}
-          </el-radio-button>
-          <el-radio-button :label="false">
-            {{ t('componentSettings.customRotation') }}
-          </el-radio-button>
-        </el-radio-group>
-        <div v-if="!settings.randomRotation" class="flex flex-row flex-wrap">
-          <div v-for="rotation, idx in settings.customRotations" :key="`${idx}-${rotation}`" class="flex flex-row items-center border rounded-sm border-gray-300 mr-1 mt-1 px-2">
-            <div>{{ settings.customRotations[idx] }}</div>
-            <div class="i-carbon-misuse-alt text-sm hover:text-red-500 ml-2 cursor-pointer" @click="delCustomRotation(idx)" />
+      <ElFormItem :label="t('componentSettings.rotateRatio')" class="!mb-2">
+        <span class="w-full mr-3">
+          <el-slider v-model="settings.rotateRatio" class="mr-3" :min="0" :max="1" :step="0.1" />
+        </span>
+      </ElFormItem>
+      <ElFormItem :label="t('componentSettings.fontRotation')" class="!mb-2">
+        <div class="flex flex-col">
+          <el-radio-group v-model="settings.randomRotation">
+            <el-radio-button :label="true">
+              {{ t('componentSettings.random') }}
+            </el-radio-button>
+            <el-radio-button :label="false">
+              {{ t('componentSettings.customRotation') }}
+            </el-radio-button>
+          </el-radio-group>
+          <div v-if="!settings.randomRotation" class="flex flex-row flex-wrap">
+            <div v-for="rotation, idx in settings.customRotations" :key="`${idx}-${rotation}`" class="flex flex-row items-center border rounded-sm border-gray-300 mr-1 mt-1 px-2">
+              <div>{{ settings.customRotations[idx] }}</div>
+              <div class="i-carbon-misuse-alt text-sm hover:text-red-500 ml-2 cursor-pointer" @click="delCustomRotation(idx)" />
+            </div>
           </div>
-        </div>
-        <div v-if="!settings.randomRotation" class="flex flex-row items-center mt-1">
-          <ElInputNumber v-model="customRotation" size="small" :min="0" :max="360" />
-          <ElButton size="small" type="primary" @click.stop="addCustomRotation">
-            {{ t('componentSettings.add') }}
-          </ElButton>
+          <div v-if="!settings.randomRotation" class="flex flex-row items-center mt-1">
+            <ElInputNumber v-model="customRotation" controls-position="right" size="small" :min="0" :max="360" />
+            <ElButton class="ml-1" size="small" type="primary" @click.stop="addCustomRotation">
+              {{ t('componentSettings.add') }}
+            </ElButton>
+          </div>
         </div>
       </ElFormItem>
     </ElForm>

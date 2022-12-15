@@ -2,19 +2,23 @@
 <script lang="ts" setup>
 import type { Font, Options } from '@samuelmeuli/font-manager'
 import { FontManager } from '@samuelmeuli/font-manager'
+import { i18nMessages } from '~/constants'
+import { config } from '~/config'
 
 type LoadingStatus = 'loading' | 'finished' | 'error'
 
 const props = defineProps<{
-  apiKey: string
   activeFont?: string
   options: Options
-  isDesigner: boolean
+  suffix: string
 }>()
 const emit = defineEmits(['change'])
 const fontManager = ref<FontManager>()
 const expanded = ref(false)
 const loadingStatus = ref<LoadingStatus>('loading')
+const { t } = useI18n({
+  messages: i18nMessages,
+})
 const defaultFont: Font = {
   family: 'Default',
   id: 'none',
@@ -106,62 +110,66 @@ const fontsList = computed(() => {
 })
 
 onMounted(() => {
-  fontManager.value = new FontManager(
-    props.apiKey,
-    props.activeFont === 'Default' ? 'Open Sans' : props.activeFont,
-    props.options,
-    (font: Font) => {
-      emit('change', font)
-    },
-  )
-  if (props.isDesigner)
-    fontManager.value.selectorSuffix = '-designer'
-  fontManager.value
-    .init()
-    .then((): void => {
-      loadingStatus.value = 'finished'
-    })
-    .catch((err: Error): void => {
+  if (config.googleFontsApiKey) {
+    fontManager.value = new FontManager(
+      config.googleFontsApiKey,
+      props.activeFont === 'Default' ? 'Open Sans' : props.activeFont,
+      props.options,
+      (font: Font) => {
+        emit('change', font)
+      },
+    )
+    if (props.suffix)
+      fontManager.value.selectorSuffix = props.suffix
+    fontManager.value
+      .init()
+      .then((): void => {
+        loadingStatus.value = 'finished'
+      })
+      .catch((err: Error): void => {
       // On error: Log error message
-      loadingStatus.value = 'error'
-      console.error('Error trying to fetch the list of available fonts')
-      console.error(err)
-    })
+        loadingStatus.value = 'error'
+        console.error('Error trying to fetch the list of available fonts')
+        console.error(err)
+      })
+  }
 })
 </script>
 
 <template>
-  <div
-    v-if="fontManager"
-    :id="`font-picker${fontManager.selectorSuffix}`"
-    :class="expanded ? 'expanded' : ''"
-  >
-    <button
-      type="button"
-      class="dropdown-button"
-      @keypress="toggleExpanded"
-      @click="toggleExpanded"
+  <el-form-item v-if="config.googleFontsApiKey" size="small" :label="t('basicSettings.fonts')">
+    <div
+      v-if="fontManager"
+      :id="`font-picker${fontManager.selectorSuffix}`"
+      :class="expanded ? 'expanded' : ''"
     >
-      <p class="dropdown-font-family">
-        {{ activeFont }}
-      </p>
-      <p class="dropdown-icon" :class="[`${loadingStatus}`]" />
-    </button>
-    <ul v-if="loadingStatus === 'finished'" class="font-list">
-      <li v-for="font in fontsList" :key="getFontId(font.family)" class="font-list-item">
-        <button
-          :id="`font-button-${getFontId(font.family)}${fontManager.selectorSuffix}`"
-          type="button"
-          class="font-button"
-          :class="font.family === activeFont ? 'active-font' : ''"
-          @click="onSelection"
-          @keypress="onSelection"
-        >
-          {{ font.family }}
-        </button>
-      </li>
-    </ul>
-  </div>
+      <button
+        type="button"
+        class="dropdown-button"
+        @keypress="toggleExpanded"
+        @click="toggleExpanded"
+      >
+        <p class="dropdown-font-family">
+          {{ activeFont }}
+        </p>
+        <p class="dropdown-icon" :class="[`${loadingStatus}`]" />
+      </button>
+      <ul v-if="loadingStatus === 'finished'" class="font-list">
+        <li v-for="font in fontsList" :key="getFontId(font.family)" class="font-list-item">
+          <button
+            :id="`font-button-${getFontId(font.family)}${fontManager.selectorSuffix}`"
+            type="button"
+            class="font-button"
+            :class="font.family === activeFont ? 'active-font' : ''"
+            @click="onSelection"
+            @keypress="onSelection"
+          >
+            {{ font.family }}
+          </button>
+        </li>
+      </ul>
+    </div>
+  </el-form-item>
 </template>
 
 <style lang="scss" scoped>
