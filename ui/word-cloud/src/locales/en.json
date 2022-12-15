@@ -11,10 +11,11 @@
     "repeat": "Repeat",
     "height": "Height",
     "mask": "Mask Image",
+    "maskSettings": "Settings",
     "showMask": "Show Mask",
     "maskOpacity": "Opacity",
-    "selectFile": "Select File",
-    "clearFile": "Clear",
+    "selectFile": "Local File",
+    "clear": "Clear",
     "backgroundColor": "Background Color",
     "fontColor": "Font Color",
     "single": "Single",
@@ -26,6 +27,10 @@
     "customRotation": "Custom",
     "fontRotation": "Rotation",
     "rotateRatio": "Rotate Ratio",
+    "origin": "Origin Setting",
+    "settingStart": "Start",
+    "settingEnd": "End",
+    "originTip": "Click in canvas to define Origin of the cloud",
     "run": "Run"
   }
 

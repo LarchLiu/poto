@@ -12,7 +12,7 @@ const isSupported = (function isSupported() {
   if (!canvas || !canvas.getContext)
     return false
 
-  const ctx = canvas.getContext('2d')
+  const ctx = canvas.getContext('2d', { willReadFrequently: true })
   if (!ctx)
     return false
 
@@ -814,7 +814,7 @@ class WordCloud {
         wordColor = item.color
         attributes = item.attributes
       }
-      const rotateDeg = rotate !== undefined ? rotate : getRotateDeg()
+      const rotateDeg = rotate !== undefined ? rotate * Math.PI / 180 : getRotateDeg()
 
       const extraDataArray = getItemExtraData(item)
 

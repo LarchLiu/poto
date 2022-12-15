@@ -28,6 +28,7 @@ export interface Settings {
   rotateRatio: number
   rotationSteps: number
   origin: Origin | null
+  settingOrigin: boolean
   clearCanvas: boolean
   ellipticity: number
   showMaskShape: boolean
@@ -41,7 +42,7 @@ export interface Settings {
 }
 // @unocss-include
 export const config: BlockItem = {
-  author: '[timdream](https://https://github.com/timdream/wordcloud2.js)',
+  author: '[timdream](https://github.com/timdream/wordcloud2.js)',
   category: 'widget',
   icon: 'i-carbon-word-cloud',
   blockType: __BLOCK_TYPE__,
@@ -99,9 +100,10 @@ export const config: BlockItem = {
       maxRotation: Math.PI / 2,
       rotateRatio: 0.5,
       rotationSteps: 0,
-      customRotations: [90, 270, 45, 315],
+      customRotations: [90, -90, 45, -45],
       randomRotation: false,
       origin: null,
+      settingOrigin: false,
       clearCanvas: true,
       ellipticity: 0.65,
       shape: 'circle',

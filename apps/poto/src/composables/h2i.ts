@@ -88,7 +88,7 @@ export async function toPixelData<T extends HTMLElement>(
 ): Promise<Uint8ClampedArray> {
   const { width, height } = getImageSize(node, options)
   const canvas = await toCanvas(node, options)
-  const ctx = canvas.getContext('2d')!
+  const ctx = canvas.getContext('2d', { willReadFrequently: true })!
   return ctx.getImageData(0, 0, width, height).data
 }
 

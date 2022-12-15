@@ -24,6 +24,7 @@ const settings = computed(() => {
 })
 const wordCloud = ref<HTMLCanvasElement>()
 const container = ref<HTMLElement>()
+const { elementX, elementY, isOutside } = useMouseInElement(wordCloud)
 // const maskCanvas = useGlobalState().maskCanvas
 // const ratio = useGlobalState().ratio
 // const run = useGlobalState().run
@@ -138,6 +139,13 @@ const setupWordCloud = () => {
   wordCloudInstance.value.start()
 }
 
+const setOrigin = () => {
+  if (!isOutside.value && settings.value.settingOrigin) {
+    settings.value.origin = [elementX.value, elementY.value]
+    settings.value.settingOrigin = !settings.value.settingOrigin
+  }
+}
+
 onMounted(() => {
   if (containerW.value > 0) {
     nextTick(() => {
@@ -155,7 +163,14 @@ onMounted(() => {
 
 <template>
   <div v-if="realContent && !isPreview" ref="container" class="w-full">
-    <canvas v-if="containerW" ref="wordCloud" class="canvas" :width="containerW" :height="containerH" />
+    <canvas
+      v-if="containerW"
+      ref="wordCloud"
+      class="canvas"
+      :width="containerW"
+      :height="containerH"
+      @click="setOrigin"
+    />
   </div>
   <div v-else class="flex justify-center items-center">
     <div class="i-carbon-word-cloud text-4xl mr-4" />

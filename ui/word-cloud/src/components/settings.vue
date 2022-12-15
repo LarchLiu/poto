@@ -9,10 +9,11 @@ const { t } = useI18n({
 })
 const designer = useDesignerStore()
 const currentItem = computed(() => designer.getCurrentItem())
-const mask = ref<HTMLInputElement>()
 const colorsNum = ref(2)
 const customRotation = ref(0)
 const customColor = ref(false)
+const maskModel = ref(false)
+const maskUrl = ref('')
 const colorPreset = [
   ['#264653', '#2a9d8f', '#e9c46a', '#f4a261', '#e76f51'],
   ['#ffbe0b', '#fb5607', '#ff006e', '#8338ec', '#3a86ff'],
@@ -65,16 +66,10 @@ const run = computed({
 const wordCloudInstance = computed(() => {
   return settings.value?.wordCloudInstance
 })
-const maskChange = () => {
+const maskChange = (url: string) => {
   wordCloudInstance.value?.stop()
   maskCanvas.value = undefined
 
-  const file = mask.value?.files && mask.value?.files[0]
-
-  if (!file)
-    return
-
-  const url = window.URL.createObjectURL(file)
   const img = new Image()
   img.src = url
 
@@ -134,7 +129,6 @@ const setupWordCloud = () => {
 
 const clearMask = () => {
   maskCanvas.value = undefined
-  mask.value!.value = ''
 }
 
 const handleColorsNumChange = (cur: number | undefined) => {
@@ -192,6 +186,20 @@ const onFontChange = (font: Font) => {
     settings.value.fontFamily = (font.family === 'Default' ? 'Trebuchet MS' : font.family)
 }
 
+const originSetting = () => {
+  if (settings.value)
+    settings.value.settingOrigin = !settings.value.settingOrigin
+}
+
+const originClear = () => {
+  if (settings.value)
+    settings.value.origin = null
+}
+
+watch(maskUrl, (value) => {
+  maskChange(value)
+})
+
 watch(customColor, (value) => {
   settings.value!.fontColor.options.colors = [...colorPreset[presetIdx.value]]
   if (value)
@@ -214,10 +222,16 @@ watch(() => settings.value?.fontColor.options.colors, (value) => {
 }, { deep: true })
 
 onMounted(() => {
-  if (settings.value && !settings.value?.color) {
-    settings.value.color = (word: string, weight: number) => {
-      const random = customColor.value ? Math.floor(Math.random() * colorsNum.value) : Math.floor(Math.random() * colorPreset[presetIdx.value].length)
-      return settings.value!.fontColor.options.colors[random]
+  if (settings.value) {
+    if (settings.value.fontColor.type === 'single') {
+      settings.value.color = settings.value!.fontColor.options.colors[0]
+    }
+    else {
+      // settings.value!.fontColor.options.colors = [...colorPreset[presetIdx.value]]
+      settings.value.color = (word: string, weight: number) => {
+        const random = customColor.value ? Math.floor(Math.random() * colorsNum.value) : Math.floor(Math.random() * colorPreset[presetIdx.value].length)
+        return settings.value!.fontColor.options.colors[random]
+      }
     }
   }
 })
@@ -290,7 +304,7 @@ onMounted(() => {
                   <input
                     v-model="element.rotate"
                     class="p-1px border border-transparent ml-1px outline-0 bg-transparent rounded-2px w-full focus:border-gray-300 hover:border-gray-300"
-                    type="number" placeholder="auto" min="0" max="360"
+                    type="number" placeholder="auto" min="-360" max="360"
                   >
                 </td>
                 <td class="text-12px w-50px">
@@ -378,28 +392,20 @@ onMounted(() => {
         </div>
       </ElFormItem>
       <ElFormItem :label="t('componentSettings.mask')" class="!mb-2">
-        <input
-          id="config-mask" ref="mask" type="file" accept="image/png"
-          style="display:none;" @change="maskChange"
-        >
-        <el-button @click="mask!.click()">
-          {{ t('componentSettings.selectFile') }}
+        <el-button @click="maskModel = true">
+          {{ t('componentSettings.maskSettings') }}
         </el-button>
         <el-button :disabled="!maskCanvas" class="ml-2" @click="clearMask">
-          {{ t('componentSettings.clearFile') }}
+          {{ t('componentSettings.clear') }}
         </el-button>
+        <mask-settings v-model:open="maskModel" v-model:url="maskUrl" />
       </ElFormItem>
       <ElFormItem v-if="maskCanvas" :label="t('componentSettings.showMask')" class="!mb-2">
         <div class="flex flex-col w-full">
           <el-switch v-model="settings.showMaskShape" />
-          <div class="flex flex-row justify-between mr-3">
-            <div>{{ t('componentSettings.maskOpacity') }}</div>
-            <div>{{ settings.maskOpacity }}</div>
-          </div>
-          <!-- <input v-model="color.options.opacity" w-full type="range" min="0" max="1" step="0.05"> -->
-          <div class="mr-3">
+          <ElFormItem v-if="maskCanvas" :label="t('componentSettings.maskOpacity')" class="!mb-0 mr-3">
             <el-slider v-model="settings.maskOpacity" :min="1" :max="100" />
-          </div>
+          </ElFormItem>
         </div>
       </ElFormItem>
       <ElFormItem :label="t('componentSettings.rotateRatio')" class="!mb-2">
@@ -424,11 +430,22 @@ onMounted(() => {
             </div>
           </div>
           <div v-if="!settings.randomRotation" class="flex flex-row items-center mt-1">
-            <ElInputNumber v-model="customRotation" controls-position="right" size="small" :min="0" :max="360" />
+            <ElInputNumber v-model="customRotation" controls-position="right" size="small" :min="-360" :max="360" />
             <ElButton class="ml-1" size="small" type="primary" @click.stop="addCustomRotation">
               {{ t('componentSettings.add') }}
             </ElButton>
           </div>
+        </div>
+      </ElFormItem>
+      <ElFormItem :label="t('componentSettings.origin')" class="!mb-2">
+        <el-button @click="originSetting">
+          {{ settings.settingOrigin ? t('componentSettings.settingEnd') : t('componentSettings.settingStart') }}
+        </el-button>
+        <el-button :disabled="!settings.origin" class="ml-2" @click="originClear">
+          {{ t('componentSettings.clear') }}
+        </el-button>
+        <div v-if="settings.settingOrigin">
+          {{ t('componentSettings.originTip') }}
         </div>
       </ElFormItem>
     </ElForm>
