@@ -4,6 +4,7 @@
     "wordsList": "Words List",
     "add": "Add",
     "delete": "Delete",
+    "copy": "Copy",
     "word": "Word",
     "size": "Size",
     "color": "Color",
@@ -16,7 +17,7 @@
     "maskOpacity": "Opacity",
     "selectFile": "Local File",
     "clear": "Clear",
-    "backgroundColor": "Background Color",
+    "backgroundColor": "BG Color",
     "fontColor": "Font Color",
     "single": "Single",
     "colorful": "Multiple",
@@ -31,6 +32,7 @@
     "settingStart": "Start",
     "settingEnd": "End",
     "originTip": "Click in canvas to define Origin of the cloud",
+    "gridSize": "Word Gap",
     "run": "Run"
   }
 

@@ -4,6 +4,7 @@
     "wordsList": "词表",
     "add": "添加",
     "delete": "删除",
+    "copy": "复制",
     "word": "单词",
     "size": "大小",
     "color": "颜色",
@@ -31,6 +32,7 @@
     "settingStart": "开始",
     "settingEnd": "结束",
     "originTip": "在画布中单击以定义云的原点",
+    "gridSize": "单词间距",
     "run": "运行"
   }
 }

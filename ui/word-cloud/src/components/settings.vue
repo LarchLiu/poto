@@ -168,6 +168,11 @@ const addNewWord = (idx: number) => {
     settings.value.list.splice(idx + 1, 0, { ...defaultSettings, word: '' })
 }
 
+const copyWord = (idx: number) => {
+  if (settings.value && settings.value.list)
+    settings.value.list.splice(idx + 1, 0, { ...settings.value.list[idx] })
+}
+
 const deleteWord = (idx: number) => {
   if (settings.value && settings.value.list)
     settings.value.list.splice(idx, 1)
@@ -282,7 +287,7 @@ onMounted(() => {
             <template #item="{ element, index }: { element: Word, index: number }">
               <tr>
                 <td class="text-13px w-14px handle cursor-move">
-                  <handler @add="addNewWord(index)" @delete="deleteWord(index)" />
+                  <handler @add="addNewWord(index)" @copy="copyWord(index)" @delete="deleteWord(index)" />
                 </td>
                 <td class="text-13px w-auto">
                   <input
@@ -336,8 +341,10 @@ onMounted(() => {
         suffix="word-cloud"
         @change="onFontChange"
       />
-      <ElFormItem :label="t('componentSettings.backgroundColor')" class="!mb-2">
-        <el-color-picker v-model="settings.backgroundColor" />
+      <ElFormItem :label="t('componentSettings.gridSize')" class="!mb-2">
+        <span class="w-full mr-3">
+          <el-slider v-model="settings.gridSize" class="mr-3" :min="4" :max="30" :step="1" />
+        </span>
       </ElFormItem>
       <ElFormItem :label="t('componentSettings.fontColor')" class="!mb-2">
         <div class="flex flex-col w-full">
@@ -390,6 +397,9 @@ onMounted(() => {
             </div>
           </div>
         </div>
+      </ElFormItem>
+      <ElFormItem :label="t('componentSettings.backgroundColor')" class="!mb-2">
+        <el-color-picker v-model="settings.backgroundColor" />
       </ElFormItem>
       <ElFormItem :label="t('componentSettings.mask')" class="!mb-2">
         <el-button @click="maskModel = true">

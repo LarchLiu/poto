@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import { i18nMessages } from '~/constants'
-const emit = defineEmits(['add', 'delete'])
+const emit = defineEmits(['add', 'copy', 'delete'])
 
 const { t } = useI18n({
   messages: i18nMessages,
@@ -10,6 +10,10 @@ const popover = ref()
 onClickOutside(popover, () => visible.value = false)
 const addItem = () => {
   emit('add')
+  visible.value = false
+}
+const copyItem = () => {
+  emit('copy')
   visible.value = false
 }
 const deleteItem = () => {
@@ -29,6 +33,13 @@ const deleteItem = () => {
     >
       <div class="i-carbon-trash-can mr-2" />
       <div>{{ t("componentSettings.delete") }}</div>
+    </div>
+    <div
+      class="flex flex-row items-center cursor-pointer p-2 hover:bg-blue-400 hover:text-white hover:rounded"
+      @click="copyItem"
+    >
+      <div class="i-carbon-copy mr-2" />
+      <div>{{ t("componentSettings.copy") }}</div>
     </div>
     <div
       class="flex flex-row items-center cursor-pointer p-2 hover:bg-blue-400 hover:text-white hover:rounded"
