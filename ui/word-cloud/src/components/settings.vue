@@ -243,11 +243,17 @@ onMounted(() => {
 </script>
 
 <template>
-  <div v-if="!!currentItem">
-    <div class="font-bold mb-2">
-      {{ t('componentSettings.wordsList') }}
+  <div v-if="!!currentItem && !!settings">
+    <div class="flex flex-row justify-between items-center">
+      <div class="font-bold">
+        {{ t('componentSettings.wordsList') }}
+      </div>
+      <div>
+        <span class="text-12px mr-1">{{ t('componentSettings.shuffle') }}</span>
+        <el-switch v-model="settings.shuffleList" size="small" />
+      </div>
     </div>
-    <table class="w-full mt-2">
+    <table class="w-full">
       <thead>
         <tr class="text-13px text-left bg-gray-100">
           <th class="w-14px" />
@@ -325,7 +331,7 @@ onMounted(() => {
         </tbody>
       </table>
     </el-scrollbar>
-    <ElForm v-if="settings" size="small">
+    <ElForm size="small">
       <div class="italic font-bold mb-2">
         {{ t('componentSettings.title') }}
       </div>
@@ -336,7 +342,7 @@ onMounted(() => {
       </ElFormItem>
       <FontPicker
         class="!mb-2"
-        :active-font="settings?.fontFamily ? settings?.fontFamily : 'Default'"
+        :active-font="settings.fontFamily ? settings.fontFamily : 'Default'"
         :options="OPTIONS_DEFAULTS"
         suffix="word-cloud"
         @change="onFontChange"

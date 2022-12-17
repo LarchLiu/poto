@@ -57,12 +57,16 @@ const containerH = computed(() => {
   return maskCanvas.value ? containerW.value * ratio.value : settings.value.height / 100 * containerW.value
 })
 const setupWordCloud = () => {
-  const list: { word: string; weight: number; rotate: number | undefined }[] = []
+  const _list: { word: string; weight: number; rotate: number | undefined }[] = []
   settings.value.list.forEach((item) => {
     const word = { word: item.word, weight: item.weight, rotate: item.rotate, color: item.color }
     for (let i = 0; i < item.repeat; i++)
-      list.push(word)
+      _list.push(word)
   })
+  const first = _list.shift()
+  const list = settings.value.shuffleList ? _list.sort(() => Math.random() - 0.5) : _list
+  if (first)
+    list.unshift(first)
   const canvasWidth = () => {
     return (wordCloud.value && wordCloud.value.width) || 0
   }

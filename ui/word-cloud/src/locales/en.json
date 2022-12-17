@@ -33,6 +33,7 @@
     "settingEnd": "End",
     "originTip": "Click in canvas to define Origin of the cloud",
     "gridSize": "Word Gap",
+    "shuffle": "Shuffle",
     "run": "Run"
   }
 

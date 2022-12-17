@@ -35,6 +35,7 @@ export interface Settings {
   maskOpacity: number
   shape: 'cardioid' | 'diamond' | 'square' | 'triangle-forward' | 'triangle' | 'pentagon' | 'circle' | 'star'
   list: Word[]
+  shuffleList: boolean
   ratio: number
   run: boolean
   maskCanvas?: HTMLCanvasElement
@@ -98,7 +99,7 @@ export const config: BlockItem = {
       },
       minRotation: -Math.PI / 2,
       maxRotation: Math.PI / 2,
-      rotateRatio: 0.5,
+      rotateRatio: 0.8,
       rotationSteps: 0,
       customRotations: [90, -90, 45, -45],
       randomRotation: false,
@@ -111,16 +112,17 @@ export const config: BlockItem = {
       maskOpacity: 5,
       ratio: 1,
       run: false,
+      shuffleList: false,
       list: [{ word: 'Poto', weight: 100, repeat: 1, rotate: 0, color: '#FF0000' },
         { word: 'Word Cloud', weight: 64, repeat: 1, rotate: 0, color: '#0000FF' },
-        { word: 'Word', weight: 36, repeat: 10 },
-        { word: 'Cloud', weight: 36, repeat: 10 },
+        { word: 'Click', weight: 36, repeat: 10 },
+        { word: 'Run', weight: 36, repeat: 10 },
         { word: 'Word', weight: 16, repeat: 100 },
         { word: 'Cloud', weight: 16, repeat: 100 },
-        { word: 'Word', weight: 9, repeat: 100 },
-        { word: 'Cloud', weight: 9, repeat: 100 },
-        { word: 'Word', weight: 4, repeat: 100 },
-        { word: 'Cloud', weight: 4, repeat: 100 },
+        { word: 'So', weight: 9, repeat: 100 },
+        { word: 'Cool', weight: 9, repeat: 100 },
+        { word: 'Try', weight: 4, repeat: 100 },
+        { word: 'it', weight: 4, repeat: 100 },
         // { word: 'Word', weight: 1, repeat: 100 },
         // { word: 'Cloud', weight: 1, repeat: 100 },
       ],

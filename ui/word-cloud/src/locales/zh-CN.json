@@ -33,6 +33,7 @@
     "settingEnd": "结束",
     "originTip": "在画布中单击以定义云的原点",
     "gridSize": "单词间距",
+    "shuffle": "打乱",
     "run": "运行"
   }
 }
