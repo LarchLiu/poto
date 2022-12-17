@@ -31,7 +31,6 @@ const OPTIONS_DEFAULTS: Options = {
   sort: 'alphabet',
 }
 const presetIdx = ref(0)
-// const { maskCanvas, run, ratio } = useGlobalState()
 
 const settings = computed(() => {
   return (currentItem.value ? (currentItem.value.options as BlockPluginSettings).settings as Settings : undefined)
@@ -45,13 +44,13 @@ const maskCanvas = computed({
       settings.value.maskCanvas = value
   },
 })
-const ratio = computed({
+const maskRatio = computed({
   get() {
-    return settings.value?.ratio || 1
+    return settings.value?.maskRatio || 1
   },
   set(value) {
     if (settings.value)
-      settings.value.ratio = value
+      settings.value.maskRatio = value
   },
 })
 const run = computed({
@@ -79,7 +78,7 @@ const maskChange = (url: string) => {
     maskCanvas.value = document.createElement('canvas')
     maskCanvas.value.width = img.width
     maskCanvas.value.height = img.height
-    ratio.value = img.height / img.width
+    maskRatio.value = img.height / img.width
 
     const ctx = maskCanvas.value.getContext('2d', { willReadFrequently: true })!
     ctx.drawImage(img, 0, 0, img.width, img.height)

@@ -36,7 +36,7 @@ export interface Settings {
   shape: 'cardioid' | 'diamond' | 'square' | 'triangle-forward' | 'triangle' | 'pentagon' | 'circle' | 'star'
   list: Word[]
   shuffleList: boolean
-  ratio: number
+  maskRatio: number
   run: boolean
   maskCanvas?: HTMLCanvasElement
   wordCloudInstance?: WordCloud
@@ -110,7 +110,7 @@ export const config: BlockItem = {
       shape: 'circle',
       showMaskShape: true,
       maskOpacity: 5,
-      ratio: 1,
+      maskRatio: 1,
       run: false,
       shuffleList: false,
       list: [{ word: 'Poto', weight: 100, repeat: 1, rotate: 0, color: '#FF0000' },

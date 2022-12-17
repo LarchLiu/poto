@@ -25,14 +25,11 @@ const settings = computed(() => {
 const wordCloud = ref<HTMLCanvasElement>()
 const container = ref<HTMLElement>()
 const { elementX, elementY, isOutside } = useMouseInElement(wordCloud)
-// const maskCanvas = useGlobalState().maskCanvas
-// const ratio = useGlobalState().ratio
-// const run = useGlobalState().run
 const maskCanvas = computed(() => {
   return settings.value.maskCanvas
 })
-const ratio = computed(() => {
-  return settings.value.ratio
+const maskRatio = computed(() => {
+  return settings.value.maskRatio
 })
 const run = computed({
   get() {
@@ -54,7 +51,7 @@ const containerW = computed(() => {
   return (container.value && (container.value.offsetWidth + 4)) || 0
 })
 const containerH = computed(() => {
-  return maskCanvas.value ? containerW.value * ratio.value : settings.value.height / 100 * containerW.value
+  return maskCanvas.value ? containerW.value * maskRatio.value : settings.value.height / 100 * containerW.value
 })
 const setupWordCloud = () => {
   const _list: { word: string; weight: number; rotate: number | undefined }[] = []
