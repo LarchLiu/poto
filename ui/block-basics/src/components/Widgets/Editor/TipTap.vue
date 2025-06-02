@@ -4,9 +4,9 @@ import {
   EditorContent, FloatingMenu, useEditor,
 } from '@tiptap/vue-3'
 import StarterKit from '@tiptap/starter-kit'
-// import KatexInline from './extentions/KatexInline'
-// import KatexBlock from './extentions/KatexBlock'
-// import Diagram from './extentions/Diagram'
+import KatexInline from './extentions/KatexInline'
+import KatexBlock from './extentions/KatexBlock'
+import Diagram from './extentions/Diagram'
 
 const props = defineProps<{
   content: string
@@ -21,9 +21,9 @@ const editor = useEditor({
   content: props.content,
   extensions: [
     StarterKit,
-    // KatexInline,
-    // KatexBlock,
-    // Diagram,
+    KatexInline,
+    KatexBlock,
+    Diagram,
   ],
   onUpdate: () => {
     hasChanged.value = true
@@ -32,7 +32,6 @@ const editor = useEditor({
   },
 })
 
-/*
 const commandKatexInline = () => {
   editor.value!
     .chain()
@@ -79,7 +78,6 @@ const commandDiagram = () => {
     })
     .run()
 }
-*/
 
 watch(() => props.content, (value) => {
   const isSame = editor.value?.getHTML() === value
@@ -129,7 +127,7 @@ watch(focused, (value, oldValue) => {
       :tippy-options="{ duration: 100 }"
       :editor="editor"
     >
-      <button :class="{ 'is-active': editor.isActive('heading', { level: 1 }) }" @click="editor!.chain().focus().toggleHeading({ level: 1 }).run()">
+      <!-- <button :class="{ 'is-active': editor.isActive('heading', { level: 1 }) }" @click="editor!.chain().focus().toggleHeading({ level: 1 }).run()">
         H1
       </button>
       <button :class="{ 'is-active': editor.isActive('heading', { level: 2 }) }" @click="editor!.chain().focus().toggleHeading({ level: 2 }).run()">
@@ -137,13 +135,16 @@ watch(focused, (value, oldValue) => {
       </button>
       <button :class="{ 'is-active': editor.isActive('bulletList') }" @click="editor!.chain().focus().toggleBulletList().run()">
         Bullet List
+      </button> -->
+      <button :class="{ 'is-active': editor.isActive('katex-inline') }" @click="commandKatexInline">
+        Katex
       </button>
-      <!-- <button :class="{ 'is-active': editor.isActive('katex-block') }" @click="commandKatexBlock">
+      <button :class="{ 'is-active': editor.isActive('katex-block') }" @click="commandKatexBlock">
         Katex Block
       </button>
       <button :class="{ 'is-active': editor.isActive('diagram') }" @click="commandDiagram">
         Diagram
-      </button> -->
+      </button>
     </FloatingMenu>
   </div>
   <EditorContent ref="tiptap" :editor="editor" :class="isMarkdown ? 'markdown-body' : ''" />
