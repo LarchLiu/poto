@@ -1,9 +1,9 @@
 <script setup lang="ts">
 import type { PropType } from 'vue'
-import { BlockPluginSettings } from '@poto/types'
-import type { BlockItem } from '@poto/types'
+import type { BlockItem, BlockPluginSettings } from '@poto/types'
 import { UUID } from '@poto/utils'
-import { Settings, i18nMessages } from '~/constants'
+import type { Settings } from '~/constants'
+import { i18nMessages } from '~/constants'
 
 const props = defineProps({
   item: {

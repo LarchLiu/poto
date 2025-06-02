@@ -21,7 +21,6 @@
     "prepublishOnly": "npm run build"
   },
   "devDependencies": {
-    "tsup": "^6.5.0",
-    "vue": "^3.2.45"
+    "tsup": "6.5.0"
   }
 }

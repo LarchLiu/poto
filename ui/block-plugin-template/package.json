@@ -25,14 +25,10 @@
   "dependencies": {
     "@poto/block-basics": "workspace:*",
     "@poto/pinia": "workspace:*",
-    "@poto/utils": "workspace:*",
-    "vue": "^3.2.45"
+    "@poto/utils": "workspace:*"
   },
   "devDependencies": {
     "@poto/gen-block-type": "workspace:*",
-    "@poto/types": "workspace:*",
-    "@vitejs/plugin-vue": "^3.2.0",
-    "typescript": "^4.9.3",
-    "vite": "^3.2.5"
+    "@poto/types": "workspace:*"
   }
 }

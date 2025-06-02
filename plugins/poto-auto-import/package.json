@@ -63,7 +63,6 @@
     "test:run": "vitest run"
   },
   "peerDependencies": {
-    "@vueuse/core": "*"
   },
   "peerDependenciesMeta": {
     "@vueuse/core": {
@@ -71,14 +70,14 @@
     }
   },
   "dependencies": {
-    "@antfu/utils": "^0.7.2",
+    "@antfu/utils": "0.7.2",
     "@poto/utils": "workspace:*",
-    "magic-string": "^0.27.0",
-    "unimport": "^1.0.1",
-    "unplugin": "^1.0.0"
+    "magic-string": "0.27.0",
+    "unimport": "1.0.1",
+    "unplugin": "1.0.0"
   },
   "devDependencies": {
-    "bumpp": "^8.2.1",
-    "tsup": "^6.5.0"
+    "bumpp": "8.2.1",
+    "tsup": "6.5.0"
   }
 }

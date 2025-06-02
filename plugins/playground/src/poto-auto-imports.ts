@@ -2,8 +2,8 @@
 import type { BlockInfo } from '@poto/types'
 import { blockInfo as potoBlockPluginsTemplate } from '@poto/block-plugins-template'
 import { blockInfo as widget3 } from './block-plugins/widget-3/index'
-import { blockInfo as widget1 } from './block-plugins/widget1/index'
 import { blockInfo as widgetTest } from './block-plugins/widget-test/index'
+import { blockInfo as widget1 } from './block-plugins/widget1/index'
 
 export const BlockPlugins: BlockInfo = {
   potoBlockPluginsTemplate,

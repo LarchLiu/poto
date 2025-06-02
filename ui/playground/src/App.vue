@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import { BlockBasics, Columns2Config, Columns3Config, GroupConfig, MarkdownConfig, TextConfig, TitleConfig } from '@poto/block-basics'
-import { BlockItem } from './types'
+import type { BlockItem } from './types'
 import { BlockPlugins } from './poto-auto-imports'
 
 const BlockList = { ...BlockBasics, ...BlockPlugins }
