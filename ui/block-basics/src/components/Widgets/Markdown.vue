@@ -1,7 +1,6 @@
 <script setup lang="ts">
 import type { PropType } from 'vue'
-import { TextSettings } from '~/types'
-import type { BlockItem } from '~/types'
+import type { BlockItem, TextSettings } from '~/types'
 
 const props = defineProps({
   item: {

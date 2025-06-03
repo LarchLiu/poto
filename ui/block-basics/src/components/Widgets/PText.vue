@@ -149,9 +149,7 @@ onMounted(() => {
   >
     <div :class="isSingleColor ? 'single' : 'colorful'">
       <div v-if="realContent">
-        <div v-if="parentData" :key="keyIdx">
-          {{ options.text }}
-        </div>
+        <div v-if="parentData" :key="keyIdx" v-html="options.text" />
         <div v-else>
           <div v-if="isPreview" v-html="options.text" />
           <tip-tap v-else :key="`tiptap-${keyIdx}`" v-model:content="options.text" />
