@@ -162,6 +162,7 @@ onUnmounted(() => {
         </el-dropdown-menu>
       </template>
     </el-dropdown>
+    <a i-carbon-logo-github class="text-xl ml-1" href="https://github.com/LarchLiu/poto" target="_blank" />
   </div>
   <el-dialog v-model="dialogSaveVisible" :title="t('common.template')" width="500px">
     <el-form>
