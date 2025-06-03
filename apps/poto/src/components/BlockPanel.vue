@@ -168,6 +168,9 @@ onMounted(async () => {
   templateList.value.push({
     potoTempalte: (await loadLocalTemplate(`${import.meta.env.BASE_URL}template/world-cup.json`)),
   })
+  templateList.value.push({
+    potoTempalte: (await loadLocalTemplate(`${import.meta.env.BASE_URL}template/onthisday.json`)),
+  })
 })
 </script>
 
