@@ -20,3 +20,9 @@ declare interface Font {
   lastModified?: string;
   files?: Record<Variant, string>;
 }
+
+declare module '*.vue' {
+  import { type DefineComponent } from 'vue'
+  const component: DefineComponent<{}, {}, any>
+  export default component
+}
